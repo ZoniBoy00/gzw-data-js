@@ -1,5 +1,5 @@
 {
-  "name": "@zoniboy00/gzw-data-client",
+  "name": "@zoniboy/gzw-data-client",
   "version": "0.1.0",
   "description": "Zero-dependency TypeScript client for the GZW Data API.",
   "license": "MIT",

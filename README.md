@@ -1,4 +1,4 @@
-# @zoniboy00/gzw-data-client
+# @zoniboy/gzw-data-client
 
 Zero-dependency TypeScript client for the [GZW Data API](https://gzw-data.vercel.app/).
 
@@ -7,7 +7,7 @@ The client works in Node.js 18+ and modern browsers. It provides typed helpers f
 ## Install
 
 ```bash
-npm install @zoniboy00/gzw-data-client
+npm install @zoniboy/gzw-data-client
 ```
 
 No API key is required.
@@ -15,7 +15,7 @@ No API key is required.
 ## Quick start
 
 ```ts
-import { GzwDataClient } from "@zoniboy00/gzw-data-client";
+import { GzwDataClient } from "@zoniboy/gzw-data-client";
 
 const gzw = new GzwDataClient();
 
@@ -56,7 +56,7 @@ console.log(first.name, first.image);
 You can provide a project-specific record type:
 
 ```ts
-import { GzwRecord } from "@zoniboy00/gzw-data-client";
+import { GzwRecord } from "@zoniboy/gzw-data-client";
 
 type Weapon = GzwRecord & {
   caliber?: string;
@@ -121,7 +121,7 @@ await request;
 The client retries HTTP `429` and `5xx` responses. For `429`, it respects the API's `Retry-After` header. Other HTTP failures throw `GzwApiError`:
 
 ```ts
-import { GzwApiError } from "@zoniboy00/gzw-data-client";
+import { GzwApiError } from "@zoniboy/gzw-data-client";
 
 try {
   await gzw.dataset("weapons").list();
