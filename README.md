@@ -143,6 +143,10 @@ npm run check
 
 `npm run check` builds declaration files and runs the mocked HTTP test suite.
 
+## Roadmap
+
+The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including async pagination, stronger types, generated dataset metadata, caching, batch loading, React integration, live contract tests and the path to `1.0.0`.
+
 ## Related links
 
 - [GZW Data Console](https://gzw-data.vercel.app/)
