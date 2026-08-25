@@ -1,11 +1,17 @@
 {
   "name": "@zoniboy/gzw-data-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Zero-dependency TypeScript client for the GZW Data API.",
   "license": "MIT",
   "type": "module",
-  "engines": { "node": ">=18" },
-  "files": ["dist", "README.md", "LICENSE"],
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,9 +25,16 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "tsx --test test/*.test.ts",
-    "check": "npm run build && npm test"
+    "check": "npm run build && npm test",
+    "live:smoke": "tsx test/live-smoke.ts"
   },
-  "keywords": ["gray-zone-warfare", "gzw", "api", "typescript", "sdk"],
+  "keywords": [
+    "gray-zone-warfare",
+    "gzw",
+    "api",
+    "typescript",
+    "sdk"
+  ],
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",

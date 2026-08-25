@@ -6,7 +6,7 @@ The project favors a small, browser-friendly core, stable contracts, generated t
 
 ## Current status
 
-- **Current release:** `0.1.0`
+- **Current release:** `0.2.0`
 - **Package:** `@zoniboy/gzw-data-client`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
@@ -27,37 +27,37 @@ The project favors a small, browser-friendly core, stable contracts, generated t
 
 ### Pagination and retrieval
 
-- [ ] Add an async dataset iterator:
+- [x] Add an async dataset iterator:
   ```ts
   for await (const weapon of gzw.dataset("weapons").iterate()) {
     console.log(weapon.name);
   }
   ```
-- [ ] Support configurable iterator page size.
-- [ ] Support cancellation with `AbortSignal` during iteration.
-- [ ] Define behavior for empty datasets and incomplete pages.
-- [ ] Improve `get(id)` semantics and document the current API-compatible ID-filter behavior.
+- [x] Support configurable iterator page size.
+- [x] Support cancellation with `AbortSignal` during iteration.
+- [x] Define behavior for empty datasets and incomplete pages.
+- [x] Improve `get(id)` semantics and document the current API-compatible ID-filter behavior.
 - [ ] Add a proper single-record API route in `gzw-data` when the server contract supports it.
 - [ ] Update the SDK `get(id)` implementation to use the single-record route without breaking the fallback behavior.
 
 ### Errors, retries, and observability
 
-- [ ] Add `requestUrl` to `GzwApiError`.
-- [ ] Add `method`, `statusText`, and safe response metadata to `GzwApiError`.
-- [ ] Add `isRateLimited` and `isServerError` convenience properties.
-- [ ] Add stable error codes for network, abort, HTTP, rate-limit, and invalid-response failures.
-- [ ] Add an `onRetry` callback with attempt, status, delay, and URL metadata.
-- [ ] Add optional debug hooks without logging response data by default.
-- [ ] Preserve `Retry-After` handling and cap retry delays.
-- [ ] Ensure aborted requests are never retried.
+- [x] Add `requestUrl` to `GzwApiError`.
+- [x] Add `method`, `statusText`, and safe response metadata to `GzwApiError`.
+- [x] Add `isRateLimited` and `isServerError` convenience properties.
+- [x] Add stable error codes for network, abort, HTTP, rate-limit, and invalid-response failures.
+- [x] Add an `onRetry` callback with attempt, status, delay, and URL metadata.
+- [x] Add optional debug hooks without logging response data by default.
+- [x] Preserve `Retry-After` handling and cap retry delays.
+- [x] Ensure aborted requests are never retried.
 
 ### Reliability and tests
 
-- [ ] Add tests for network failures and aborted requests.
-- [ ] Add tests for malformed JSON and malformed API envelopes.
-- [ ] Add tests for retry delay caps and `Retry-After` parsing.
-- [ ] Add tests for iterator cancellation, pagination boundaries, and empty results.
-- [ ] Keep the complete check gate green: build, tests, package contents, and live API smoke tests.
+- [x] Add tests for network failures and aborted requests.
+- [x] Add tests for malformed JSON and malformed API envelopes.
+- [x] Add tests for retry delay caps and `Retry-After` parsing.
+- [x] Add tests for iterator cancellation, pagination boundaries, and empty results.
+- [x] Keep the complete check gate green: build, tests, package contents, and live API smoke tests.
 
 ## Phase 2 — `0.3.0`: typed datasets and ergonomics
 

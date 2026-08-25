@@ -45,6 +45,26 @@ await weapons.filter({ type: "Keycard" }, { all: true });
 const item = await weapons.get("ak-74");
 ```
 
+`get(id)` uses the API-compatible `id` filter with `limit=1`. It is intentionally a client-side fallback until the API exposes a dedicated single-record route.
+
+### Async iteration
+
+Iterate through all pages without manually managing pagination:
+
+```ts
+for await (const weapon of gzw.dataset("weapons").iterate({ perPage: 50 })) {
+  console.log(weapon.name);
+}
+```
+
+The iterator stops at `totalPages`, an empty page, or an incomplete page. Pass an `AbortSignal` as the second argument to cancel it:
+
+```ts
+const controller = new AbortController();
+const iterator = gzw.dataset("tasks").iterate({ perPage: 100 }, controller.signal);
+controller.abort();
+```
+
 Every record is typed as `GzwRecord` by default and keeps unknown wiki fields available:
 
 ```ts
@@ -95,6 +115,16 @@ const gzw = new GzwDataClient({
   baseUrl: "https://gzw-data.vercel.app/api",
   retries: 2,
   retryDelayMs: 250,
+  maxRetryDelayMs: 30_000,
+  onRequest: ({ attempt, url }) => {
+    console.log("request", attempt, url);
+  },
+  onResponse: ({ status, ok, url }) => {
+    console.log("response", status, ok, url);
+  },
+  onRetry: ({ attempt, delayMs, status, url }) => {
+    console.log(`Retry ${attempt} in ${delayMs}ms`, status, url);
+  },
   headers: {
     "X-Client-Name": "my-gzw-tool",
   },
@@ -118,7 +148,7 @@ await request;
 
 ## Errors and retries
 
-The client retries HTTP `429` and `5xx` responses. For `429`, it respects the API's `Retry-After` header. Other HTTP failures throw `GzwApiError`:
+The client retries rate-limited responses and server/network/invalid-response failures. Retry delays use exponential backoff, respect `Retry-After`, and are capped by `maxRetryDelayMs`. Aborted requests are never retried. Other HTTP failures throw `GzwApiError`:
 
 ```ts
 import { GzwApiError } from "@zoniboy/gzw-data-client";
@@ -127,10 +157,13 @@ try {
   await gzw.dataset("weapons").list();
 } catch (error) {
   if (error instanceof GzwApiError) {
-    console.error(error.status, error.code, error.retryAfter);
+    console.error(error.status, error.code, error.requestUrl);
+    console.error(error.isRateLimited, error.isServerError);
   }
 }
 ```
+
+`GzwApiError` exposes the request URL, method, status text, safe response details, stable error code, and parsed `Retry-After` value. Use `onRequest`, `onResponse`, and `onRetry` for observability without logging response bodies.
 
 The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types are development-only dependencies.
 
@@ -139,9 +172,10 @@ The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types 
 ```bash
 npm install
 npm run check
+npm run live:smoke
 ```
 
-`npm run check` builds declaration files and runs the mocked HTTP test suite.
+`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small explicit verification against the production API and is not part of the default CI check.
 
 ## Roadmap
 
