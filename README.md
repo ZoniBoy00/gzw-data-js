@@ -10,7 +10,7 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - TypeScript declarations included
 - Abortable requests and async pagination
 - Retry handling for rate limits, server errors and transient network failures
-- Direct single-record lookups through `/api/{dataset}/{id}`
+- Typed dataset lookups with a compatible `get(id)` helper
 - OpenAPI, health, stats, image and cross-dataset search helpers
 - API data refreshed by the public scraper workflow
 
