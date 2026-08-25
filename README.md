@@ -1,8 +1,18 @@
 # @zoniboy/gzw-data-client
 
-Zero-dependency TypeScript client for the [GZW Data API](https://gzw-data.vercel.app/).
+[![npm version](https://img.shields.io/npm/v/%40zoniboy%2Fgzw-data-client?label=npm)](https://www.npmjs.com/package/@zoniboy/gzw-data-client)
+[![CI](https://github.com/ZoniBoy00/gzw-data-js/actions/workflows/ci.yml/badge.svg)](https://github.com/ZoniBoy00/gzw-data-js/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/ZoniBoy00/gzw-data-js)](https://github.com/ZoniBoy00/gzw-data-js/blob/main/LICENSE)
 
-The client works in Node.js 18+ and modern browsers. It provides typed helpers for datasets, pagination, filters, cross-dataset search, API health, statistics, endpoint discovery and OpenAPI metadata.
+A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.vercel.app/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key.
+
+- Node.js 18+ and modern browsers
+- TypeScript declarations included
+- Abortable requests and async pagination
+- Retry handling for rate limits, server errors and transient network failures
+- Direct single-record lookups through `/api/{dataset}/{id}`
+- OpenAPI, health, stats, image and cross-dataset search helpers
+- API data refreshed by the public scraper workflow
 
 ## Install
 
@@ -41,11 +51,11 @@ await weapons.search("AK-74");
 await weapons.filter({ caliber: "5.45x39mm" });
 await weapons.filter({ type: "Keycard" }, { all: true });
 
-// Convenience lookup using the API's exact id filter.
+// Compatible lookup used by the current 0.2.x client.
 const item = await weapons.get("ak-74");
 ```
 
-`get(id)` uses the API-compatible `id` filter with `limit=1`. It is intentionally a client-side fallback until the API exposes a dedicated single-record route.
+`get(id)` currently uses the API-compatible `id` filter with `limit=1`. The API now also exposes a dedicated single-record route; switching the SDK implementation to that route is planned for the next SDK phase.
 
 ### Async iteration
 
@@ -179,7 +189,7 @@ npm run live:smoke
 
 ## Roadmap
 
-The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including async pagination, stronger types, generated dataset metadata, caching, batch loading, React integration, live contract tests and the path to `1.0.0`.
+The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including the next single-record route integration, generated dataset metadata, caching, batch loading, React integration, live contract tests and the path to `1.0.0`.
 
 ## Related links
 
