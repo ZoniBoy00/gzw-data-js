@@ -198,7 +198,7 @@ describe("GzwDataClient", () => {
     const retries: number[] = [];
     globalThis.fetch = async () => {
       attempts += 1;
-      return attempts === 1 ? response({ error: "slow down" }, 429, { "retry-after": "60" }) : response({ data: [] });
+      return attempts === 1 ? response({ error: { code: "RATE_LIMITED", message: "slow down" } }, 429, { "retry-after": "60" }) : response({ data: [] });
     };
     const client = new GzwDataClient({ retries: 1, retryDelayMs: 0, maxRetryDelayMs: 5, onRetry: (info) => retries.push(info.delayMs) });
 
@@ -209,12 +209,12 @@ describe("GzwDataClient", () => {
   });
 
   it("throws a typed error after retries are exhausted", async () => {
-    globalThis.fetch = async () => response({ error: "broken" }, 500);
+    globalThis.fetch = async () => response({ error: { code: "RECORD_NOT_FOUND", message: "Record not found", dataset: "weapons", id: "missing" } }, 404);
     const client = new GzwDataClient({ retries: 0 });
 
     await assert.rejects(
       () => client.dataset("weapons").list(),
-      (error: unknown) => error instanceof GzwApiError && error.status === 500 && error.code === "SERVER_ERROR" && error.isServerError,
+      (error: unknown) => error instanceof GzwApiError && error.status === 404 && error.code === "RECORD_NOT_FOUND" && error.message === "Record not found" && error.details !== undefined,
     );
   });
 

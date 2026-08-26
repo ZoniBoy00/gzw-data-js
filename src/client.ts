@@ -100,8 +100,13 @@ export class GzwDataClient {
         }
 
         const retryAfter = parseRetryAfter(response.headers.get("retry-after"));
-        const code = response.status === 429 ? "RATE_LIMITED" : response.status >= 500 ? "SERVER_ERROR" : "HTTP_ERROR";
-        const message = isObject(body) && typeof body.error === "string" ? body.error : `GZW Data API request failed with HTTP ${response.status}`;
+        const errorObject = isObject(body) && isObject(body.error) ? body.error : undefined;
+        const code = typeof errorObject?.code === "string"
+          ? errorObject.code
+          : response.status === 429 ? "RATE_LIMITED" : response.status >= 500 ? "SERVER_ERROR" : "HTTP_ERROR";
+        const message = typeof errorObject?.message === "string"
+          ? errorObject.message
+          : isObject(body) && typeof body.error === "string" ? body.error : `GZW Data API request failed with HTTP ${response.status}`;
         const error = new GzwApiError(message, {
           status: response.status,
           statusText: response.statusText,

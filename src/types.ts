@@ -138,6 +138,12 @@ export type GzwErrorCode =
   | "RATE_LIMITED"
   | "SERVER_ERROR"
   | "INVALID_RESPONSE"
+  | "DATASET_NOT_FOUND"
+  | "RECORD_NOT_FOUND"
+  | "ENDPOINT_NOT_FOUND"
+  | "INVALID_REQUEST"
+  | "METHOD_NOT_ALLOWED"
+  | "INTERNAL_ERROR"
   | string;
 
 export type GzwRetryInfo = {

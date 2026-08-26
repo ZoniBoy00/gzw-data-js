@@ -180,7 +180,7 @@ try {
 }
 ```
 
-`GzwApiError` exposes the request URL, method, status text, safe response details, stable error code, and parsed `Retry-After` value. Use `onRequest`, `onResponse`, and `onRetry` for observability without logging response bodies.
+`GzwApiError` exposes the request URL, method, status text, safe response details, stable error code, and parsed `Retry-After` value. API errors use codes such as `RECORD_NOT_FOUND`, `DATASET_NOT_FOUND`, `INVALID_REQUEST`, and `RATE_LIMITED`; the complete error payload is available through `error.details`. Use `onRequest`, `onResponse`, and `onRetry` for observability without logging response bodies.
 
 The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types are development-only dependencies.
 
