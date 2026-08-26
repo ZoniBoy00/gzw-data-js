@@ -51,11 +51,11 @@ await weapons.search("AK-74");
 await weapons.filter({ caliber: "5.45x39mm" });
 await weapons.filter({ type: "Keycard" }, { all: true });
 
-// Compatible lookup used by the current 0.2.x client.
+// Fetch one record through the dedicated API route.
 const item = await weapons.get("ak-74");
 ```
 
-`get(id)` currently uses the API-compatible `id` filter with `limit=1`. The API now also exposes a dedicated single-record route; switching the SDK implementation to that route is planned for the next SDK phase.
+`get(id)` calls `/api/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
 
 ### Async iteration
 
