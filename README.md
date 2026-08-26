@@ -40,7 +40,7 @@ console.log(`${weapons.total} total weapons`);
 
 ## Dataset operations
 
-Datasets are auto-discovered by the API, so new wiki categories are available without a client release.
+Datasets are auto-discovered by the API, so new wiki categories are available without a client release. Filters are scoped to the dataset resource they are called on:
 
 ```ts
 const weapons = gzw.dataset("weapons");
@@ -49,13 +49,15 @@ await weapons.list();
 await weapons.list({ page: 2, perPage: 25 });
 await weapons.search("AK-74");
 await weapons.filter({ caliber: "5.45x39mm" });
-await weapons.filter({ type: "Keycard" }, { all: true });
+
+const keys = gzw.dataset("keys");
+await keys.filter({ type: "Keycard" }, { all: true });
 
 // Fetch one record through the dedicated API route.
 const item = await weapons.get("ak-74");
 ```
 
-`get(id)` calls `/api/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
+`get(id)` calls `/api/v1/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
 
 ### Async iteration
 
