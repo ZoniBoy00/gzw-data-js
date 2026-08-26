@@ -45,7 +45,7 @@ export class DatasetResource<T extends GzwRecord = GzwRecord> {
       }
       return (isObject(payload.data) ? payload.data : payload) as T;
     } catch (error) {
-      if (error instanceof GzwApiError && error.status === 404) return undefined;
+      if (error instanceof GzwApiError && error.status === 404 && error.code === "RECORD_NOT_FOUND") return undefined;
       throw error;
     }
   }

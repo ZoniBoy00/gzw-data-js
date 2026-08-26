@@ -61,10 +61,20 @@ describe("GzwDataClient", () => {
   });
 
   it("returns undefined for a missing record", async () => {
-    globalThis.fetch = async () => response({ error: "Record not found" }, 404);
+    globalThis.fetch = async () => response({ error: { code: "RECORD_NOT_FOUND", message: "Record not found" } }, 404);
     const client = new GzwDataClient({ retries: 0 });
 
     assert.equal(await client.dataset("items").get("missing"), undefined);
+  });
+
+  it("does not hide a non-record 404 from get", async () => {
+    globalThis.fetch = async () => response({ error: { code: "DATASET_NOT_FOUND", message: "Dataset not found" } }, 404);
+    const client = new GzwDataClient({ retries: 0 });
+
+    await assert.rejects(
+      () => client.dataset("missing").get("record"),
+      (error: unknown) => error instanceof GzwApiError && error.status === 404 && error.code === "DATASET_NOT_FOUND",
+    );
   });
 
   it("rejects empty dataset and record search values", async () => {
