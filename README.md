@@ -4,7 +4,7 @@
 [![CI](https://github.com/ZoniBoy00/gzw-data-js/actions/workflows/ci.yml/badge.svg)](https://github.com/ZoniBoy00/gzw-data-js/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/ZoniBoy00/gzw-data-js)](https://github.com/ZoniBoy00/gzw-data-js/blob/main/LICENSE)
 
-A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.vercel.app/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key.
+A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.dev/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key.
 
 - Node.js 18+ and modern browsers
 - TypeScript declarations included
@@ -131,7 +131,7 @@ const openApi = await gzw.spec();
 
 ```ts
 const gzw = new GzwDataClient({
-  baseUrl: "https://gzw-data.vercel.app/api/v1",
+  baseUrl: "https://gzw-data.dev/api/v1",
   retries: 2,
   retryDelayMs: 250,
   maxRetryDelayMs: 30_000,
@@ -205,9 +205,9 @@ The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), includin
 
 ## Related links
 
-- [GZW Data Console](https://gzw-data.vercel.app/)
-- [API Quick start](https://gzw-data.vercel.app/docs/#quickstart)
-- [GZW Data API](https://gzw-data.vercel.app/api)
+- [GZW Data Console](https://gzw-data.dev/)
+- [API Quick start](https://gzw-data.dev/docs/#quickstart)
+- [GZW Data API](https://gzw-data.dev/api)
 - [GZW Data repository](https://github.com/ZoniBoy00/gzw-data)
 
 ## License

@@ -25,7 +25,7 @@ describe("GzwDataClient", () => {
 
     await new GzwDataClient({ retries: 0 }).dataset("weapons").list();
 
-    assert.equal(requestedUrl, "https://gzw-data.vercel.app/api/v1/weapons");
+    assert.equal(requestedUrl, "https://gzw-data.dev/api/v1/weapons");
   });
 
   it("lists a dataset with pagination and query parameters", async () => {
