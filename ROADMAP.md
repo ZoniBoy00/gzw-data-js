@@ -63,11 +63,11 @@ The project favors a small, browser-friendly core, stable contracts, generated t
 
 ### Dataset-specific TypeScript types
 
-- [ ] Define stable shared types for common records and fields.
-- [ ] Add typed models for high-value datasets such as weapons, ammunition, armor, tasks, keys, medical, and provisions.
-- [ ] Keep unknown scraper fields available through an extensible record shape.
-- [ ] Document which fields are guaranteed and which are optional or scraper-dependent.
-- [ ] Add type tests so public declaration files are checked as part of CI.
+- [x] Define stable shared types for common records and fields.
+- [x] Add typed models for high-value datasets such as weapons, ammunition, armor, tasks, keys, medical, and provisions.
+- [x] Keep unknown scraper fields available through an extensible record shape.
+- [x] Document which fields are guaranteed and which are optional or scraper-dependent.
+- [x] Add type tests so public declaration files are checked as part of CI.
 
 ### API type generation
 
