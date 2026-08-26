@@ -1,6 +1,6 @@
 import { GzwApiError, abortError, throwIfAborted } from "./errors.js";
 import { isObject, parseRetryAfter, wait } from "./query.js";
-import type { GzwApiRoot, GzwDataClientOptions, GzwHealth, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwStats, OpenApiSpec } from "./types.js";
+import type { DatasetRecord, GzwApiRoot, GzwDataClientOptions, GzwDataset, GzwHealth, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwStats, OpenApiSpec } from "./types.js";
 import { DatasetResource } from "./dataset.js";
 
 export class GzwDataClient {
@@ -26,9 +26,11 @@ export class GzwDataClient {
     this.onRetry = options.onRetry;
   }
 
-  dataset<T extends import("./types.js").GzwRecord = import("./types.js").GzwRecord>(name: string): DatasetResource<T> {
+  dataset<Name extends GzwDataset>(name: Name): DatasetResource<DatasetRecord<Name>>;
+  dataset<T extends import("./types.js").GzwRecord>(name: string): DatasetResource<T>;
+  dataset(name: string): DatasetResource<import("./types.js").GzwRecord> {
     if (!name.trim()) throw new TypeError("Dataset name cannot be empty");
-    return new DatasetResource<T>(this, name.trim());
+    return new DatasetResource(this, name.trim());
   }
 
   async search(query: string, signal?: AbortSignal): Promise<GzwSearch> {

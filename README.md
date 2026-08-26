@@ -75,26 +75,33 @@ const iterator = gzw.dataset("tasks").iterate({ perPage: 100 }, controller.signa
 controller.abort();
 ```
 
-Every record is typed as `GzwRecord` by default and keeps unknown wiki fields available:
+Known datasets receive stable TypeScript models while scraper-dependent fields remain optional. Unknown or newly discovered datasets continue to use the extensible `GzwRecord` fallback:
 
 ```ts
-const response = await gzw.dataset("weapons").list();
+const weapons = gzw.dataset("weapons");
+const response = await weapons.list();
 const first = response.data[0];
-console.log(first.name, first.image);
+
+first.caliber;          // string | undefined
+first.fire_rate;        // string | undefined
+first.future_wiki_field; // unknown
 ```
 
-You can provide a project-specific record type:
+Use `GzwDataset` for dataset names with autocomplete for known datasets while still accepting new string names. Use `DatasetRecord<Name>` when building typed adapters around a dataset name.
+
+You can also provide a project-specific record type:
 
 ```ts
 import { GzwRecord } from "@zoniboy/gzw-data-client";
 
-type Weapon = GzwRecord & {
+type CustomWeapon = GzwRecord & {
   caliber?: string;
   fire_rate?: string;
 };
 
-const weapons = await gzw.dataset<Weapon>("weapons").list();
+const customWeapons = gzw.dataset<CustomWeapon>("weapons").list();
 ```
+
 
 ## API helpers
 

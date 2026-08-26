@@ -8,6 +8,79 @@ export type GzwRecord = {
   [key: string]: unknown;
 };
 
+export type Weapon = GzwRecord & {
+  caliber?: string;
+  fire_mode?: string;
+  fire_rate?: string;
+  weight?: string;
+};
+
+export type Ammunition = GzwRecord & {
+  caliber?: string;
+  damage?: string;
+  penetration?: string;
+  weight?: string;
+};
+
+export type ArmorItem = GzwRecord & {
+  armor_class?: string;
+  protection?: string;
+  durability?: string;
+  weight?: string;
+};
+
+export type Task = GzwRecord & {
+  faction?: string;
+  objectives?: string;
+  rewards?: string;
+  level?: string;
+};
+
+export type GzwKey = GzwRecord & {
+  location?: string;
+  used_for?: string;
+  type?: string;
+};
+
+export type MedicalItem = GzwRecord & {
+  effect?: string;
+  uses?: string;
+  weight?: string;
+};
+
+export type Provision = GzwRecord & {
+  effect?: string;
+  hydration?: string;
+  energy?: string;
+  weight?: string;
+};
+
+export type KnownGzwDataset =
+  | "weapons"
+  | "ammo"
+  | "ammunition"
+  | "vests"
+  | "helmets"
+  | "tasks"
+  | "task"
+  | "keys"
+  | "keycards"
+  | "medical"
+  | "provisions";
+
+/** Known names get autocomplete; new scraper datasets remain valid strings. */
+export type GzwDataset = KnownGzwDataset | (string & {});
+
+export type DatasetRecord<Name extends string> =
+  Name extends "weapons" ? Weapon :
+  Name extends "ammo" | "ammunition" ? Ammunition :
+  Name extends "vests" | "helmets" ? ArmorItem :
+  Name extends "tasks" | "task" ? Task :
+  Name extends "keys" | "keycards" ? GzwKey :
+  Name extends "medical" ? MedicalItem :
+  Name extends "provisions" ? Provision :
+  GzwRecord;
+
 export type DatasetQuery = {
   page?: number;
   perPage?: number;

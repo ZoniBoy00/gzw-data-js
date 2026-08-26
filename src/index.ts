@@ -2,14 +2,19 @@ export { GzwApiError } from "./errors.js";
 export { GzwDataClient } from "./client.js";
 export { DatasetResource } from "./dataset.js";
 export type {
+  Ammunition,
   ApiEnvelope,
+  ArmorItem,
+  DatasetRecord,
   DatasetIteratorOptions,
   DatasetQuery,
   DatasetResponse,
   GzwApiRoot,
   GzwDataClientOptions,
+  GzwDataset,
   GzwErrorCode,
   GzwHealth,
+  GzwKey,
   GzwRecord,
   GzwRequestInfo,
   GzwResponseInfo,
@@ -18,5 +23,10 @@ export type {
   GzwStats,
   JsonObject,
   JsonValue,
+  KnownGzwDataset,
+  MedicalItem,
   OpenApiSpec,
+  Provision,
+  Task,
+  Weapon,
 } from "./types.js";

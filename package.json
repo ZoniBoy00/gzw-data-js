@@ -24,8 +24,9 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p test/tsconfig.json --noEmit",
     "test": "tsx --test test/*.test.ts",
-    "check": "npm run build && npm test",
+    "check": "npm run build && npm run typecheck && npm test",
     "live:smoke": "tsx test/live-smoke.ts",
     "contract:live": "tsx test/contract-smoke.ts"
   },
