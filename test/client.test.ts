@@ -36,7 +36,7 @@ describe("GzwDataClient", () => {
     globalThis.fetch = async (input) => {
       const url = String(input);
       urls.push(url);
-      if (url.endsWith("/items/alpha")) return response({ id: "alpha", name: "Alpha" });
+      if (url.endsWith("/items/alpha")) return response({ data: { id: "alpha", name: "Alpha" } });
       return response({ data: [{ id: "beta" }], count: 1 });
     };
     const client = new GzwDataClient({ baseUrl: "https://example.test/api" });
