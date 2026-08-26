@@ -24,14 +24,30 @@ export class DatasetResource<T extends GzwRecord = GzwRecord> {
   }
 
   /**
-   * Fetch one record using the API's exact id filter and limit=1 fallback.
-   * A dedicated single-record server route can replace this without changing
-   * the public SDK method.
+   * Fetch one record from the API's dedicated single-record route.
+   * A missing record preserves the historical SDK behavior by returning undefined.
    */
   async get(id: string, signal?: AbortSignal): Promise<T | undefined> {
-    if (!id.trim()) throw new TypeError("Record id cannot be empty");
-    const result = await this.list({ id: id.trim(), limit: 1 }, signal);
-    return result.data[0];
+    const normalizedId = id.trim();
+    if (!normalizedId) throw new TypeError("Record id cannot be empty");
+
+    try {
+      const payload = await this.client.request<unknown>(
+        `/${encodeURIComponent(this.name)}/${encodeURIComponent(normalizedId)}`,
+        signal,
+      );
+      if (!isObject(payload)) {
+        throw new GzwApiError("GZW Data API returned an invalid record response", {
+          status: 200,
+          code: "INVALID_RESPONSE",
+          details: payload,
+        });
+      }
+      return payload as T;
+    } catch (error) {
+      if (error instanceof GzwApiError && error.status === 404) return undefined;
+      throw error;
+    }
   }
 
   /**

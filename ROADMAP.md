@@ -37,8 +37,8 @@ The project favors a small, browser-friendly core, stable contracts, generated t
 - [x] Support cancellation with `AbortSignal` during iteration.
 - [x] Define behavior for empty datasets and incomplete pages.
 - [x] Improve `get(id)` semantics and document the current API-compatible ID-filter behavior.
-- [ ] Add a proper single-record API route in `gzw-data` when the server contract supports it.
-- [ ] Update the SDK `get(id)` implementation to use the single-record route without breaking the fallback behavior.
+- [x] Add a proper single-record API route in `gzw-data` when the server contract supports it.
+- [x] Update the SDK `get(id)` implementation to use the single-record route without breaking the fallback behavior.
 
 ### Errors, retries, and observability
 

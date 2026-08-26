@@ -31,19 +31,28 @@ describe("GzwDataClient", () => {
     assert.equal(requestedUrl, "https://example.test/api/weapons?page=2&per_page=10&search=AK");
   });
 
-  it("supports get, filter, and all modes", async () => {
+  it("uses the single-record route and supports all modes", async () => {
     const urls: string[] = [];
     globalThis.fetch = async (input) => {
-      urls.push(String(input));
-      return response({ data: [{ id: "alpha" }], count: 1 });
+      const url = String(input);
+      urls.push(url);
+      if (url.endsWith("/items/alpha")) return response({ id: "alpha", name: "Alpha" });
+      return response({ data: [{ id: "beta" }], count: 1 });
     };
     const client = new GzwDataClient({ baseUrl: "https://example.test/api" });
 
-    await client.dataset("items").get("alpha");
+    assert.deepEqual(await client.dataset("items").get("alpha"), { id: "alpha", name: "Alpha" });
     await client.dataset("items").filter({ type: "Keycard" }, { all: true });
 
-    assert.equal(urls[0], "https://example.test/api/items?id=alpha&limit=1");
+    assert.equal(urls[0], "https://example.test/api/items/alpha");
     assert.equal(urls[1], "https://example.test/api/items?all=true&type=Keycard");
+  });
+
+  it("returns undefined for a missing record", async () => {
+    globalThis.fetch = async () => response({ error: "Record not found" }, 404);
+    const client = new GzwDataClient({ retries: 0 });
+
+    assert.equal(await client.dataset("items").get("missing"), undefined);
   });
 
   it("rejects empty dataset and record search values", async () => {
