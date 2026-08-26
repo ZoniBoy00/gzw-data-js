@@ -105,6 +105,7 @@ export type DatasetResponse<T extends GzwRecord = GzwRecord> = {
   totalPages?: number;
   source?: string;
   timestamp?: string;
+  dataVersion?: string | null;
 };
 
 export type GzwStats = Record<string, { total: number; sources?: string[] }>;
@@ -114,6 +115,12 @@ export type GzwHealth = {
   version: string;
   datasets: Record<string, number | string>;
   smartRoutes: string[];
+  status?: 'ok' | 'degraded';
+  ready?: boolean;
+  apiVersion?: string;
+  datasetCount?: number;
+  lastScrapedAt?: string | null;
+  dataVersion?: string | null;
 };
 
 export type GzwApiRoot = {

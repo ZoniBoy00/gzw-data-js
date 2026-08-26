@@ -163,6 +163,8 @@ controller.abort();
 await request;
 ```
 
+Dataset responses expose `dataVersion` when the API has scraper metadata available. It identifies the data snapshot used for the response and is separate from the response-time `timestamp`.
+
 ## Errors and retries
 
 The client retries rate-limited responses and server/network/invalid-response failures. Retry delays use exponential backoff, respect `Retry-After`, and are capped by `maxRetryDelayMs`. Aborted requests are never retried. Other HTTP failures throw `GzwApiError`:
