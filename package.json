@@ -1,6 +1,6 @@
 {
   "name": "@zoniboy/gzw-data-client",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Zero-dependency TypeScript client for the GZW Data API.",
   "license": "MIT",
   "type": "module",
