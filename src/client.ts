@@ -15,7 +15,7 @@ export class GzwDataClient {
   private readonly onRetry?: (info: GzwRetryInfo) => void;
 
   constructor(options: GzwDataClientOptions = {}) {
-    this.baseUrl = (options.baseUrl ?? "https://gzw-data.vercel.app/api").replace(/\/+$/, "");
+    this.baseUrl = (options.baseUrl ?? "https://gzw-data.vercel.app/api/v1").replace(/\/+$/, "");
     this.requestFetch = options.fetch ?? globalThis.fetch.bind(globalThis);
     this.headers = { Accept: "application/json", ...options.headers };
     this.retries = Math.max(0, options.retries ?? 2);

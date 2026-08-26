@@ -16,6 +16,18 @@ function response(body: unknown, status = 200, headers: Record<string, string> =
 }
 
 describe("GzwDataClient", () => {
+  it("uses the versioned production API by default", async () => {
+    let requestedUrl = "";
+    globalThis.fetch = async (input) => {
+      requestedUrl = String(input);
+      return response({ data: [] });
+    };
+
+    await new GzwDataClient({ retries: 0 }).dataset("weapons").list();
+
+    assert.equal(requestedUrl, "https://gzw-data.vercel.app/api/v1/weapons");
+  });
+
   it("lists a dataset with pagination and query parameters", async () => {
     let requestedUrl = "";
     globalThis.fetch = async (input) => {

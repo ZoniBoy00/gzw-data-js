@@ -129,7 +129,7 @@ const openApi = await gzw.spec();
 
 ```ts
 const gzw = new GzwDataClient({
-  baseUrl: "https://gzw-data.vercel.app/api",
+  baseUrl: "https://gzw-data.vercel.app/api/v1",
   retries: 2,
   retryDelayMs: 250,
   maxRetryDelayMs: 30_000,

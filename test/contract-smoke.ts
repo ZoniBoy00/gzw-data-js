@@ -3,7 +3,7 @@ import { GzwDataClient } from "../src/index.js";
 
 const client = new GzwDataClient({
   retries: 0,
-  baseUrl: "https://gzw-data.vercel.app/api",
+  baseUrl: "https://gzw-data.vercel.app/api/v1",
 });
 
 const stats = await client.stats();
