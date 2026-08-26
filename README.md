@@ -183,9 +183,10 @@ The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types 
 npm install
 npm run check
 npm run live:smoke
+npm run contract:live
 ```
 
-`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small explicit verification against the production API and is not part of the default CI check.
+`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small health/data verification against the production API. `npm run contract:live` performs the explicit API–SDK contract checks against production, including dataset listing, pagination, single-record lookup, search, stats, OpenAPI, and 404 behavior. The live checks are intentionally separate from the default CI run.
 
 ## Roadmap
 

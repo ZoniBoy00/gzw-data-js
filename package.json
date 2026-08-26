@@ -26,7 +26,8 @@
     "build": "tsc -p tsconfig.json",
     "test": "tsx --test test/*.test.ts",
     "check": "npm run build && npm test",
-    "live:smoke": "tsx test/live-smoke.ts"
+    "live:smoke": "tsx test/live-smoke.ts",
+    "contract:live": "tsx test/contract-smoke.ts"
   },
   "keywords": [
     "gray-zone-warfare",

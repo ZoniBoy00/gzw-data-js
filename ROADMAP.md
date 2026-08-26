@@ -148,14 +148,14 @@ The project favors a small, browser-friendly core, stable contracts, generated t
 ### Contract synchronization
 
 - [ ] Add a documented API compatibility matrix between `gzw-data` and the client.
-- [ ] Validate the SDK against `/api/health`, `/api/stats`, `/api/search`, `/api/spec`, and representative datasets.
+- [x] Validate the SDK against `/api/health`, `/api/stats`, `/api/search`, `/api/spec`, and representative datasets.
 - [ ] Detect breaking response-shape changes before release.
-- [ ] Coordinate single-record routes and any new server-side query behavior with the API repository.
+- [x] Coordinate single-record routes and any new server-side query behavior with the API repository.
 - [ ] Add release notes for API contract changes.
 
 ### Live verification
 
-- [ ] Add a separate `npm run test:live` command.
+- [x] Add a separate `npm run contract:live` command.
 - [ ] Run live tests against production only when explicitly requested or on a controlled schedule.
 - [ ] Keep live checks small and rate-limit aware.
 - [ ] Verify Node.js ESM import, browser bundling, and TypeScript declarations.
