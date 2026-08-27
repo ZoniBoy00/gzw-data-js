@@ -91,6 +91,39 @@ The SDK follows semantic versioning. The version targets are milestones, not pro
 
 Current release: `0.2.4`.
 
+#### `0.3.0` — typed datasets and ergonomics
+
+- [x] Stable shared types for high-value datasets.
+- [x] Typed models for weapons, ammunition, armor, tasks, keys, medical, and provisions.
+- [x] Extensible fallback type for unknown scraper fields and newly discovered datasets.
+- [x] Type tests for public declaration behavior.
+- [ ] Add deterministic `generate-types` from OpenAPI and live metadata.
+- [ ] Generate known dataset names and endpoint metadata into reviewable source.
+- [ ] Keep generated stable types separate from dynamic `GzwRecord` data.
+- [ ] Add typed helpers for stable high-value smart routes.
+
+#### `0.4.0` — performance and composition
+
+- [ ] Add optional in-memory GET caching with an explicit TTL.
+- [ ] Cache successful requests only and never cache aborted or failed requests.
+- [ ] Include query parameters in cache keys.
+- [ ] Add cache invalidation and clear methods.
+- [ ] Document that the cache is process-local and not persistent storage.
+- [ ] Add typed batch loading with bounded concurrency.
+- [ ] Add optional in-flight request deduplication.
+- [ ] Test cache hits, invalidation, deduplication, cancellation, and batch behavior.
+
+#### `0.5.0` — framework integrations
+
+- [ ] Create a separate `@zoniboy/gzw-data-react` package.
+- [ ] Keep React out of the core package dependencies.
+- [ ] Add `useGzwDataset` with loading, error, data, refetch, and cancellation states.
+- [ ] Add `useGzwStats`, `useGzwHealth`, and `useGzwSearch` only where they prove useful.
+- [ ] Support server-side rendering without global browser assumptions.
+- [ ] Add React, Vite, and Next.js examples.
+- [ ] Test unmount cancellation and stale-request protection.
+- [ ] Evaluate other framework adapters only after a real use case exists.
+
 #### `0.6.0` — contract and developer tooling milestone
 
 - API/SDK compatibility matrix.
