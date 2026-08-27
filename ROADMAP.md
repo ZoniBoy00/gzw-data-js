@@ -77,6 +77,47 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - [ ] Add published-tarball installation smoke tests.
 - [ ] Add SDK version information to a safe client header if the API has a documented use for it.
 
+### Version targets
+
+The SDK follows semantic versioning. The version targets are milestones, not promises to publish a release without a verified need.
+
+#### `0.2.x` — current core line
+
+- Stable generic dataset access.
+- Stable pagination, iteration, retries, cancellation, and typed errors.
+- Versioned `/api/v1` default.
+- Zero runtime dependencies.
+- Backward-compatible fixes and small additions only.
+
+Current release: `0.2.4`.
+
+#### `0.6.0` — contract and developer tooling milestone
+
+- API/SDK compatibility matrix.
+- Codegen-ready OpenAPI responses.
+- Deterministic generated dataset-name and type output.
+- Metadata and schema helpers.
+- Stronger contract tests for errors, pagination, search, and rate limits.
+- Release notes for public contract changes.
+
+#### `1.0.0` — stable public SDK
+
+Publish `1.0.0` only when the public client contract is intentionally stable and documented:
+
+- Breaking-change policy is documented.
+- API response envelopes and error codes are covered by contract tests.
+- Generated output is deterministic and checked in CI.
+- Release automation and changelog are in place.
+- Published-package smoke tests pass.
+- A migration guide exists for any known breaking changes.
+
+### Semantic versioning policy
+
+- **Patch:** bug fixes, documentation, test improvements, and internal changes with no public behavior break.
+- **Minor:** backward-compatible methods, optional fields, helpers, and supported dataset types.
+- **Major:** removed or renamed public methods, changed return semantics, incompatible error behavior, or other breaking client changes.
+- Newly discovered datasets should remain available through the dynamic fallback without forcing a release.
+
 ## Release checklist
 
 Before publishing a version:
