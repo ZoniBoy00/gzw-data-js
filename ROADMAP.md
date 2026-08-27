@@ -126,49 +126,49 @@ Current release: `0.2.4`.
 
 #### `0.6.0` — contract and developer tooling milestone
 
-- API/SDK compatibility matrix.
-- Codegen-ready OpenAPI responses.
-- Deterministic generated dataset-name and type output.
-- Metadata and schema helpers.
-- Stronger contract tests for errors, pagination, search, and rate limits.
-- Release notes for public contract changes.
+- [ ] API/SDK compatibility matrix.
+- [ ] Codegen-ready OpenAPI responses.
+- [ ] Deterministic generated dataset-name and type output.
+- [ ] Metadata and schema helpers.
+- [ ] Stronger contract tests for errors, pagination, search, and rate limits.
+- [ ] Release notes for public contract changes.
 
 #### `0.7.0` — API/SDK ecosystem integration
 
-- API/SDK compatibility matrix is published and maintained.
-- Metadata, schema, stats, health, readiness, changes, and search helpers have consistent typed contracts.
-- Smart-route and dataset helper APIs are added only where their server contracts are stable.
-- Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
-- Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
+- [ ] API/SDK compatibility matrix is published and maintained.
+- [ ] Metadata, schema, stats, health, readiness, changes, and search helpers have consistent typed contracts.
+- [ ] Smart-route and dataset helper APIs are added only where their server contracts are stable.
+- [ ] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
+- [ ] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
 
 #### `0.8.0` — production hardening and performance
 
-- Optional client-side caching has explicit TTL, invalidation, and query-aware cache keys.
-- Batch loading uses bounded concurrency and preserves cancellation/retry behavior.
-- In-flight request deduplication is tested if implemented.
-- Rate-limit, retry, malformed-response, and cancellation behavior are covered by contract tests.
-- Published-package smoke tests run from a clean temporary project.
-- No runtime dependency is added to the core package without a documented reason.
+- [ ] Optional client-side caching has explicit TTL, invalidation, and query-aware cache keys.
+- [ ] Batch loading uses bounded concurrency and preserves cancellation/retry behavior.
+- [ ] In-flight request deduplication is tested if implemented.
+- [ ] Rate-limit, retry, malformed-response, and cancellation behavior are covered by contract tests.
+- [ ] Published-package smoke tests run from a clean temporary project.
+- [ ] No runtime dependency is added to the core package without a documented reason.
 
 #### `0.9.0` — release candidate and stability
 
-- Public methods, types, response envelopes, and error semantics are frozen for the release candidate.
-- Known breaking changes have migration notes.
-- Generated types and declarations are deterministic and checked in CI.
-- Release automation, changelog, semantic versioning, and package provenance are operational.
-- Documentation is complete for installation, API compatibility, errors, retries, caching, and cancellation.
-- A release-candidate package passes local, contract, and published-tarball checks.
+- [ ] Public methods, types, response envelopes, and error semantics are frozen for the release candidate.
+- [ ] Known breaking changes have migration notes.
+- [ ] Generated types and declarations are deterministic and checked in CI.
+- [ ] Release automation, changelog, semantic versioning, and package provenance are operational.
+- [ ] Documentation is complete for installation, API compatibility, errors, retries, caching, and cancellation.
+- [ ] A release-candidate package passes local, contract, and published-tarball checks.
 
 #### `1.0.0` — stable public SDK
 
 Publish `1.0.0` only when the public client contract is intentionally stable and documented:
 
-- Breaking-change policy is documented.
-- API response envelopes and error codes are covered by contract tests.
-- Generated output is deterministic and checked in CI.
-- Release automation and changelog are in place.
-- Published-package smoke tests pass.
-- A migration guide exists for any known breaking changes.
+- [ ] Breaking-change policy is documented.
+- [ ] API response envelopes and error codes are covered by contract tests.
+- [ ] Generated output is deterministic and checked in CI.
+- [ ] Release automation and changelog are in place.
+- [ ] Published-package smoke tests pass.
+- [ ] A migration guide exists for any known breaking changes.
 
 ### Semantic versioning policy
 
