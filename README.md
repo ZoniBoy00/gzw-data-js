@@ -12,6 +12,9 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - Retry handling for rate limits, server errors and transient network failures
 - Typed dataset lookups with a compatible `get(id)` helper
 - OpenAPI, health, stats, image and cross-dataset search helpers
+- Dataset metadata and version helpers
+- Typed stable smart-route helpers for armor, weapon parts and helmet mods
+- Generated autocomplete for published dataset names with a dynamic fallback for new datasets
 - API data refreshed by the public scraper workflow
 
 ## Install
@@ -166,6 +169,26 @@ await request;
 ```
 
 Dataset responses expose `dataVersion` when the API has scraper metadata available. It identifies the data snapshot used for the response and is separate from the response-time `timestamp`.
+
+## Metadata and version helpers
+
+```ts
+const metadata = await gzw.metadata("weapons");
+const version = await gzw.version();
+const weapons = await gzw.dataset("weapons").info();
+```
+
+The generated `KnownGzwDataset` names provide autocomplete for the datasets published by the API at generation time. `GzwDataset` still accepts arbitrary strings so newly discovered scraper datasets remain usable before the next SDK release.
+
+Stable smart routes have typed convenience methods:
+
+```ts
+const armor = await gzw.armor();
+const parts = await gzw.weaponParts();
+const helmetMods = await gzw.helmetMods();
+```
+
+Regenerate dataset names and metadata with `npm run generate-types`. CI uses `npm run check:generated` to detect stale generated output.
 
 ## Errors and retries
 

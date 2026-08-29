@@ -1,3 +1,5 @@
+import type { GeneratedDatasetName } from "./generated/datasets.js";
+
 export type JsonValue = string | number | boolean | null | JsonObject | JsonValue[];
 export type JsonObject = { [key: string]: JsonValue };
 
@@ -55,18 +57,7 @@ export type Provision = GzwRecord & {
   weight?: string;
 };
 
-export type KnownGzwDataset =
-  | "weapons"
-  | "ammo"
-  | "ammunition"
-  | "vests"
-  | "helmets"
-  | "tasks"
-  | "task"
-  | "keys"
-  | "keycards"
-  | "medical"
-  | "provisions";
+export type KnownGzwDataset = GeneratedDatasetName;
 
 /** Known names get autocomplete; new scraper datasets remain valid strings. */
 export type GzwDataset = KnownGzwDataset | (string & {});
@@ -112,7 +103,8 @@ export type GzwStats = Record<string, { total: number; sources?: string[] }>;
 
 export type GzwHealth = {
   ok: boolean;
-  version: string;
+  version?: string;
+  implementationVersion?: string;
   datasets: Record<string, number | string>;
   smartRoutes: string[];
   status?: 'ok' | 'degraded';
@@ -125,9 +117,26 @@ export type GzwHealth = {
 
 export type GzwApiRoot = {
   name: string;
-  version: string;
+  version?: string;
+  implementationVersion?: string;
   endpoints: string[];
   docs?: string;
+};
+
+export type GzwDatasetMetadata = {
+  name: string;
+  file?: string;
+  itemCount?: number;
+  fields?: Record<string, { types?: string[]; presentCount?: number; optional?: boolean; nullable?: boolean; example?: unknown }>;
+  [key: string]: unknown;
+};
+
+export type GzwVersion = {
+  apiVersion: string;
+  implementationVersion: string;
+  dataVersion?: string | null;
+  snapshot?: Record<string, unknown>;
+  [key: string]: unknown;
 };
 
 export type GzwSearch = {

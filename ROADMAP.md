@@ -36,22 +36,22 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - [ ] Add a documented API/SDK compatibility matrix.
 - [ ] Add a separate 429 contract test.
 - [ ] Detect breaking response-shape changes before release.
-- [ ] Document health, readiness, version, schema, metadata, changes, and stats helpers.
-- [ ] Add release notes for public API contract changes.
+- [x] Document health, readiness, version, schema, metadata, changes, and stats helpers.
+- [x] Add release notes for public API contract changes.
 
 ### 2. Generated types
 
-- [ ] Add a deterministic `generate-types` command from OpenAPI and live metadata.
-- [ ] Generate known dataset names and endpoint metadata into reviewable source.
-- [ ] Add a CI check for stale generated output.
-- [ ] Keep dynamic datasets usable without requiring an SDK release.
-- [ ] Keep generated stable types separate from the extensible fallback type.
+- [x] Add a deterministic `generate-types` command from OpenAPI and live metadata.
+- [x] Generate known dataset names and endpoint metadata into reviewable source.
+- [x] Add a CI check for stale generated output.
+- [x] Keep dynamic datasets usable without requiring an SDK release.
+- [x] Keep generated stable types separate from the extensible fallback type.
 
 ### 3. Convenience APIs
 
 - [ ] Add typed convenience accessors only for high-value datasets.
-- [ ] Add `metadata()` and `dataset().info()` helpers.
-- [ ] Add typed smart-route helpers only when their server contracts are stable.
+- [x] Add `metadata()` and `dataset().info()` helpers.
+- [x] Add typed smart-route helpers only when their server contracts are stable.
 - [ ] Do not duplicate request logic for each dataset.
 
 ### 4. Performance and composition
@@ -71,8 +71,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ### 6. Release and maintenance
 
-- [ ] Add a changelog and release checklist to the repository.
-- [ ] Define and document semantic versioning.
+- [x] Add a changelog and release checklist to the repository.
+- [x] Define and document semantic versioning.
 - [ ] Add release automation: tag, CI, package inspection, npm publish, and GitHub release.
 - [ ] Add published-tarball installation smoke tests.
 - [ ] Add SDK version information to a safe client header if the API has a documented use for it.
@@ -89,7 +89,7 @@ The SDK follows semantic versioning. The version targets are milestones, not pro
 - Zero runtime dependencies.
 - Backward-compatible fixes and small additions only.
 
-Current release: `0.2.4`.
+Current release: `0.3.0`.
 
 #### `0.3.0` — typed datasets and ergonomics
 
@@ -97,10 +97,10 @@ Current release: `0.2.4`.
 - [x] Typed models for weapons, ammunition, armor, tasks, keys, medical, and provisions.
 - [x] Extensible fallback type for unknown scraper fields and newly discovered datasets.
 - [x] Type tests for public declaration behavior.
-- [ ] Add deterministic `generate-types` from OpenAPI and live metadata.
-- [ ] Generate known dataset names and endpoint metadata into reviewable source.
-- [ ] Keep generated stable types separate from dynamic `GzwRecord` data.
-- [ ] Add typed helpers for stable high-value smart routes.
+- [x] Add deterministic `generate-types` from OpenAPI and live metadata.
+- [x] Generate known dataset names and endpoint metadata into reviewable source.
+- [x] Keep generated stable types separate from dynamic `GzwRecord` data.
+- [x] Add typed helpers for stable high-value smart routes.
 
 #### `0.4.0` — performance and composition
 

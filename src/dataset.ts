@@ -6,6 +6,10 @@ import type { DatasetIteratorOptions, DatasetQuery, DatasetResponse, GzwRecord }
 export class DatasetResource<T extends GzwRecord = GzwRecord> {
   constructor(private readonly client: GzwDataClient, private readonly name: string) {}
 
+  info(signal?: AbortSignal): Promise<import("./types.js").GzwDatasetMetadata> {
+    return this.client.metadata(this.name, signal) as Promise<import("./types.js").GzwDatasetMetadata>;
+  }
+
   list(options: DatasetQuery = {}, signal?: AbortSignal): Promise<DatasetResponse<T>> {
     const path = `/${encodeURIComponent(this.name)}${encodeQuery(options)}`;
     return this.client.request<unknown>(path, signal).then((payload) => {

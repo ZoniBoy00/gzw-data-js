@@ -1,6 +1,6 @@
 import { GzwApiError, abortError, throwIfAborted } from "./errors.js";
 import { isObject, parseRetryAfter, wait } from "./query.js";
-import type { DatasetRecord, GzwApiRoot, GzwDataClientOptions, GzwDataset, GzwHealth, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwStats, OpenApiSpec } from "./types.js";
+import type { DatasetRecord, GzwApiRoot, GzwDataClientOptions, GzwDataset, GzwDatasetMetadata, GzwHealth, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwStats, GzwVersion, OpenApiSpec } from "./types.js";
 import { DatasetResource } from "./dataset.js";
 
 export class GzwDataClient {
@@ -56,6 +56,27 @@ export class GzwDataClient {
 
   async images(signal?: AbortSignal): Promise<Record<string, string>> {
     return this.requestEnvelope<Record<string, string>>("/images", signal);
+  }
+
+  async metadata(dataset?: string, signal?: AbortSignal): Promise<GzwDatasetMetadata | GzwDatasetMetadata[]> {
+    const path = dataset ? `/metadata/${encodeURIComponent(dataset)}` : "/metadata?full=true";
+    return this.requestEnvelope<GzwDatasetMetadata | GzwDatasetMetadata[]>(path, signal);
+  }
+
+  async version(signal?: AbortSignal): Promise<GzwVersion> {
+    return this.requestEnvelope<GzwVersion>("/version", signal);
+  }
+
+  async armor(signal?: AbortSignal) {
+    return this.dataset<import("./types.js").ArmorItem>("armor").list({}, signal);
+  }
+
+  async weaponParts(signal?: AbortSignal) {
+    return this.dataset("weapon_parts").list({}, signal);
+  }
+
+  async helmetMods(signal?: AbortSignal) {
+    return this.dataset("helmet_mods").list({}, signal);
   }
 
   async requestEnvelope<T>(path: string, signal?: AbortSignal): Promise<T> {

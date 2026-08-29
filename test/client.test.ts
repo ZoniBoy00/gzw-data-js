@@ -98,6 +98,33 @@ describe("GzwDataClient", () => {
     assert.deepEqual(await client.endpoints(), { name: "GZW Data API", endpoints: ["weapons"] });
   });
 
+  it("supports metadata, version, and stable smart-route helpers", async () => {
+    const urls: string[] = [];
+    globalThis.fetch = async (input) => {
+      const url = String(input);
+      urls.push(url);
+      if (url.endsWith("/metadata/weapons")) return response({ data: { name: "weapons", itemCount: 4, fields: {} } });
+      if (url.endsWith("/version")) return response({ data: { apiVersion: "v1", implementationVersion: "4.1.0" } });
+      return response({ data: [{ id: "one" }], count: 1 });
+    };
+    const client = new GzwDataClient({ baseUrl: "https://example.test/api", retries: 0 });
+
+    assert.equal((await client.dataset("weapons").info()).name, "weapons");
+    assert.equal((await client.metadata("weapons")).name, "weapons");
+    assert.equal((await client.version()).implementationVersion, "4.1.0");
+    await client.armor();
+    await client.weaponParts();
+    await client.helmetMods();
+    assert.deepEqual(urls, [
+      "https://example.test/api/metadata/weapons",
+      "https://example.test/api/metadata/weapons",
+      "https://example.test/api/version",
+      "https://example.test/api/armor",
+      "https://example.test/api/weapon_parts",
+      "https://example.test/api/helmet_mods",
+    ]);
+  });
+
   it("supports search, images, and raw OpenAPI spec", async () => {
     globalThis.fetch = async (input) => {
       const path = new URL(String(input)).pathname;

@@ -1,6 +1,6 @@
 {
   "name": "@zoniboy/gzw-data-client",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Zero-dependency TypeScript client for the GZW Data API.",
   "license": "MIT",
   "type": "module",
@@ -27,6 +27,8 @@
     "typecheck": "tsc -p test/tsconfig.json --noEmit",
     "test": "tsx --test test/*.test.ts",
     "check": "npm run build && npm run typecheck && npm test",
+    "generate-types": "node scripts/generate-types.mjs",
+    "check:generated": "node scripts/generate-types.mjs --check",
     "live:smoke": "tsx test/live-smoke.ts",
     "contract:live": "tsx test/contract-smoke.ts"
   },
