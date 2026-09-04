@@ -87,6 +87,10 @@ export type DatasetIteratorOptions = Omit<DatasetQuery, "page" | "all" | "perPag
   maxPages?: number;
 };
 
+export type DatasetBatchOptions = {
+  concurrency?: number;
+};
+
 export type DatasetResponse<T extends GzwRecord = GzwRecord> = {
   data: T[];
   count: number;
@@ -97,6 +101,16 @@ export type DatasetResponse<T extends GzwRecord = GzwRecord> = {
   source?: string;
   timestamp?: string;
   dataVersion?: string | null;
+};
+
+export type GzwExportMetadata = {
+  dataset: string;
+  count: number;
+  maxRecords: number;
+};
+
+export type DatasetExportResponse<T extends GzwRecord = GzwRecord> = DatasetResponse<T> & {
+  export: GzwExportMetadata;
 };
 
 export type GzwStats = Record<string, { total: number; sources?: string[] }>;
@@ -188,6 +202,7 @@ export type GzwDataClientOptions = {
   retries?: number;
   retryDelayMs?: number;
   maxRetryDelayMs?: number;
+  cache?: false | { ttlMs?: number; maxEntries?: number };
   onRequest?: (info: GzwRequestInfo) => void;
   onResponse?: (info: GzwResponseInfo) => void;
   onRetry?: (info: GzwRetryInfo) => void;

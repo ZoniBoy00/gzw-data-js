@@ -56,12 +56,12 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ### 4. Performance and composition
 
-- [ ] Add optional in-memory GET caching with an explicit TTL.
-- [ ] Cache only successful requests and keep caching disabled by default.
-- [ ] Add cache invalidation and clear methods.
-- [ ] Add typed batch loading with bounded concurrency.
-- [ ] Add optional in-flight request deduplication.
-- [ ] Preserve shared retry and cancellation behavior for batch requests.
+- [x] Add optional in-memory GET caching with an explicit TTL.
+- [x] Cache only successful requests and keep caching disabled by default.
+- [x] Add cache invalidation and clear methods.
+- [x] Add typed batch loading with bounded concurrency.
+- [x] Add optional in-flight request deduplication.
+- [x] Preserve shared retry and cancellation behavior for batch requests.
 
 ### 5. Integrations
 
@@ -89,7 +89,7 @@ The SDK follows semantic versioning. The version targets are milestones, not pro
 - Zero runtime dependencies.
 - Backward-compatible fixes and small additions only.
 
-Current release: `0.3.0`.
+Current release: `0.4.0`.
 
 #### `0.3.0` — typed datasets and ergonomics
 
@@ -104,14 +104,14 @@ Current release: `0.3.0`.
 
 #### `0.4.0` — performance and composition
 
-- [ ] Add optional in-memory GET caching with an explicit TTL.
-- [ ] Cache successful requests only and never cache aborted or failed requests.
-- [ ] Include query parameters in cache keys.
-- [ ] Add cache invalidation and clear methods.
-- [ ] Document that the cache is process-local and not persistent storage.
-- [ ] Add typed batch loading with bounded concurrency.
-- [ ] Add optional in-flight request deduplication.
-- [ ] Test cache hits, invalidation, deduplication, cancellation, and batch behavior.
+- [x] Add optional in-memory GET caching with an explicit TTL.
+- [x] Cache successful requests only and never cache aborted or failed requests.
+- [x] Include query parameters in cache keys.
+- [x] Add cache invalidation and clear methods.
+- [x] Document that the cache is process-local and not persistent storage.
+- [x] Add typed batch loading with bounded concurrency.
+- [x] Add optional in-flight request deduplication.
+- [x] Test cache hits, invalidation, deduplication, cancellation, and batch behavior.
 
 #### `0.5.0` — framework integrations
 

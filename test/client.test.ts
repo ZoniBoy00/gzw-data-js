@@ -160,6 +160,57 @@ describe("GzwDataClient", () => {
     await assert.rejects(() => client.dataset("items").list(), (error: unknown) => error instanceof GzwApiError && error.code === "INVALID_RESPONSE");
   });
 
+  it("supports bounded exports through dataset resources", async () => {
+    globalThis.fetch = async (input) => {
+      assert.equal(new URL(String(input)).pathname, "/api/export/weapons");
+      return response({ data: [{ id: "ak-12" }], count: 1, export: { dataset: "weapons", count: 1, maxRecords: 500 } });
+    };
+    const result = await new GzwDataClient({ baseUrl: "https://example.test/api", retries: 0 }).dataset("weapons").export({ limit: 1 });
+    assert.equal(result.export.maxRecords, 500);
+    assert.equal(result.data[0].id, "ak-12");
+  });
+
+  it("caches GET responses, deduplicates in-flight requests, and supports invalidation", async () => {
+    let calls = 0;
+    globalThis.fetch = async () => {
+      calls += 1;
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      return response({ data: { ok: true } });
+    };
+    const client = new GzwDataClient({ retries: 0, cache: { ttlMs: 1_000 } });
+    const [first, second] = await Promise.all([client.health(), client.health()]);
+    assert.deepEqual(first, second);
+    assert.equal(calls, 1);
+    await client.health();
+    assert.equal(calls, 1);
+    client.clearCache("/health");
+    await client.health();
+    assert.equal(calls, 2);
+  });
+
+  it("loads records with bounded concurrency and preserves input order", async () => {
+    let active = 0;
+    let peak = 0;
+    globalThis.fetch = async (input) => {
+      active += 1;
+      peak = Math.max(peak, active);
+      await new Promise((resolve) => setTimeout(resolve, 2));
+      active -= 1;
+      const id = new URL(String(input)).pathname.split("/").pop();
+      return response({ data: { id } });
+    };
+    const client = new GzwDataClient({ retries: 0 });
+    const result = await client.dataset("items").getMany(["a", "b", "c", "d"], { concurrency: 2 });
+    assert.deepEqual(result.map((item) => item?.id), ["a", "b", "c", "d"]);
+    assert.equal(peak, 2);
+  });
+
+  it("rejects malformed export responses", async () => {
+    globalThis.fetch = async () => response({ data: [{ id: "bad" }] });
+    const client = new GzwDataClient({ retries: 0 });
+    await assert.rejects(() => client.dataset("items").export(), (error: unknown) => error instanceof GzwApiError && error.code === "INVALID_RESPONSE");
+  });
+
   it("retries network failures and reports retry metadata", async () => {
     let attempts = 0;
     const retryStatuses: Array<number | undefined> = [];

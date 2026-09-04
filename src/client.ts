@@ -10,6 +10,10 @@ export class GzwDataClient {
   private readonly retries: number;
   private readonly retryDelayMs: number;
   private readonly maxRetryDelayMs: number;
+  private readonly cacheTtlMs: number;
+  private readonly cacheMaxEntries: number;
+  private readonly responseCache = new Map<string, { expiresAt: number; value: unknown }>();
+  private readonly inFlight = new Map<string, Promise<unknown>>();
   private readonly onRequest?: (info: GzwRequestInfo) => void;
   private readonly onResponse?: (info: GzwResponseInfo) => void;
   private readonly onRetry?: (info: GzwRetryInfo) => void;
@@ -21,6 +25,9 @@ export class GzwDataClient {
     this.retries = Math.max(0, options.retries ?? 2);
     this.retryDelayMs = Math.max(0, options.retryDelayMs ?? 250);
     this.maxRetryDelayMs = Math.max(this.retryDelayMs, options.maxRetryDelayMs ?? 30_000);
+    const cacheOptions = options.cache === false ? {} : options.cache ?? {};
+    this.cacheTtlMs = Math.max(0, cacheOptions.ttlMs ?? 0);
+    this.cacheMaxEntries = Math.max(1, Math.floor(cacheOptions.maxEntries ?? 100));
     this.onRequest = options.onRequest;
     this.onResponse = options.onResponse;
     this.onRetry = options.onRetry;
@@ -92,7 +99,48 @@ export class GzwDataClient {
     return payload.data as T;
   }
 
+  clearCache(path?: string): void {
+    if (path === undefined) {
+      this.responseCache.clear();
+      return;
+    }
+    const url = `${this.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+    this.responseCache.delete(url);
+  }
+
   async request<T>(path: string, signal?: AbortSignal): Promise<T> {
+    const url = `${this.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+    const cached = this.responseCache.get(url);
+    if (cached) {
+      if (cached.expiresAt > Date.now()) {
+        this.responseCache.delete(url);
+        this.responseCache.set(url, cached);
+        return cached.value as T;
+      }
+      this.responseCache.delete(url);
+    }
+
+    const existing = this.inFlight.get(url);
+    if (existing) return existing as Promise<T>;
+
+    const pending = this.requestNetwork<T>(path, signal).then((value) => {
+      if (this.cacheTtlMs > 0) {
+        this.responseCache.set(url, { expiresAt: Date.now() + this.cacheTtlMs, value });
+        while (this.responseCache.size > this.cacheMaxEntries) {
+          this.responseCache.delete(this.responseCache.keys().next().value as string);
+        }
+      }
+      return value;
+    });
+    this.inFlight.set(url, pending);
+    try {
+      return await pending;
+    } finally {
+      if (this.inFlight.get(url) === pending) this.inFlight.delete(url);
+    }
+  }
+
+  private async requestNetwork<T>(path: string, signal?: AbortSignal): Promise<T> {
     const url = `${this.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
     let lastError: Error | undefined;
 

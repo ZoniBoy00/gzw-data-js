@@ -1,7 +1,7 @@
 import { GzwApiError, throwIfAborted } from "./errors.js";
 import { encodeQuery, isObject } from "./query.js";
 import type { GzwDataClient } from "./client.js";
-import type { DatasetIteratorOptions, DatasetQuery, DatasetResponse, GzwRecord } from "./types.js";
+import type { DatasetBatchOptions, DatasetExportResponse, DatasetIteratorOptions, DatasetQuery, DatasetResponse, GzwRecord } from "./types.js";
 
 export class DatasetResource<T extends GzwRecord = GzwRecord> {
   constructor(private readonly client: GzwDataClient, private readonly name: string) {}
@@ -52,6 +52,36 @@ export class DatasetResource<T extends GzwRecord = GzwRecord> {
       if (error instanceof GzwApiError && error.status === 404 && error.code === "RECORD_NOT_FOUND") return undefined;
       throw error;
     }
+  }
+
+  async export(options: DatasetQuery = {}, signal?: AbortSignal): Promise<DatasetExportResponse<T>> {
+    const path = `/export/${encodeURIComponent(this.name)}${encodeQuery(options)}`;
+    const payload = await this.client.request<unknown>(path, signal);
+    if (!isObject(payload) || !Array.isArray(payload.data) || !isObject(payload.export)) {
+      throw new GzwApiError("GZW Data API returned an invalid export response", {
+        status: 200,
+        code: "INVALID_RESPONSE",
+        details: payload,
+      });
+    }
+    return payload as unknown as DatasetExportResponse<T>;
+  }
+
+  async getMany(ids: string[], options: DatasetBatchOptions = {}, signal?: AbortSignal): Promise<Array<T | undefined>> {
+    const concurrency = Math.max(1, Math.floor(options.concurrency ?? 4));
+    const results: Array<T | undefined> = new Array(ids.length);
+    let nextIndex = 0;
+    const worker = async (): Promise<void> => {
+      while (true) {
+        throwIfAborted(signal);
+        const index = nextIndex;
+        nextIndex += 1;
+        if (index >= ids.length) return;
+        results[index] = await this.get(ids[index], signal);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(concurrency, ids.length) }, () => worker()));
+    return results;
   }
 
   /**

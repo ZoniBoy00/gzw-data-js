@@ -11,6 +11,9 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - Abortable requests and async pagination
 - Retry handling for rate limits, server errors and transient network failures
 - Typed dataset lookups with a compatible `get(id)` helper
+- Bounded dataset exports through `dataset.export()`
+- Typed batch loading with bounded concurrency through `dataset.getMany()`
+- Optional process-local in-memory caching with TTL, invalidation and in-flight deduplication
 - OpenAPI, health, stats, image and cross-dataset search helpers
 - Dataset metadata and version helpers
 - Typed stable smart-route helpers for armor, weapon parts and helmet mods
@@ -58,6 +61,12 @@ await keys.filter({ type: "Keycard" }, { all: true });
 
 // Fetch one record through the dedicated API route.
 const item = await weapons.get("ak-74");
+
+// Download a bounded server-side JSON export.
+const exportResult = await weapons.export({ search: "AK", limit: 25 });
+
+// Load multiple records with at most four requests in flight.
+const records = await weapons.getMany(["ak-74", "ak-12"], { concurrency: 4 });
 ```
 
 `get(id)` calls `/api/v1/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
@@ -138,6 +147,10 @@ const gzw = new GzwDataClient({
   retries: 2,
   retryDelayMs: 250,
   maxRetryDelayMs: 30_000,
+  cache: {
+    ttlMs: 30_000,
+    maxEntries: 100,
+  },
   onRequest: ({ attempt, url }) => {
     console.log("request", attempt, url);
   },
@@ -152,6 +165,10 @@ const gzw = new GzwDataClient({
   },
 });
 ```
+
+`cache` is disabled by default (`ttlMs: 0`). When enabled, only successful GET responses are cached. Cache keys include the complete request URL and query string, the cache is process-local and memory-only, and it is not a persistent storage layer. Use `clearCache()` to invalidate one path or the complete cache. Concurrent requests for the same URL share one in-flight request.
+
+`dataset.getMany(ids, { concurrency })` loads records in input order while bounding the number of concurrent requests. It uses the same retry, cache, deduplication and cancellation behavior as individual requests.
 
 For tests or server-side adapters, inject a custom fetch implementation:
 
