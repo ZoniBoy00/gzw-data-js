@@ -4,11 +4,11 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Current release:** `0.2.4`
+- **Current release:** `0.4.0`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
-- **Tests:** 22 passing on 2026-08-27
+- **Tests:** 27 passing on 2026-09-04
 - **License:** MIT
 
 ## Completed
@@ -81,7 +81,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 The SDK follows semantic versioning. The version targets are milestones, not promises to publish a release without a verified need.
 
-#### `0.2.x` — current core line
+#### `0.4.x` — current core line
 
 - Stable generic dataset access.
 - Stable pagination, iteration, retries, cancellation, and typed errors.
