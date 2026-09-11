@@ -241,7 +241,7 @@ npm run contract:live
 
 ## Roadmap
 
-The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including the next single-record route integration, generated dataset metadata, caching, batch loading, React integration, live contract tests and the path to `1.0.0`.
+The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including API contract synchronization, release automation, framework integrations, live contract tests and the path to `1.0.0`.
 
 ## Related links
 

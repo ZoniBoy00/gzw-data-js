@@ -3,7 +3,7 @@
 Use this checklist for every npm release of `@zoniboy/gzw-data-client`.
 
 - [ ] Confirm the intended version and update `package.json` and `package-lock.json`.
-- [ ] Update `CHANGELOG.md` and `ROADMAP.md`.
+- [ ] Update `ROADMAP.md` and the GitHub release notes.
 - [ ] Run `npm ci`.
 - [ ] Run `npm run check`.
 - [ ] Run `npm run check:generated`.

@@ -8,7 +8,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
-- **Tests:** 27 passing on 2026-09-04
+- **Tests:** 27 passing on 2026-09-11
 - **License:** MIT
 
 ## Completed
@@ -71,7 +71,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ### 6. Release and maintenance
 
-- [x] Add a changelog and release checklist to the repository.
+- [x] Add release notes guidance and a release checklist to the repository.
 - [x] Define and document semantic versioning.
 - [ ] Add release automation: tag, CI, package inspection, npm publish, and GitHub release.
 - [ ] Add published-tarball installation smoke tests.
@@ -155,7 +155,7 @@ Current release: `0.4.0`.
 - [ ] Public methods, types, response envelopes, and error semantics are frozen for the release candidate.
 - [ ] Known breaking changes have migration notes.
 - [ ] Generated types and declarations are deterministic and checked in CI.
-- [ ] Release automation, changelog, semantic versioning, and package provenance are operational.
+- [ ] Release automation, release notes, semantic versioning, and package provenance are operational.
 - [ ] Documentation is complete for installation, API compatibility, errors, retries, caching, and cancellation.
 - [ ] A release-candidate package passes local, contract, and published-tarball checks.
 
@@ -166,7 +166,7 @@ Publish `1.0.0` only when the public client contract is intentionally stable and
 - [ ] Breaking-change policy is documented.
 - [ ] API response envelopes and error codes are covered by contract tests.
 - [ ] Generated output is deterministic and checked in CI.
-- [ ] Release automation and changelog are in place.
+- [ ] Release automation and release notes workflow are in place.
 - [ ] Published-package smoke tests pass.
 - [ ] A migration guide exists for any known breaking changes.
 
@@ -191,7 +191,7 @@ Then:
 1. Review the public declarations.
 2. Review package contents.
 3. Run a controlled, read-only live smoke test.
-4. Update the changelog and version according to semver.
+4. Update the GitHub release notes and version according to semver.
 5. Publish only from a clean reviewed branch.
 6. Install the published tarball in a clean temporary project.
 7. Verify the npm version and public import.

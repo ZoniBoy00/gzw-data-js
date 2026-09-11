@@ -162,7 +162,7 @@ After publishing:
 1. Verify the version on npm.
 2. Install the published version in a clean temporary project.
 3. Run a minimal import and API-client smoke test.
-4. Create or update the GitHub release and changelog.
+4. Create or update the GitHub release and release notes.
 5. Confirm the package contains only the intended `dist`, README, and license files.
 
 ## Commits
