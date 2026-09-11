@@ -31,7 +31,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Next priorities
 
-### 1. API contract synchronization
+### 1. API contract synchronization — `0.5.0`
 
 - [ ] Add a documented API/SDK compatibility matrix.
 - [ ] Add a separate 429 contract test.
@@ -63,7 +63,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - [x] Add optional in-flight request deduplication.
 - [x] Preserve shared retry and cancellation behavior for batch requests.
 
-### 5. Integrations
+### 5. Future framework integrations — `1.0.0`
 
 - [ ] Consider a separate `@zoniboy/gzw-data-react` package only when a real consumer needs it.
 - [ ] Keep framework dependencies out of the core package.
@@ -113,18 +113,7 @@ Current release: `0.4.0`.
 - [x] Add optional in-flight request deduplication.
 - [x] Test cache hits, invalidation, deduplication, cancellation, and batch behavior.
 
-#### `0.5.0` — framework integrations
-
-- [ ] Create a separate `@zoniboy/gzw-data-react` package.
-- [ ] Keep React out of the core package dependencies.
-- [ ] Add `useGzwDataset` with loading, error, data, refetch, and cancellation states.
-- [ ] Add `useGzwStats`, `useGzwHealth`, and `useGzwSearch` only where they prove useful.
-- [ ] Support server-side rendering without global browser assumptions.
-- [ ] Add React, Vite, and Next.js examples.
-- [ ] Test unmount cancellation and stale-request protection.
-- [ ] Evaluate other framework adapters only after a real use case exists.
-
-#### `0.6.0` — contract and developer tooling milestone
+#### `0.5.0` — contract and developer tooling milestone
 
 - [ ] API/SDK compatibility matrix.
 - [ ] Codegen-ready OpenAPI responses.
@@ -133,7 +122,9 @@ Current release: `0.4.0`.
 - [ ] Stronger contract tests for errors, pagination, search, and rate limits.
 - [ ] Release notes for public contract changes.
 
-#### `0.7.0` — API/SDK ecosystem integration
+React and other framework adapters are intentionally deferred until the stable `1.0.0` line.
+
+#### `0.6.0` — API/SDK ecosystem integration
 
 - [ ] API/SDK compatibility matrix is published and maintained.
 - [ ] Metadata, schema, stats, health, readiness, changes, and search helpers have consistent typed contracts.
@@ -141,7 +132,7 @@ Current release: `0.4.0`.
 - [ ] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
 - [ ] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
 
-#### `0.8.0` — production hardening and performance
+#### `0.7.0` — production hardening and performance
 
 - [ ] Optional client-side caching has explicit TTL, invalidation, and query-aware cache keys.
 - [ ] Batch loading uses bounded concurrency and preserves cancellation/retry behavior.
@@ -150,7 +141,7 @@ Current release: `0.4.0`.
 - [ ] Published-package smoke tests run from a clean temporary project.
 - [ ] No runtime dependency is added to the core package without a documented reason.
 
-#### `0.9.0` — release candidate and stability
+#### `0.8.0` — release candidate and stability
 
 - [ ] Public methods, types, response envelopes, and error semantics are frozen for the release candidate.
 - [ ] Known breaking changes have migration notes.
@@ -159,7 +150,7 @@ Current release: `0.4.0`.
 - [ ] Documentation is complete for installation, API compatibility, errors, retries, caching, and cancellation.
 - [ ] A release-candidate package passes local, contract, and published-tarball checks.
 
-#### `1.0.0` — stable public SDK
+#### `1.0.0` — stable public SDK and framework integrations
 
 Publish `1.0.0` only when the public client contract is intentionally stable and documented:
 
@@ -169,6 +160,12 @@ Publish `1.0.0` only when the public client contract is intentionally stable and
 - [ ] Release automation and release notes workflow are in place.
 - [ ] Published-package smoke tests pass.
 - [ ] A migration guide exists for any known breaking changes.
+- [ ] Create a separate `@zoniboy/gzw-data-react` package without adding React to core dependencies.
+- [ ] Add `useGzwDataset` with loading, error, data, refetch, cancellation, and stale-request states.
+- [ ] Add useful stats, health, and search hooks only after real consumers need them.
+- [ ] Support server-side rendering without global browser assumptions.
+- [ ] Add React, Vite, and Next.js examples plus unmount-cancellation tests.
+- [ ] Evaluate other framework adapters only after a real use case exists.
 
 ### Semantic versioning policy
 
