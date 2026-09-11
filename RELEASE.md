@@ -7,9 +7,10 @@ Use this checklist for every npm release of `@zoniboy/gzw-data-client`.
 - [ ] Run `npm ci`.
 - [ ] Run `npm run check`.
 - [ ] Run `npm run check:generated`.
+- [ ] Run `npm run contract:check` against the intended API environment.
 - [ ] Run the read-only `npm run contract:live` check.
 - [ ] Run `npm pack --dry-run` and inspect the file list.
-- [ ] Install the packed tarball into a clean temporary project.
+- [ ] Run `npm run tarball:smoke` in a clean temporary project.
 - [ ] Exercise the public import and one representative API call.
 - [ ] Review `git diff --check` and the final diff for secrets or unrelated files.
 - [ ] Push GitHub changes before publishing.

@@ -4,7 +4,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Current release:** `0.4.0`
+- **Current release:** `0.5.0`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -33,9 +33,9 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ### 1. API contract synchronization — `0.5.0`
 
-- [ ] Add a documented API/SDK compatibility matrix.
-- [ ] Add a separate 429 contract test.
-- [ ] Detect breaking response-shape changes before release.
+- [x] Add a documented API/SDK compatibility matrix.
+- [x] Add a separate 429 contract test.
+- [x] Detect breaking response-shape changes before release.
 - [x] Document health, readiness, version, schema, metadata, changes, and stats helpers.
 - [x] Add release notes for public API contract changes.
 
@@ -89,7 +89,7 @@ The SDK follows semantic versioning. The version targets are milestones, not pro
 - Zero runtime dependencies.
 - Backward-compatible fixes and small additions only.
 
-Current release: `0.4.0`.
+Current release: `0.5.0`.
 
 #### `0.3.0` — typed datasets and ergonomics
 
@@ -115,12 +115,12 @@ Current release: `0.4.0`.
 
 #### `0.5.0` — contract and developer tooling milestone
 
-- [ ] API/SDK compatibility matrix.
-- [ ] Codegen-ready OpenAPI responses.
-- [ ] Deterministic generated dataset-name and type output.
-- [ ] Metadata and schema helpers.
-- [ ] Stronger contract tests for errors, pagination, search, and rate limits.
-- [ ] Release notes for public contract changes.
+- [x] API/SDK compatibility matrix.
+- [x] Codegen-ready OpenAPI responses.
+- [x] Deterministic generated dataset-name and type output.
+- [x] Metadata and schema helpers.
+- [x] Stronger contract tests for errors, pagination, search, and rate limits.
+- [x] Release notes for public contract changes.
 
 React and other framework adapters are intentionally deferred until the stable `1.0.0` line.
 

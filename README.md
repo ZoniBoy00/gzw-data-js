@@ -239,9 +239,11 @@ npm run contract:live
 
 `npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small health/data verification against the production API. `npm run contract:live` performs the explicit API–SDK contract checks against production, including dataset listing, pagination, single-record lookup, search, stats, OpenAPI, and 404 behavior. The live checks are intentionally separate from the default CI run.
 
+The API/SDK compatibility boundary is documented in [docs/API-SDK-COMPATIBILITY.md](./docs/API-SDK-COMPATIBILITY.md). Use `npm run contract:check` for the release-gate response-shape checks and `npm run tarball:smoke` to install and exercise the packed package in a clean temporary project.
+
 ## Roadmap
 
-The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including API contract synchronization, release automation, framework integrations, live contract tests and the path to `1.0.0`.
+The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including release automation, framework integrations and the path to `1.0.0`.
 
 ## Related links
 
