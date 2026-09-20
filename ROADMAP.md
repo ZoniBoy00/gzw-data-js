@@ -8,7 +8,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
-- **Tests:** 27 passing on 2026-09-11
+- **Tests:** 29 passing on 2026-09-20
 - **License:** MIT
 
 ## Completed
@@ -73,15 +73,17 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 - [x] Add release notes guidance and a release checklist to the repository.
 - [x] Define and document semantic versioning.
+- [x] Add a CI tarball smoke test for the packed package.
+- [x] Add a published-package installation smoke command.
 - [ ] Add release automation: tag, CI, package inspection, npm publish, and GitHub release.
-- [ ] Add published-tarball installation smoke tests.
+- [x] Add published-package installation smoke tests.
 - [ ] Add SDK version information to a safe client header if the API has a documented use for it.
 
 ### Version targets
 
 The SDK follows semantic versioning. The version targets are milestones, not promises to publish a release without a verified need.
 
-#### `0.4.x` — current core line
+#### `0.4.x` — performance and composition line
 
 - Stable generic dataset access.
 - Stable pagination, iteration, retries, cancellation, and typed errors.
@@ -89,7 +91,7 @@ The SDK follows semantic versioning. The version targets are milestones, not pro
 - Zero runtime dependencies.
 - Backward-compatible fixes and small additions only.
 
-Current release: `0.5.0`.
+The current release is `0.5.0`; `0.4.x` is maintained as the previous compatible line.
 
 #### `0.3.0` — typed datasets and ergonomics
 
@@ -124,11 +126,12 @@ Current release: `0.5.0`.
 
 React and other framework adapters are intentionally deferred until the stable `1.0.0` line.
 
-#### `0.6.0` — API/SDK ecosystem integration
+#### `0.6.0` — release readiness and ecosystem integration
 
+- [ ] Release automation validates the package version, runs CI, publishes to npm, and creates a GitHub release.
+- [ ] Published-package installation smoke tests run against the npm registry.
 - [ ] API/SDK compatibility matrix is published and maintained.
-- [ ] Metadata, schema, stats, health, readiness, changes, and search helpers have consistent typed contracts.
-- [ ] Smart-route and dataset helper APIs are added only where their server contracts are stable.
+- [ ] Metadata, schema, stats, health, readiness, changes, search, and smart-route helpers have consistent typed contracts.
 - [ ] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
 - [ ] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
 

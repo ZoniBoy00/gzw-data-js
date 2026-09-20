@@ -16,3 +16,21 @@ Use this checklist for every npm release of `@zoniboy/gzw-data-client`.
 - [ ] Push GitHub changes before publishing.
 - [ ] Publish the exact version with npm.
 - [ ] Verify the exact version with `npm view` and a clean install from the registry.
+
+## Automated release workflow
+
+Pushing an annotated tag matching `v*.*.*` starts `.github/workflows/release.yml`.
+The workflow validates that the tag matches `package.json`, runs the complete
+local and live contract checks, inspects and smoke-tests the tarball, publishes
+the exact package to npm with provenance, and creates the matching GitHub
+release.
+
+Before using the workflow, configure the repository secret `NPM_TOKEN` with a
+publish-capable npm token. The workflow does not run for ordinary branch
+pushes, and a failed validation prevents publishing and release creation.
+
+The published-package check can also be run manually after propagation:
+
+```bash
+npm run published:smoke -- 0.5.0
+```
