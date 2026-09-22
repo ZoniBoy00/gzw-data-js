@@ -24,7 +24,9 @@ Pushing an annotated tag matching `v*.*.*` starts `.github/workflows/release.yml
 The workflow validates that the tag matches `package.json`, runs the complete
 local and live contract checks, inspects and smoke-tests the tarball, publishes
 the exact package to npm with provenance, and creates the matching GitHub
-release.
+release. If the exact version is already present on npm, the workflow skips a
+second immutable publish and still runs the registry smoke test and creates the
+GitHub release.
 
 Before using the workflow, configure the repository secret `NPM_TOKEN` with a
 publish-capable npm token. The workflow does not run for ordinary branch
