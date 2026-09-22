@@ -4,8 +4,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package version:** `0.6.0` (local release candidate; not published)
-- **Latest npm release:** `0.5.0`
+- **Package version:** `0.6.0` (published; GitHub release pending)
+- **Latest npm release:** `0.6.0`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -127,16 +127,16 @@ The current release is `0.5.0`; `0.4.x` is maintained as the previous compatible
 
 React and other framework adapters are intentionally deferred until the stable `1.0.0` line.
 
-#### `0.6.0` — release readiness and ecosystem integration (locally prepared; publish pending)
+#### `0.6.0` — release readiness and ecosystem integration (npm published; GitHub release pending)
 
 - [x] Release automation validates the package version, runs CI, publishes to npm, and creates a GitHub release.
-- [x] Published-package installation smoke test is verified against npm `0.5.0`; the release workflow runs it against the new version after publication.
+- [x] Published-package installation smoke test passed against npm `0.6.0` (install, import, and live API call).
 - [x] API/SDK compatibility matrix is published and maintained.
 - [x] Metadata, schema, stats, health, readiness, changes, search, and smart-route helpers have consistent typed contracts.
 - [x] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
 - [x] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
 
-The `0.6.0` package version and release checks are prepared locally. Publishing, tagging, and pushing are intentionally pending explicit release authorization.
+npm `0.6.0` is published and verified. The GitHub release/tag is pending the final green CI run. This package was manually published without a provenance attestation because the repository's `NPM_TOKEN` Actions secret is not configured; automated npm publishing with provenance remains available once that secret is set.
 
 #### `0.7.0` — production hardening and performance
 
