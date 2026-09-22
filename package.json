@@ -1,6 +1,6 @@
 {
   "name": "@zoniboy/gzw-data-client",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Zero-dependency TypeScript client for the GZW Data API.",
   "license": "MIT",
   "type": "module",
@@ -32,6 +32,9 @@
     "live:smoke": "tsx test/live-smoke.ts",
     "contract:live": "tsx test/contract-smoke.ts",
     "contract:check": "node scripts/check-contract.mjs",
+    "integration:live": "node scripts/integration-contract.mjs",
+    "integration:source": "python3 scripts/check-source-contract.py \"$GZW_DATA_REPO\" \"$GZW_SCRAPER_REPO\"",
+    "integration:check": "npm run integration:source && npm run integration:live",
     "tarball:smoke": "node scripts/tarball-smoke.mjs",
     "published:smoke": "node scripts/published-smoke.mjs"
   },

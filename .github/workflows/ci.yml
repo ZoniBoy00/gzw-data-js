@@ -42,3 +42,56 @@ jobs:
 
       - name: Smoke test packed package
         run: npm run tarball:smoke
+
+  integration:
+    name: API and scraper integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out SDK
+        uses: actions/checkout@v4
+
+      - name: Check out API
+        uses: actions/checkout@v4
+        with:
+          repository: ZoniBoy00/gzw-data
+          path: .integration/gzw-data
+
+      - name: Check out scraper
+        uses: actions/checkout@v4
+        with:
+          repository: ZoniBoy00/gzw-scraper
+          path: .integration/gzw-scraper
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install SDK dependencies
+        run: npm ci
+
+      - name: Test API source and data
+        run: |
+          npm test --prefix .integration/gzw-data
+          npm run validate:data --prefix .integration/gzw-data
+
+      - name: Install scraper test dependencies
+        run: python -m pip install pytest requests beautifulsoup4 lxml tqdm
+
+      - name: Test scraper
+        working-directory: .integration/gzw-scraper
+        run: python -m pytest -q
+
+      - name: Build SDK
+        run: npm run build
+
+      - name: Verify cross-repository source and live contracts
+        env:
+          GZW_DATA_REPO: .integration/gzw-data
+          GZW_SCRAPER_REPO: .integration/gzw-scraper
+        run: npm run integration:check

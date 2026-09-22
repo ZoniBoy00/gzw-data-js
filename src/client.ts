@@ -1,6 +1,6 @@
 import { GzwApiError, abortError, throwIfAborted } from "./errors.js";
 import { isObject, parseRetryAfter, wait } from "./query.js";
-import type { DatasetRecord, GzwApiRoot, GzwDataClientOptions, GzwDataset, GzwDatasetMetadata, GzwHealth, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwStats, GzwVersion, OpenApiSpec } from "./types.js";
+import type { DatasetRecord, GzwApiRoot, GzwChanges, GzwDataClientOptions, GzwDataset, GzwDatasetMetadata, GzwDatasetSchema, GzwHealth, GzwMetadata, GzwReadiness, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwSearchOptions, GzwStats, GzwVersion, OpenApiSpec } from "./types.js";
 import { DatasetResource } from "./dataset.js";
 
 export class GzwDataClient {
@@ -40,9 +40,19 @@ export class GzwDataClient {
     return new DatasetResource(this, name.trim());
   }
 
-  async search(query: string, signal?: AbortSignal): Promise<GzwSearch> {
+  search(query: string, signal?: AbortSignal): Promise<GzwSearch>;
+  search(query: string, options?: GzwSearchOptions, signal?: AbortSignal): Promise<GzwSearch>;
+  async search(query: string, optionsOrSignal: GzwSearchOptions | AbortSignal = {}, signal?: AbortSignal): Promise<GzwSearch> {
     if (!query.trim()) throw new TypeError("Search query cannot be empty");
-    return this.requestEnvelope<GzwSearch>(`/search?q=${encodeURIComponent(query)}`, signal);
+    const isSignal = "aborted" in optionsOrSignal && typeof optionsOrSignal.addEventListener === "function";
+    const options = isSignal ? {} : optionsOrSignal as GzwSearchOptions;
+    const requestSignal = isSignal ? optionsOrSignal as AbortSignal : signal;
+    const params = new URLSearchParams({ q: query });
+    if (options.datasets?.length) params.set("dataset", options.datasets.join(","));
+    if (options.fields?.length) params.set("fields", options.fields.join(","));
+    if (options.fuzzy !== undefined) params.set("fuzzy", String(options.fuzzy));
+    if (options.limit !== undefined) params.set("limit", String(options.limit));
+    return this.requestEnvelope<GzwSearch>(`/search?${params}`, requestSignal);
   }
 
   async stats(signal?: AbortSignal): Promise<GzwStats> {
@@ -51,6 +61,19 @@ export class GzwDataClient {
 
   async health(signal?: AbortSignal): Promise<GzwHealth> {
     return this.requestEnvelope<GzwHealth>("/health", signal);
+  }
+
+  async ready(signal?: AbortSignal): Promise<GzwReadiness> {
+    return this.requestEnvelope<GzwReadiness>("/ready", signal);
+  }
+
+  async changes(signal?: AbortSignal): Promise<GzwChanges> {
+    return this.requestEnvelope<GzwChanges>("/changes", signal);
+  }
+
+  async schema(dataset: string, signal?: AbortSignal): Promise<GzwDatasetSchema> {
+    if (!dataset.trim()) throw new TypeError("Dataset name cannot be empty");
+    return this.requestEnvelope<GzwDatasetSchema>(`/schema/${encodeURIComponent(dataset.trim())}`, signal);
   }
 
   async endpoints(signal?: AbortSignal): Promise<GzwApiRoot> {
@@ -65,9 +88,11 @@ export class GzwDataClient {
     return this.requestEnvelope<Record<string, string>>("/images", signal);
   }
 
-  async metadata(dataset?: string, signal?: AbortSignal): Promise<GzwDatasetMetadata | GzwDatasetMetadata[]> {
+  metadata(): Promise<GzwMetadata>;
+  metadata(dataset: string, signal?: AbortSignal): Promise<GzwDatasetMetadata>;
+  async metadata(dataset?: string, signal?: AbortSignal): Promise<GzwMetadata | GzwDatasetMetadata> {
     const path = dataset ? `/metadata/${encodeURIComponent(dataset)}` : "/metadata?full=true";
-    return this.requestEnvelope<GzwDatasetMetadata | GzwDatasetMetadata[]>(path, signal);
+    return this.requestEnvelope<GzwMetadata | GzwDatasetMetadata>(path, signal);
   }
 
   async version(signal?: AbortSignal): Promise<GzwVersion> {

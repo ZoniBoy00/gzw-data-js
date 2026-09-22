@@ -4,23 +4,26 @@ This document describes the compatibility boundary between `@zoniboy/gzw-data-cl
 
 ## Supported contract
 
+This matrix lists methods implemented by the published SDK, not every endpoint exposed by the API. API routes below are relative to the configured base URL, which defaults to `https://gzw-data.dev/api/v1`.
+
 | API capability | API route | SDK surface | Contract status |
 |---|---|---|---|
-| API root | `GET /api/v1` | `client.apiRoot()` | Stable |
+| API root / endpoint listing | `GET /api/v1` | `client.endpoints()` | Stable |
 | Health | `GET /api/v1/health` | `client.health()` | Stable |
 | Readiness | `GET /api/v1/ready` | `client.ready()` | Stable |
-| Version | `GET /api/v1/version` | `client.version()` | Stable |
-| Dataset metadata | `GET /api/v1/metadata` | `client.metadata()` and `dataset(name).info()` | Stable |
-| Dataset schema | `GET /api/v1/metadata/:dataset/schema` | `dataset(name).schema()` | Stable |
-| Dataset listing | `GET /api/v1/:dataset` | `dataset(name).list()` and `dataset(name).all()` | Stable |
+| Version and data snapshot | `GET /api/v1/version` | `client.version()` | Stable |
+| Dataset registry and detailed metadata | `GET /api/v1/metadata` and `GET /api/v1/metadata/:dataset` | `client.metadata()` and `dataset(name).info()` | Stable; full and per-dataset types distinguish summary fields from detailed field metadata |
+| Machine-readable dataset schema | `GET /api/v1/schema/:dataset` | `client.schema(dataset)` | Stable |
+| Dataset listing | `GET /api/v1/:dataset` | `dataset(name).list()`, `filter()`, `search()`, `iterate()` | Stable |
 | Single record | `GET /api/v1/:dataset/:id` | `dataset(name).get(id)` | Stable |
-| Search | `GET /api/v1/search` | `client.search(query)` | Stable |
+| Cross-dataset search | `GET /api/v1/search` | `client.search(query, options?, signal?)` | Stable; supports dataset, field, fuzzy, and result-limit options |
 | Stats | `GET /api/v1/stats` | `client.stats()` | Stable |
-| Changes | `GET /api/v1/changes` | `client.changes()` | Stable |
-| Images | `GET /api/v1/images/:dataset/:id` | `client.image(dataset, id)` | Stable |
-| OpenAPI | `GET /api/v1/openapi.json` | `client.spec()` | Stable |
-| Bounded export | `GET /api/v1/:dataset/export` | `dataset(name).export(options)` | Stable |
-| Stable smart routes | Dataset-specific routes | `client.smart.*` helpers | Stable only where listed below |
+| Snapshot changes | `GET /api/v1/changes` | `client.changes()` | Stable |
+| Images index | `GET /api/v1/images` | `client.images()` | Stable |
+| OpenAPI specification | `GET /api/v1/spec` | `client.spec()` | Stable |
+| Bounded dataset export | `GET /api/v1/export/:dataset` | `dataset(name).export(options)` | Stable |
+| Dataset record batch loading | Repeated `GET /api/v1/:dataset/:id` | `dataset(name).getMany(ids)` | Client-side helper |
+| Stable smart-route helpers | Dataset routes for `armor`, `weapon_parts`, and `helmet_mods` | `client.armor()`, `client.weaponParts()`, `client.helmetMods()` | Stable; typed record models |
 
 ## Response rules
 
@@ -52,8 +55,12 @@ Smart-route helpers are added only for server routes with a stable API contract.
 ```bash
 npm run check
 npm run check:generated
+npm run contract:check
 npm run contract:live
+GZW_DATA_REPO=../gzw-data GZW_SCRAPER_REPO=../gzw-scraper npm run integration:check
 npm run tarball:smoke
 ```
 
-The live checks are read-only and intentionally separate from the default local test suite.
+`integration:check` validates generated scraper metadata, the API repository's data manifest, the live API metadata and OpenAPI schemas, and the SDK's generated declarations. CI runs this integration path against the current public API and both source repositories.
+
+The live checks are read-only and intentionally separate from the local unit-test command.

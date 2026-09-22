@@ -88,14 +88,39 @@ describe("GzwDataClient", () => {
     globalThis.fetch = async (input) => {
       const path = new URL(String(input)).pathname;
       if (path.endsWith("/stats")) return response({ data: { weapons: { total: 44 } } });
-      if (path.endsWith("/health")) return response({ data: { ok: true, version: "4.0.0" } });
+      if (path.endsWith("/health")) return response({ data: { ok: true, status: "ok", apiVersion: "v1", implementationVersion: "4.0.0" } });
       return response({ data: { name: "GZW Data API", endpoints: ["weapons"] } });
     };
     const client = new GzwDataClient({ baseUrl: "https://example.test/api" });
 
     assert.deepEqual(await client.stats(), { weapons: { total: 44 } });
-    assert.deepEqual(await client.health(), { ok: true, version: "4.0.0" });
+    assert.deepEqual(await client.health(), { ok: true, status: "ok", apiVersion: "v1", implementationVersion: "4.0.0" });
     assert.deepEqual(await client.endpoints(), { name: "GZW Data API", endpoints: ["weapons"] });
+  });
+
+  it("supports typed readiness, schema, and changes helpers", async () => {
+    const urls: string[] = [];
+    globalThis.fetch = async (input) => {
+      const url = String(input);
+      urls.push(url);
+      if (url.endsWith("/ready")) return response({ data: { ok: true, ready: true, status: "ok", datasetCount: 85 } });
+      if (url.endsWith("/schema/weapons")) return response({ data: { name: "weapons", type: "object", properties: {} } });
+      return response({ data: { current: { snapshotId: "current", datasets: { weapons: 44 } }, previous: null, historyCount: 1, hasHistory: false, changes: { datasets: [], added: [], removed: [] }, message: "No previous snapshot" } });
+    };
+    const client = new GzwDataClient({ baseUrl: "https://example.test/api", retries: 0 });
+
+    const ready = await client.ready();
+    const schema = await client.schema("weapons");
+    const changes = await client.changes();
+
+    assert.equal(ready.datasetCount, 85);
+    assert.equal(schema.name, "weapons");
+    assert.equal(changes.hasHistory, false);
+    assert.deepEqual(urls, [
+      "https://example.test/api/ready",
+      "https://example.test/api/schema/weapons",
+      "https://example.test/api/changes",
+    ]);
   });
 
   it("supports metadata, version, and stable smart-route helpers", async () => {
@@ -123,6 +148,23 @@ describe("GzwDataClient", () => {
       "https://example.test/api/weapon_parts",
       "https://example.test/api/helmet_mods",
     ]);
+  });
+
+  it("supports search filters and keeps the positional AbortSignal overload", async () => {
+    const requested: string[] = [];
+    globalThis.fetch = async (input) => {
+      requested.push(String(input));
+      return response({ data: { query: "AK", results: {}, datasets: ["weapons"], fields: ["name"], fuzzy: true, limit: 5 } });
+    };
+    const client = new GzwDataClient({ baseUrl: "https://example.test/api", retries: 0 });
+    const controller = new AbortController();
+
+    const result = await client.search("AK", { datasets: ["weapons"], fields: ["name"], fuzzy: true, limit: 5 });
+    await client.search("AK", controller.signal);
+
+    assert.equal(result.limit, 5);
+    assert.equal(requested[0], "https://example.test/api/search?q=AK&dataset=weapons&fields=name&fuzzy=true&limit=5");
+    assert.equal(requested[1], "https://example.test/api/search?q=AK");
   });
 
   it("supports search, images, and raw OpenAPI spec", async () => {
@@ -217,11 +259,11 @@ describe("GzwDataClient", () => {
     globalThis.fetch = async () => {
       attempts += 1;
       if (attempts === 1) throw new Error("offline");
-      return response({ data: { ok: true, version: "4.0.0" } });
+      return response({ data: { ok: true, status: "ok", apiVersion: "v1", implementationVersion: "4.0.0" } });
     };
     const client = new GzwDataClient({ retries: 1, retryDelayMs: 0, onRetry: (info) => retryStatuses.push(info.status) });
 
-    assert.deepEqual(await client.health(), { ok: true, version: "4.0.0" });
+    assert.deepEqual(await client.health(), { ok: true, status: "ok", apiVersion: "v1", implementationVersion: "4.0.0" });
     assert.equal(attempts, 2);
     assert.deepEqual(retryStatuses, [undefined]);
   });
@@ -229,7 +271,7 @@ describe("GzwDataClient", () => {
   it("emits request and response debug metadata without response bodies", async () => {
     const requests: number[] = [];
     const responses: Array<{ status: number; ok: boolean }> = [];
-    globalThis.fetch = async () => response({ data: { ok: true, version: "4.0.0" } });
+    globalThis.fetch = async () => response({ data: { ok: true, status: "ok", apiVersion: "v1", implementationVersion: "4.0.0" } });
     const client = new GzwDataClient({
       onRequest: (info) => requests.push(info.attempt),
       onResponse: (info) => responses.push({ status: info.status, ok: info.ok }),

@@ -25,10 +25,37 @@ export type Ammunition = GzwRecord & {
 };
 
 export type ArmorItem = GzwRecord & {
+  type?: string;
   armor_class?: string;
   protection?: string;
   durability?: string;
   weight?: string;
+  grid_size?: string;
+  sold_by?: string;
+  material?: string;
+  nij_class?: string;
+  armor_locations?: string;
+  manufacturer?: string;
+  category?: string;
+};
+
+export type WeaponPart = GzwRecord & {
+  type?: string;
+  weight?: string;
+  sold_by?: string;
+  manufacturer?: string;
+  accuracy?: string;
+  part_category?: string;
+};
+
+export type HelmetMod = GzwRecord & {
+  type?: string;
+  weight?: string;
+  sold_by?: string;
+  manufacturer?: string;
+  mod_type?: string;
+  field_of_view?: string;
+  phosphor_color?: string;
 };
 
 export type Task = GzwRecord & {
@@ -64,8 +91,10 @@ export type GzwDataset = KnownGzwDataset | (string & {});
 
 export type DatasetRecord<Name extends string> =
   Name extends "weapons" ? Weapon :
+  Name extends "armor" | "vests" | "helmets" ? ArmorItem :
+  Name extends "weapon_parts" ? WeaponPart :
+  Name extends "helmet_mods" ? HelmetMod :
   Name extends "ammo" | "ammunition" ? Ammunition :
-  Name extends "vests" | "helmets" ? ArmorItem :
   Name extends "tasks" | "task" ? Task :
   Name extends "keys" | "keycards" ? GzwKey :
   Name extends "medical" ? MedicalItem :
@@ -117,16 +146,9 @@ export type GzwStats = Record<string, { total: number; sources?: string[] }>;
 
 export type GzwHealth = {
   ok: boolean;
-  version?: string;
-  implementationVersion?: string;
-  datasets: Record<string, number | string>;
-  smartRoutes: string[];
-  status?: 'ok' | 'degraded';
-  ready?: boolean;
-  apiVersion?: string;
-  datasetCount?: number;
-  lastScrapedAt?: string | null;
-  dataVersion?: string | null;
+  status: "ok" | "degraded";
+  apiVersion: string;
+  implementationVersion: string;
 };
 
 export type GzwApiRoot = {
@@ -135,30 +157,128 @@ export type GzwApiRoot = {
   implementationVersion?: string;
   endpoints: string[];
   docs?: string;
+  lastScrapedAt?: string | null;
+};
+
+export type GzwReadiness = {
+  ok: true;
+  ready: true;
+  status: "ok";
+  datasetCount: number;
+};
+
+export type GzwSnapshot = {
+  snapshotId: string | null;
+  version: string | null;
+  capturedAt: string | null;
+  datasets: Record<string, number>;
+};
+
+export type GzwDatasetCountChange = {
+  dataset: string;
+  before: number;
+  after: number;
+  delta: number;
+};
+
+export type GzwChanges = {
+  current: GzwSnapshot;
+  latest: GzwSnapshot;
+  previous: GzwSnapshot | null;
+  historyCount: number;
+  hasHistory: boolean;
+  changes: {
+    datasets: GzwDatasetCountChange[];
+    added: string[];
+    removed: string[];
+  };
+  message: string;
+};
+
+export type GzwSearchOptions = {
+  datasets?: string[];
+  fields?: string[];
+  fuzzy?: boolean;
+  limit?: number;
+};
+
+export type GzwFieldMetadata = {
+  types?: string[];
+  presentCount?: number;
+  optional?: boolean;
+  nullable?: boolean;
+  example?: unknown;
+};
+
+export type GzwDatasetCapabilities = {
+  operations: string[];
+  filters: { supported: boolean; fields: string[] };
+  sorting: { supported: boolean; fields: string[]; directions: Array<"asc" | "desc"> };
+  counts: { supported: boolean; includesTotal: boolean; includesPageCount: boolean };
 };
 
 export type GzwDatasetMetadata = {
   name: string;
   file?: string;
   itemCount?: number;
-  fields?: Record<string, { types?: string[]; presentCount?: number; optional?: boolean; nullable?: boolean; example?: unknown }>;
+  fields?: string[] | Record<string, GzwFieldMetadata>;
+  capabilities?: GzwDatasetCapabilities;
+  lastScrapedAt?: string;
   [key: string]: unknown;
 };
 
+export type GzwMetadata = {
+  source?: string;
+  datasetCount: number;
+  datasets: GzwDatasetMetadata[];
+  lastScrapedAt?: string;
+};
+
+export type GzwDatasetSchema = GzwDatasetMetadata;
+
 export type GzwVersion = {
+  api?: string;
   apiVersion: string;
   implementationVersion: string;
+  baseUrl?: string;
+  openapi?: string;
   dataVersion?: string | null;
-  snapshot?: Record<string, unknown>;
+  snapshot?: GzwSnapshot;
+  historyCount?: number;
+  datasetCount?: number;
+  datasets?: string[];
+  source?: string;
   [key: string]: unknown;
 };
 
 export type GzwSearch = {
   query: string;
   results: Record<string, GzwRecord[]>;
+  datasets: string[];
+  fields: string[];
+  fuzzy: boolean;
+  limit: number;
 };
 
-export type OpenApiSpec = Record<string, unknown>;
+export type OpenApiSchema = {
+  type?: string;
+  properties?: Record<string, unknown>;
+  required?: string[];
+  additionalProperties?: boolean;
+  [key: string]: unknown;
+};
+
+export type OpenApiSpec = {
+  openapi: string;
+  info: { title: string; version: string; description?: string; [key: string]: unknown };
+  servers?: Array<{ url: string; description?: string }>;
+  paths: Record<string, Record<string, unknown>>;
+  components?: {
+    schemas?: Record<string, OpenApiSchema>;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+};
 export type ApiEnvelope<T> = { data: T; [key: string]: unknown };
 
 export type GzwErrorCode =

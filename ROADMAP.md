@@ -4,11 +4,12 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Current release:** `0.5.0`
+- **Package version:** `0.6.0` (local release candidate; not published)
+- **Latest npm release:** `0.5.0`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
-- **Tests:** 29 passing on 2026-09-20
+- **Verification:** SDK 31 tests, API 45 tests, scraper 36 tests, source and live integration checks (2026-09-23)
 - **License:** MIT
 
 ## Completed
@@ -36,7 +37,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - [x] Add a documented API/SDK compatibility matrix.
 - [x] Add a separate 429 contract test.
 - [x] Detect breaking response-shape changes before release.
-- [x] Document health, readiness, version, schema, metadata, changes, and stats helpers.
+- [x] Document the implemented health, version, metadata, search, stats, dataset, export, image-index, and OpenAPI helpers.
 - [x] Add release notes for public API contract changes.
 
 ### 2. Generated types
@@ -49,10 +50,10 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ### 3. Convenience APIs
 
-- [ ] Add typed convenience accessors only for high-value datasets.
+- [x] Add typed convenience accessors only for high-value datasets.
 - [x] Add `metadata()` and `dataset().info()` helpers.
 - [x] Add typed smart-route helpers only when their server contracts are stable.
-- [ ] Do not duplicate request logic for each dataset.
+- [x] Keep request logic shared rather than duplicating it for each dataset.
 
 ### 4. Performance and composition
 
@@ -75,7 +76,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - [x] Define and document semantic versioning.
 - [x] Add a CI tarball smoke test for the packed package.
 - [x] Add a published-package installation smoke command.
-- [ ] Add release automation: tag, CI, package inspection, npm publish, and GitHub release.
+- [x] Add release automation: tag, CI, package inspection, npm publish, and GitHub release.
 - [x] Add published-package installation smoke tests.
 - [ ] Add SDK version information to a safe client header if the API has a documented use for it.
 
@@ -126,23 +127,25 @@ The current release is `0.5.0`; `0.4.x` is maintained as the previous compatible
 
 React and other framework adapters are intentionally deferred until the stable `1.0.0` line.
 
-#### `0.6.0` — release readiness and ecosystem integration
+#### `0.6.0` — release readiness and ecosystem integration (locally prepared; publish pending)
 
-- [ ] Release automation validates the package version, runs CI, publishes to npm, and creates a GitHub release.
-- [ ] Published-package installation smoke tests run against the npm registry.
-- [ ] API/SDK compatibility matrix is published and maintained.
-- [ ] Metadata, schema, stats, health, readiness, changes, search, and smart-route helpers have consistent typed contracts.
-- [ ] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
-- [ ] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
+- [x] Release automation validates the package version, runs CI, publishes to npm, and creates a GitHub release.
+- [x] Published-package installation smoke test is verified against npm `0.5.0`; the release workflow runs it against the new version after publication.
+- [x] API/SDK compatibility matrix is published and maintained.
+- [x] Metadata, schema, stats, health, readiness, changes, search, and smart-route helpers have consistent typed contracts.
+- [x] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
+- [x] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
+
+The `0.6.0` package version and release checks are prepared locally. Publishing, tagging, and pushing are intentionally pending explicit release authorization.
 
 #### `0.7.0` — production hardening and performance
 
-- [ ] Optional client-side caching has explicit TTL, invalidation, and query-aware cache keys.
-- [ ] Batch loading uses bounded concurrency and preserves cancellation/retry behavior.
-- [ ] In-flight request deduplication is tested if implemented.
-- [ ] Rate-limit, retry, malformed-response, and cancellation behavior are covered by contract tests.
-- [ ] Published-package smoke tests run from a clean temporary project.
-- [ ] No runtime dependency is added to the core package without a documented reason.
+- [x] Optional client-side caching has explicit TTL, invalidation, and query-aware cache keys.
+- [x] Batch loading uses bounded concurrency and preserves cancellation/retry behavior.
+- [x] In-flight request deduplication is tested if implemented.
+- [x] Rate-limit, retry, malformed-response, and cancellation behavior are covered by contract tests.
+- [x] Published-package smoke tests run from a clean temporary project.
+- [x] No runtime dependency is added to the core package without a documented reason.
 
 #### `0.8.0` — release candidate and stability
 

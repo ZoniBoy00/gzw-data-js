@@ -14,11 +14,21 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - Bounded dataset exports through `dataset.export()`
 - Typed batch loading with bounded concurrency through `dataset.getMany()`
 - Optional process-local in-memory caching with TTL, invalidation and in-flight deduplication
-- OpenAPI, health, stats, image and cross-dataset search helpers
-- Dataset metadata and version helpers
+- OpenAPI, health/readiness, stats, image and cross-dataset search helpers
+- Typed metadata, schema, version and snapshot-change helpers
 - Typed stable smart-route helpers for armor, weapon parts and helmet mods
 - Generated autocomplete for published dataset names with a dynamic fallback for new datasets
 - API data refreshed by the public scraper workflow
+
+## Changelog
+
+### 0.6.0 — API contracts and ecosystem integration (September 2026)
+
+- Added typed readiness, dataset schema, and snapshot-change helpers.
+- Added scoped/fuzzy search options while preserving the existing positional `AbortSignal` call.
+- Tightened metadata, health, OpenAPI, version, and smart-route response types.
+- Added source-to-API-to-SDK integration checks and CI coverage across the API and scraper repositories.
+- Expanded Node.js/TypeScript, browser, and Discord bot documentation.
 
 ## Install
 
@@ -122,22 +132,73 @@ const customWeapons = gzw.dataset<CustomWeapon>("weapons").list();
 ```ts
 const stats = await gzw.stats();
 const health = await gzw.health();
+const ready = await gzw.ready();
 const api = await gzw.endpoints();
+const version = await gzw.version();
+const fullMetadata = await gzw.metadata();
+const weaponMetadata = await gzw.metadata("weapons");
+const weaponSchema = await gzw.schema("weapons");
+const changes = await gzw.changes();
 const images = await gzw.images();
-const matches = await gzw.search("Mosin");
+const matches = await gzw.search("Mosin", {
+  datasets: ["weapons"],
+  fields: ["name"],
+  fuzzy: true,
+  limit: 5,
+});
 const openApi = await gzw.spec();
 ```
 
-`gzw.search()` returns the API's cross-dataset shape:
+`gzw.search(query, options, signal)` supports dataset and field scoping, fuzzy matching, and a result limit. The earlier `gzw.search(query, signal)` form remains supported.
+
+`gzw.metadata()` returns the full registry with field types, optionality, nullability, examples, and capabilities. `gzw.metadata(dataset)` and `gzw.dataset(dataset).info()` return detailed metadata for one dataset; `gzw.schema(dataset)` returns the API's machine-readable schema metadata.
+
+## Browser apps
+
+Use the package through a browser bundler such as Vite. The SDK uses the browser's native `fetch` and does not require an API key:
 
 ```ts
-{
-  query: "Mosin",
-  results: {
-    weapons: [/* matching records */]
+import { GzwDataClient } from "@zoniboy/gzw-data-client";
+
+const gzw = new GzwDataClient();
+const result = await gzw.search("AK-12", { datasets: ["weapons"], limit: 5 });
+
+for (const weapon of result.results.weapons ?? []) {
+  console.log(weapon.name, weapon.id);
+}
+```
+
+Keep API calls bounded in user-facing views by setting `limit` or using dataset pagination. For long-running requests, pass an `AbortSignal` and abort it when the view is disposed.
+
+## Discord bots
+
+Use Discord.js for commands and embeds while the SDK handles API requests and typed errors. Defer the interaction before awaiting the API:
+
+```ts
+import { GzwDataClient, GzwApiError } from "@zoniboy/gzw-data-client";
+import { EmbedBuilder, type ChatInputCommandInteraction } from "discord.js";
+
+const gzw = new GzwDataClient();
+
+async function replyWithWeapon(interaction: ChatInputCommandInteraction, id: string) {
+  await interaction.deferReply();
+  try {
+    const weapon = await gzw.dataset("weapons").get(id);
+    if (!weapon) return interaction.editReply(`No weapon found for ID: ${id}`);
+
+    const embed = new EmbedBuilder()
+      .setTitle(weapon.name ?? weapon.id ?? "Weapon")
+      .setDescription(`Caliber: ${weapon.caliber ?? "unknown"}`)
+      .setColor(0xd9775f);
+    return interaction.editReply({ embeds: [embed] });
+  } catch (error) {
+    const detail = error instanceof GzwApiError ? error.code : "REQUEST_FAILED";
+    return interaction.editReply(`Could not load GZW data (${detail}).`);
   }
 }
 ```
+
+The Discord bot token belongs in the bot's local secret store or environment—not in SDK configuration or messages sent to the GZW API. A complete Discord.js example is also maintained in the [GZW Data API repository](https://github.com/ZoniBoy00/gzw-data/tree/main/examples/discord-bot).
 
 ## Configuration
 
@@ -233,11 +294,15 @@ The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types 
 ```bash
 npm install
 npm run check
+npm run check:generated
+npm run contract:check
 npm run live:smoke
 npm run contract:live
+GZW_DATA_REPO=../gzw-data GZW_SCRAPER_REPO=../gzw-scraper npm run integration:check
+npm run tarball:smoke
 ```
 
-`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small health/data verification against the production API. `npm run contract:live` performs the explicit API–SDK contract checks against production, including dataset listing, pagination, single-record lookup, search, stats, OpenAPI, and 404 behavior. The live checks are intentionally separate from the default CI run.
+`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small health/data verification against the production API. `npm run contract:live` checks the API–SDK response contract; `npm run integration:check` checks the scraper-generated data against API metadata, then verifies the live API, OpenAPI schemas, and generated SDK field declarations together. The local live checks are opt-in; the dedicated CI integration job runs the source and production contract checks on pushes and pull requests.
 
 The API/SDK compatibility boundary is documented in [docs/API-SDK-COMPATIBILITY.md](./docs/API-SDK-COMPATIBILITY.md). Use `npm run contract:check` for the release-gate response-shape checks and `npm run tarball:smoke` to install and exercise the packed package in a clean temporary project.
 

@@ -23,12 +23,29 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
+      - name: Check out API source
+        uses: actions/checkout@v4
+        with:
+          repository: ZoniBoy00/gzw-data
+          path: .integration/gzw-data
+
+      - name: Check out scraper source
+        uses: actions/checkout@v4
+        with:
+          repository: ZoniBoy00/gzw-scraper
+          path: .integration/gzw-scraper
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
           registry-url: https://registry.npmjs.org
           cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
       - name: Install dependencies
         run: npm ci
@@ -55,6 +72,24 @@ jobs:
 
       - name: Run live contract check
         run: npm run contract:live
+
+      - name: Verify API repository
+        run: |
+          npm test --prefix .integration/gzw-data
+          npm run validate:data --prefix .integration/gzw-data
+
+      - name: Install scraper test dependencies
+        run: python -m pip install pytest requests beautifulsoup4 lxml tqdm
+
+      - name: Verify scraper repository
+        working-directory: .integration/gzw-scraper
+        run: python -m pytest -q
+
+      - name: Verify cross-repository and live SDK contracts
+        env:
+          GZW_DATA_REPO: .integration/gzw-data
+          GZW_SCRAPER_REPO: .integration/gzw-scraper
+        run: npm run integration:check
 
       - name: Inspect package
         run: npm pack --dry-run
