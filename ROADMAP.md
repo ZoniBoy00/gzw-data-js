@@ -127,7 +127,7 @@ The current release is `0.5.0`; `0.4.x` is maintained as the previous compatible
 
 React and other framework adapters are intentionally deferred until the stable `1.0.0` line.
 
-#### `0.6.0` — release readiness and ecosystem integration (npm published; GitHub release pending)
+#### `0.6.0` — release readiness and ecosystem integration (released)
 
 - [x] Release automation validates the package version, runs CI, publishes to npm, and creates a GitHub release.
 - [x] Published-package installation smoke test passed against npm `0.6.0` (install, import, and live API call).
@@ -136,9 +136,11 @@ React and other framework adapters are intentionally deferred until the stable `
 - [x] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
 - [x] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
 
-npm `0.6.0` is published and verified. The GitHub release/tag is pending the final green CI run. This package was manually published without a provenance attestation because the repository's `NPM_TOKEN` Actions secret is not configured; automated npm publishing with provenance remains available once that secret is set.
+npm `0.6.0` and [GitHub release v0.6.0](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.6.0) are published and verified. This version was published manually without a provenance attestation because the repository's `NPM_TOKEN` Actions secret is not configured; automated npm publishing with provenance remains available once that secret or an npm trusted publisher is configured.
 
-#### `0.7.0` — production hardening and performance
+#### Production hardening and performance — already implemented in 0.6.0 (not a 0.7.0 release)
+
+The features below were present in the SDK before the 0.6.0 release and are included in it. Their completed checkboxes do not mean that package version `0.7.0` was created or published.
 
 - [x] Optional client-side caching has explicit TTL, invalidation, and query-aware cache keys.
 - [x] Batch loading uses bounded concurrency and preserves cancellation/retry behavior.
