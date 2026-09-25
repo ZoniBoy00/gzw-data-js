@@ -130,7 +130,10 @@ export class GzwDataClient {
       return;
     }
     const url = `${this.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
-    this.responseCache.delete(url);
+    const hasQuery = path.includes("?");
+    for (const key of this.responseCache.keys()) {
+      if (key === url || (!hasQuery && key.startsWith(`${url}?`))) this.responseCache.delete(key);
+    }
   }
 
   async request<T>(path: string, signal?: AbortSignal): Promise<T> {

@@ -230,6 +230,26 @@ describe("GzwDataClient", () => {
     assert.equal(calls, 2);
   });
 
+  it("clears all cached query variants for a path without matching longer paths", async () => {
+    let calls = 0;
+    globalThis.fetch = async () => {
+      calls += 1;
+      return response({ data: [{ call: calls }] });
+    };
+    const client = new GzwDataClient({ retries: 0, cache: { ttlMs: 1_000 } });
+
+    await client.request("/weapons?page=1");
+    await client.request("/weapons?page=2");
+    await client.request("/weapons-extra?page=1");
+    assert.equal(calls, 3);
+
+    client.clearCache("/weapons");
+    await client.request("/weapons?page=1");
+    await client.request("/weapons?page=2");
+    await client.request("/weapons-extra?page=1");
+    assert.equal(calls, 5);
+  });
+
   it("loads records with bounded concurrency and preserves input order", async () => {
     let active = 0;
     let peak = 0;

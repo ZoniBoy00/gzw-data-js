@@ -22,6 +22,11 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 
 ## Changelog
 
+### 0.6.2 — cache invalidation and behavior documentation (September 2026)
+
+- `clearCache(path)` now clears all cached query variants for that path without matching longer paths.
+- Documented in-flight deduplication and AbortSignal behavior, iterator `maxPages`, and export count limits.
+
 ### 0.6.1 — non-JSON HTTP error handling (September 2026)
 
 - Classify non-JSON 429 and 5xx responses from their HTTP status.
@@ -87,6 +92,8 @@ const records = await weapons.getMany(["ak-74", "ak-12"], { concurrency: 4 });
 
 `get(id)` calls `/api/v1/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
 
+`dataset.export({ limit })` requests a bounded export, but the API controls its own maximum: `export.maxRecords` reports the server-side cap, not necessarily the requested `limit`. `export.count` reports the number of records returned for that request.
+
 ### Async iteration
 
 Iterate through all pages without manually managing pagination:
@@ -97,7 +104,7 @@ for await (const weapon of gzw.dataset("weapons").iterate({ perPage: 50 })) {
 }
 ```
 
-The iterator stops at `totalPages`, an empty page, or an incomplete page. Pass an `AbortSignal` as the second argument to cancel it:
+The iterator stops at `totalPages`, an empty page, or an incomplete page. If it reaches the configurable `maxPages` safety limit before completion, it throws a `RangeError` rather than silently returning partial data. Pass an `AbortSignal` as the second argument to cancel it:
 
 ```ts
 const controller = new AbortController();
@@ -233,7 +240,7 @@ const gzw = new GzwDataClient({
 });
 ```
 
-`cache` is disabled by default (`ttlMs: 0`). When enabled, only successful GET responses are cached. Cache keys include the complete request URL and query string, the cache is process-local and memory-only, and it is not a persistent storage layer. Use `clearCache()` to invalidate one path or the complete cache. Concurrent requests for the same URL share one in-flight request.
+`cache` is disabled by default (`ttlMs: 0`). When enabled, only successful GET responses are cached. Cache keys include the complete request URL and query string, the cache is process-local and memory-only, and it is not a persistent storage layer. `clearCache("/weapons")` invalidates that path and all of its query variants; passing a path with a query string invalidates only that exact URL. Calling `clearCache()` clears the complete cache. Concurrent requests for the same URL share one in-flight request; its network request is controlled by the first caller's `AbortSignal`, and later callers cannot cancel their wait independently.
 
 `dataset.getMany(ids, { concurrency })` loads records in input order while bounding the number of concurrent requests. It uses the same retry, cache, deduplication and cancellation behavior as individual requests.
 
