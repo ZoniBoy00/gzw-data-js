@@ -175,7 +175,25 @@ export class GzwDataClient {
       try {
         const response = await this.requestFetch(url, { method: "GET", headers: this.headers, signal });
         this.onResponse?.({ attempt: attempt + 1, url, method: "GET", status: response.status, ok: response.ok });
-        const body = await this.parseBody(response, url, signal);
+        const retryAfter = parseRetryAfter(response.headers.get("retry-after"));
+        let body: unknown;
+        try {
+          body = await this.parseBody(response, url, signal);
+        } catch (error) {
+          if (response.ok || !(error instanceof GzwApiError) || error.code !== "INVALID_RESPONSE") throw error;
+          const code = response.status === 429 ? "RATE_LIMITED" : response.status >= 500 ? "SERVER_ERROR" : "HTTP_ERROR";
+          const httpError = new GzwApiError(`GZW Data API request failed with HTTP ${response.status}`, {
+            status: response.status,
+            statusText: response.statusText,
+            requestUrl: url,
+            code,
+            retryAfter,
+            cause: error,
+          });
+          if (!this.isRetryable(httpError) || attempt === this.retries) throw httpError;
+          await this.retry(httpError, attempt, url, signal, retryAfter);
+          continue;
+        }
 
         if (response.ok) {
           if (!isObject(body) && !Array.isArray(body)) {
@@ -193,7 +211,6 @@ export class GzwDataClient {
           return body as T;
         }
 
-        const retryAfter = parseRetryAfter(response.headers.get("retry-after"));
         const errorObject = isObject(body) && isObject(body.error) ? body.error : undefined;
         const code = typeof errorObject?.code === "string"
           ? errorObject.code

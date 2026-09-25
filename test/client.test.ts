@@ -360,13 +360,33 @@ describe("GzwDataClient", () => {
     );
   });
 
-  it("reports malformed JSON as an invalid response", async () => {
+  it("reports malformed JSON on successful responses as an invalid response", async () => {
     globalThis.fetch = async () => new Response("not-json", { status: 200 });
     const client = new GzwDataClient({ retries: 0 });
 
     await assert.rejects(
       () => client.dataset("weapons").list(),
       (error: unknown) => error instanceof GzwApiError && error.code === "INVALID_RESPONSE" && error.requestUrl?.endsWith("/weapons"),
+    );
+  });
+
+  it("preserves rate-limit metadata when an error response body is not JSON", async () => {
+    globalThis.fetch = async () => new Response("Too Many Requests", { status: 429, headers: { "retry-after": "7" } });
+    const client = new GzwDataClient({ retries: 0 });
+
+    await assert.rejects(
+      () => client.dataset("weapons").list(),
+      (error: unknown) => error instanceof GzwApiError && error.status === 429 && error.code === "RATE_LIMITED" && error.retryAfter === 7 && error.isRateLimited,
+    );
+  });
+
+  it("classifies non-JSON server error responses by HTTP status", async () => {
+    globalThis.fetch = async () => new Response("<html>upstream error</html>", { status: 502 });
+    const client = new GzwDataClient({ retries: 0 });
+
+    await assert.rejects(
+      () => client.dataset("weapons").list(),
+      (error: unknown) => error instanceof GzwApiError && error.status === 502 && error.code === "SERVER_ERROR" && error.isServerError,
     );
   });
 
