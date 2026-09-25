@@ -22,6 +22,12 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 
 ## Changelog
 
+### 0.6.1 — non-JSON HTTP error handling (September 2026)
+
+- Classify non-JSON 429 and 5xx responses from their HTTP status.
+- Preserve `Retry-After` and rate-limit error metadata for non-JSON 429 responses.
+- Keep malformed JSON on successful responses classified as `INVALID_RESPONSE`.
+
 ### 0.6.0 — API contracts and ecosystem integration (September 2026)
 
 - Added typed readiness, dataset schema, and snapshot-change helpers.
