@@ -5,7 +5,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 ## Current status
 
 - **Package version:** `0.7.1` (released)
-- **Latest published npm release:** `0.7.0`
+- **Latest published npm release:** `0.7.1`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
