@@ -50,6 +50,20 @@ export function abortError(signal: AbortSignal): GzwApiError {
   });
 }
 
+export function assertAbortSignal(signal?: AbortSignal): void {
+  if (signal === undefined) return;
+  if (
+    typeof signal !== "object" ||
+    signal === null ||
+    typeof signal.aborted !== "boolean" ||
+    typeof signal.addEventListener !== "function" ||
+    typeof signal.removeEventListener !== "function"
+  ) {
+    throw new TypeError("signal must be an AbortSignal");
+  }
+}
+
 export function throwIfAborted(signal?: AbortSignal): void {
+  assertAbortSignal(signal);
   if (signal?.aborted) throw abortError(signal);
 }

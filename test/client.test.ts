@@ -16,6 +16,19 @@ function response(body: unknown, status = 200, headers: Record<string, string> =
 }
 
 describe("GzwDataClient", () => {
+  it("rejects an invalid signal argument clearly before starting a request", async () => {
+    let calls = 0;
+    const client = new GzwDataClient({ fetch: async () => {
+      calls += 1;
+      return response({ error: { code: "SERVER_ERROR", message: "retry" } }, 500);
+    } });
+    await assert.rejects(
+      () => client.stats({ timeoutMs: 1 } as unknown as AbortSignal),
+      (error: unknown) => error instanceof TypeError && /AbortSignal/.test(error.message),
+    );
+    assert.equal(calls, 0);
+  });
+
   it("uses the versioned production API by default", async () => {
     let requestedUrl = "";
     globalThis.fetch = async (input) => {

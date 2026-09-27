@@ -22,6 +22,11 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 
 ## Changelog
 
+### 0.7.1 — clearer invalid signal errors (September 2026)
+
+- Reject non-`AbortSignal` values with a clear `TypeError` before starting a request or retry wait.
+
+
 ### 0.7.0 — bounded requests and batch outcomes (September 2026)
 
 - Added the optional `timeoutMs` request timeout; timeout failures use `GzwApiError` code `TIMEOUT` and are not retried.
@@ -265,7 +270,7 @@ For tests or server-side adapters, inject a custom fetch implementation:
 const gzw = new GzwDataClient({ fetch: mockedFetch });
 ```
 
-All methods accept an optional `AbortSignal` as their final argument:
+All methods accept an optional `AbortSignal` as their final argument. Passing another value at runtime throws `TypeError("signal must be an AbortSignal")` before a network request starts:
 
 ```ts
 const controller = new AbortController();

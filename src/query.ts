@@ -1,3 +1,4 @@
+import { assertAbortSignal } from "./errors.js";
 import type { DatasetQuery } from "./types.js";
 
 const queryAliases: Record<string, string> = { perPage: "per_page" };
@@ -26,6 +27,7 @@ export function isObject(value: unknown): value is Record<string, unknown> {
 }
 
 export function wait(ms: number, signal?: AbortSignal): Promise<void> {
+  assertAbortSignal(signal);
   if (ms <= 0) return Promise.resolve();
   return new Promise((resolve, reject) => {
     let timer: ReturnType<typeof setTimeout> | undefined;

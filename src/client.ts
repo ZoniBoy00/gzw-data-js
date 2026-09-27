@@ -139,6 +139,7 @@ export class GzwDataClient {
   }
 
   async request<T>(path: string, signal?: AbortSignal): Promise<T> {
+    throwIfAborted(signal);
     const url = `${this.baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
     const cached = this.responseCache.get(url);
     if (cached) {
