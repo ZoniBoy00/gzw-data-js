@@ -4,7 +4,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package version:** `0.7.1` (implementation complete; release pending)
+- **Package version:** `0.7.1` (released)
 - **Latest published npm release:** `0.7.0`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
@@ -158,11 +158,13 @@ The features below were present in the SDK before the 0.6.0 release and are incl
 
 Implementation, tag `v0.7.0`, npm publication, clean published-package installation/import/API smoke test, and GitHub release are verified. The release workflow passed; package publication was completed from the authenticated npm session after the first workflow publish attempt returned HTTP 404.
 
-#### `0.7.1` — invalid signal validation (implementation complete; release pending)
+#### `0.7.1` — invalid signal validation (released)
 
 - [x] Validate AbortSignal-like inputs at the request boundary and during retry waits.
 - [x] Return a clear TypeError for invalid runtime arguments before making a network request.
 - [x] Add a regression test for invalid signal arguments.
+
+The fix is published as npm `0.7.1`; tag `v0.7.1`, the GitHub release, CI, and a clean published-package smoke test are verified. The release workflow's npm publish step returned HTTP 404, so the package was published from the authenticated npm session; npm metadata does not show a verified provenance attestation.
 
 #### `0.8.0` — release candidate and stability
 
