@@ -1,7 +1,7 @@
 import { GzwApiError, throwIfAborted } from "./errors.js";
 import { encodeQuery, isObject } from "./query.js";
 import type { GzwDataClient } from "./client.js";
-import type { DatasetBatchOptions, DatasetExportResponse, DatasetIteratorOptions, DatasetQuery, DatasetResponse, GzwRecord } from "./types.js";
+import type { DatasetBatchOptions, DatasetBatchResult, DatasetExportResponse, DatasetIteratorOptions, DatasetQuery, DatasetResponse, GzwRecord } from "./types.js";
 
 export class DatasetResource<T extends GzwRecord = GzwRecord> {
   constructor(private readonly client: GzwDataClient, private readonly name: string) {}
@@ -67,9 +67,11 @@ export class DatasetResource<T extends GzwRecord = GzwRecord> {
     return payload as unknown as DatasetExportResponse<T>;
   }
 
-  async getMany(ids: string[], options: DatasetBatchOptions = {}, signal?: AbortSignal): Promise<Array<T | undefined>> {
+  async getMany(ids: string[], options: DatasetBatchOptions & { continueOnError: true }, signal?: AbortSignal): Promise<Array<DatasetBatchResult<T>>>;
+  async getMany(ids: string[], options?: DatasetBatchOptions & { continueOnError?: false }, signal?: AbortSignal): Promise<Array<T | undefined>>;
+  async getMany(ids: string[], options: DatasetBatchOptions = {}, signal?: AbortSignal): Promise<Array<T | undefined> | Array<DatasetBatchResult<T>>> {
     const concurrency = Math.max(1, Math.floor(options.concurrency ?? 4));
-    const results: Array<T | undefined> = new Array(ids.length);
+    const results: Array<T | undefined | DatasetBatchResult<T>> = new Array(ids.length);
     let nextIndex = 0;
     const worker = async (): Promise<void> => {
       while (true) {
@@ -77,11 +79,18 @@ export class DatasetResource<T extends GzwRecord = GzwRecord> {
         const index = nextIndex;
         nextIndex += 1;
         if (index >= ids.length) return;
-        results[index] = await this.get(ids[index], signal);
+        try {
+          const value = await this.get(ids[index], signal);
+          results[index] = options.continueOnError ? { status: "fulfilled", value } : value;
+        } catch (error) {
+          if (!options.continueOnError) throw error;
+          if (!(error instanceof GzwApiError)) throw error;
+          results[index] = { status: "rejected", reason: error };
+        }
       }
     };
     await Promise.all(Array.from({ length: Math.min(concurrency, ids.length) }, () => worker()));
-    return results;
+    return results as Array<T | undefined> | Array<DatasetBatchResult<T>>;
   }
 
   /**

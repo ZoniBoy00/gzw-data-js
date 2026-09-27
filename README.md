@@ -22,6 +22,13 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 
 ## Changelog
 
+### 0.7.0 — bounded requests and batch outcomes (September 2026)
+
+- Added the optional `timeoutMs` request timeout; timeout failures use `GzwApiError` code `TIMEOUT` and are not retried.
+- Typed cross-dataset search results by known dataset while retaining dynamic dataset compatibility.
+- Added `getMany(..., { continueOnError: true })` with ordered fulfilled/rejected outcomes; missing records remain fulfilled with `value: undefined`.
+
+
 ### 0.6.2 — cache invalidation and behavior documentation (September 2026)
 
 - `clearCache(path)` now clears all cached query variants for that path without matching longer paths.
@@ -88,6 +95,13 @@ const exportResult = await weapons.export({ search: "AK", limit: 25 });
 
 // Load multiple records with at most four requests in flight.
 const records = await weapons.getMany(["ak-74", "ak-12"], { concurrency: 4 });
+
+// Keep per-record failures without failing the whole batch.
+const outcomes = await weapons.getMany(["ak-74", "missing"], { continueOnError: true });
+for (const outcome of outcomes) {
+  if (outcome.status === "fulfilled") console.log(outcome.value?.name);
+  else console.error(outcome.reason.code);
+}
 ```
 
 `get(id)` calls `/api/v1/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
@@ -219,6 +233,7 @@ The Discord bot token belongs in the bot's local secret store or environment—n
 const gzw = new GzwDataClient({
   baseUrl: "https://gzw-data.dev/api/v1",
   retries: 2,
+  timeoutMs: 15_000,
   retryDelayMs: 250,
   maxRetryDelayMs: 30_000,
   cache: {
@@ -298,7 +313,7 @@ try {
 }
 ```
 
-`GzwApiError` exposes the request URL, method, status text, safe response details, stable error code, and parsed `Retry-After` value. API errors use codes such as `RECORD_NOT_FOUND`, `DATASET_NOT_FOUND`, `INVALID_REQUEST`, and `RATE_LIMITED`; the complete error payload is available through `error.details`. Use `onRequest`, `onResponse`, and `onRetry` for observability without logging response bodies.
+`timeoutMs` defaults to disabled (`0`); when set, each network attempt is aborted at the deadline and throws `GzwApiError` with code `TIMEOUT` without retrying. Caller cancellation remains an `ABORTED` error. `GzwApiError` exposes the request URL, method, status text, safe response details, stable error code, and parsed `Retry-After` value. API errors use codes such as `RECORD_NOT_FOUND`, `DATASET_NOT_FOUND`, `INVALID_REQUEST`, and `RATE_LIMITED`; the complete error payload is available through `error.details`. Use `onRequest`, `onResponse`, and `onRetry` for observability without logging response bodies.
 
 The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types are development-only dependencies.
 

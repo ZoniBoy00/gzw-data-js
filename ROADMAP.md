@@ -4,8 +4,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package version:** `0.6.0` (published; GitHub release pending)
-- **Latest npm release:** `0.6.0`
+- **Package version:** `0.7.0` (implementation complete; release pending)
+- **Latest published npm release:** `0.6.2`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -148,6 +148,15 @@ The features below were present in the SDK before the 0.6.0 release and are incl
 - [x] Rate-limit, retry, malformed-response, and cancellation behavior are covered by contract tests.
 - [x] Published-package smoke tests run from a clean temporary project.
 - [x] No runtime dependency is added to the core package without a documented reason.
+
+#### `0.7.0` — request control and typed batch outcomes (implementation complete; release pending)
+
+- [x] Add optional per-attempt `timeoutMs` with abort and no-retry timeout semantics.
+- [x] Type cross-dataset search results for known datasets while preserving dynamic datasets.
+- [x] Add `getMany({ continueOnError: true })` ordered fulfilled/rejected outcomes.
+- [x] Add regression tests and document the public behavior.
+
+Implementation is present in the working tree and passes the local package checks. This is not a published release until a reviewed commit, tag, npm publication, and GitHub release are independently verified.
 
 #### `0.8.0` — release candidate and stability
 

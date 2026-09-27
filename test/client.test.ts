@@ -267,6 +267,36 @@ describe("GzwDataClient", () => {
     assert.equal(peak, 2);
   });
 
+  it("times out stalled requests and does not retry timeout failures", async () => {
+    let attempts = 0;
+    const client = new GzwDataClient({ timeoutMs: 10, retries: 2, fetch: async () => {
+      attempts += 1;
+      return new Promise(() => {});
+    } });
+    await assert.rejects(() => client.health(), (error: unknown) => error instanceof GzwApiError && error.code === "TIMEOUT");
+    assert.equal(attempts, 1);
+  });
+
+  it("caller cancellation wins over a stalled fetch when timeout is enabled", async () => {
+    const controller = new AbortController();
+    const client = new GzwDataClient({ timeoutMs: 1_000, retries: 2, fetch: async () => new Promise(() => {}) });
+    const request = client.health(controller.signal);
+    controller.abort();
+    await assert.rejects(() => request, (error: unknown) => error instanceof GzwApiError && error.code === "ABORTED");
+  });
+
+  it("returns typed per-ID outcomes when getMany continues after errors", async () => {
+    globalThis.fetch = async (input) => new URL(String(input)).pathname.endsWith("/missing")
+      ? response({ error: { code: "RECORD_NOT_FOUND", message: "Record not found" } }, 404)
+      : new URL(String(input)).pathname.endsWith("/broken")
+        ? response({ error: { code: "INTERNAL_ERROR", message: "failed" } }, 500)
+        : response({ data: { id: "ok" } });
+    const results = await new GzwDataClient({ retries: 0 }).dataset("items").getMany(["ok", "missing", "broken"], { continueOnError: true });
+    assert.deepEqual(results.map((item) => item.status), ["fulfilled", "fulfilled", "rejected"]);
+    assert.equal(results[1].status === "fulfilled" && results[1].value, undefined);
+    assert.equal(results[2].status === "rejected" && results[2].reason.code, "INTERNAL_ERROR");
+  });
+
   it("rejects malformed export responses", async () => {
     globalThis.fetch = async () => response({ data: [{ id: "bad" }] });
     const client = new GzwDataClient({ retries: 0 });

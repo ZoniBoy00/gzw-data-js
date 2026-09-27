@@ -8,6 +8,7 @@ export class GzwDataClient {
   private readonly requestFetch: typeof globalThis.fetch;
   private readonly headers: Record<string, string>;
   private readonly retries: number;
+  private readonly timeoutMs: number;
   private readonly retryDelayMs: number;
   private readonly maxRetryDelayMs: number;
   private readonly cacheTtlMs: number;
@@ -23,6 +24,7 @@ export class GzwDataClient {
     this.requestFetch = options.fetch ?? globalThis.fetch.bind(globalThis);
     this.headers = { Accept: "application/json", ...options.headers };
     this.retries = Math.max(0, options.retries ?? 2);
+    this.timeoutMs = options.timeoutMs === undefined ? 0 : Math.max(0, options.timeoutMs);
     this.retryDelayMs = Math.max(0, options.retryDelayMs ?? 250);
     this.maxRetryDelayMs = Math.max(this.retryDelayMs, options.maxRetryDelayMs ?? 30_000);
     const cacheOptions = options.cache === false ? {} : options.cache ?? {};
@@ -176,7 +178,7 @@ export class GzwDataClient {
       throwIfAborted(signal);
       this.onRequest?.({ attempt: attempt + 1, url, method: "GET" });
       try {
-        const response = await this.requestFetch(url, { method: "GET", headers: this.headers, signal });
+        const response = await this.fetchWithTimeout(url, signal);
         this.onResponse?.({ attempt: attempt + 1, url, method: "GET", status: response.status, ok: response.ok });
         const retryAfter = parseRetryAfter(response.headers.get("retry-after"));
         let body: unknown;
@@ -251,6 +253,38 @@ export class GzwDataClient {
     }
 
     throw lastError ?? new GzwApiError("GZW Data API request failed", { status: 0, code: "NETWORK_ERROR", requestUrl: url });
+  }
+
+  private async fetchWithTimeout(url: string, signal?: AbortSignal): Promise<Response> {
+    if (this.timeoutMs === 0) return this.requestFetch(url, { method: "GET", headers: this.headers, signal });
+    const controller = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let abortListener: (() => void) | undefined;
+    const timeout = new Promise<never>((_resolve, reject) => {
+      timer = setTimeout(() => {
+        controller.abort();
+        reject(new GzwApiError(`GZW Data API request timed out after ${this.timeoutMs}ms`, { status: 0, code: "TIMEOUT", requestUrl: url }));
+      }, this.timeoutMs);
+    });
+    const callerAbort = new Promise<never>((_resolve, reject) => {
+      if (!signal) return;
+      abortListener = () => {
+        controller.abort(signal.reason);
+        reject(abortError(signal));
+      };
+      signal.addEventListener("abort", abortListener, { once: true });
+      if (signal.aborted) abortListener();
+    });
+    try {
+      return await Promise.race([
+        this.requestFetch(url, { method: "GET", headers: this.headers, signal: controller.signal }),
+        timeout,
+        callerAbort,
+      ]);
+    } finally {
+      if (timer !== undefined) clearTimeout(timer);
+      if (abortListener) signal?.removeEventListener("abort", abortListener);
+    }
   }
 
   private async parseBody(response: Response, url: string, signal?: AbortSignal): Promise<unknown> {

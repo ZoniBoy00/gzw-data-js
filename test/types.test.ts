@@ -30,3 +30,14 @@ async function checkPublicTypes(): Promise<void> {
 }
 
 void checkPublicTypes;
+
+async function checkNewTypes(): Promise<void> {
+  const result = await client.search("AK");
+  const weaponName: string | undefined = result.results.weapons?.[0]?.name;
+  const caliber: string | undefined = result.results.weapons?.[0]?.caliber;
+  const outcomes = await client.dataset("weapons").getMany(["a"], { continueOnError: true });
+  const outcome = outcomes[0];
+  if (outcome?.status === "fulfilled") { const weapon: Weapon | undefined = outcome.value; void weapon; }
+  void [weaponName, caliber];
+}
+void checkNewTypes;

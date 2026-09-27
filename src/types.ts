@@ -1,3 +1,4 @@
+import type { GzwApiError } from "./errors.js";
 import type { GeneratedDatasetName } from "./generated/datasets.js";
 
 export type JsonValue = string | number | boolean | null | JsonObject | JsonValue[];
@@ -116,8 +117,12 @@ export type DatasetIteratorOptions = Omit<DatasetQuery, "page" | "all" | "perPag
   maxPages?: number;
 };
 
+export type DatasetBatchSuccess<T> = { status: "fulfilled"; value: T | undefined };
+export type DatasetBatchFailure = { status: "rejected"; reason: GzwApiError };
+export type DatasetBatchResult<T> = DatasetBatchSuccess<T> | DatasetBatchFailure;
 export type DatasetBatchOptions = {
   concurrency?: number;
+  continueOnError?: boolean;
 };
 
 export type DatasetResponse<T extends GzwRecord = GzwRecord> = {
@@ -251,9 +256,13 @@ export type GzwVersion = {
   [key: string]: unknown;
 };
 
+export type GzwSearchResults = {
+  [Name in KnownGzwDataset]?: DatasetRecord<Name>[];
+} & Record<string, GzwRecord[] | undefined>;
+
 export type GzwSearch = {
   query: string;
-  results: Record<string, GzwRecord[]>;
+  results: GzwSearchResults;
   datasets: string[];
   fields: string[];
   fuzzy: boolean;
@@ -317,6 +326,7 @@ export type GzwResponseInfo = GzwRequestInfo & {
 
 export type GzwDataClientOptions = {
   baseUrl?: string;
+  timeoutMs?: number;
   fetch?: typeof globalThis.fetch;
   headers?: Record<string, string>;
   retries?: number;
