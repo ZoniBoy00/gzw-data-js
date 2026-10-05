@@ -166,9 +166,10 @@ Implementation, tag `v0.7.0`, npm publication, clean published-package installat
 
 The fix is published as npm `0.7.1`; tag `v0.7.1`, the GitHub release, CI, and a clean published-package smoke test are verified. The release workflow's npm publish step returned HTTP 404, so the package was published from the authenticated npm session; npm metadata does not show a verified provenance attestation.
 
-#### `0.7.2` — package tree-shaking metadata (release candidate)
+#### `0.7.2` — package metadata for bundlers and provenance (release candidate)
 
 - [x] Mark the package as side-effect-free so bundlers can safely omit unused exports.
+- [x] Declare the source repository so npm can validate GitHub Actions provenance.
 - [x] Upgrade the release workflow to Node.js 22 and npm 11.5.1 for npm Trusted Publishing via GitHub Actions OIDC.
 - [ ] Verify the OIDC-backed publish, npm provenance, and clean published-package smoke test.
 
