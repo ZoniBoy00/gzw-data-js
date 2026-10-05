@@ -14,7 +14,6 @@ jobs:
     name: Validate, publish and release
     runs-on: ubuntu-latest
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Check out tagged commit
@@ -38,9 +37,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
-          registry-url: https://registry.npmjs.org
+          node-version: 22.x
           cache: npm
+
+      - name: Set up npm for trusted publishing
+        run: |
+          npm install --global npm@11.5.1
+          node --version
+          npm --version
 
       - name: Set up Python
         uses: actions/setup-python@v5
