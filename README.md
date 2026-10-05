@@ -22,6 +22,10 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 
 ## Changelog
 
+### 0.7.2 — package tree-shaking metadata (October 2026)
+
+- Mark the package as side-effect-free so bundlers can safely omit unused exports.
+
 ### 0.7.1 — clearer invalid signal errors (September 2026)
 
 - Reject non-`AbortSignal` values with a clear `TypeError` before starting a request or retry wait.
