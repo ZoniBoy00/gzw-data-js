@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GZW Data API or dataset issue
+    url: https://github.com/ZoniBoy00/gzw-data/issues
+    about: Report API behavior or scraped game data problems in the API repository.

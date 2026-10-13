@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest a concrete improvement to the JavaScript/TypeScript client.
+title: "feat: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to do, and what is currently difficult or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest useful behavior or API you'd like.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: input
+    id: consumer
+    attributes:
+      label: Package version or project using the client
+      placeholder: "@zoniboy/gzw-data-client 0.7.2"
+    validations:
+      required: false

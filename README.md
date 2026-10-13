@@ -344,9 +344,13 @@ npm run tarball:smoke
 
 The API/SDK compatibility boundary is documented in [docs/API-SDK-COMPATIBILITY.md](./docs/API-SDK-COMPATIBILITY.md). Use `npm run contract:check` for the release-gate response-shape checks and `npm run tarball:smoke` to install and exercise the packed package in a clean temporary project.
 
+## Feedback and support
+
+Found an SDK bug or have a concrete feature request? [Open an issue](https://github.com/ZoniBoy00/gzw-data-js/issues/new/choose) with the package version, runtime, a minimal reproduction, and expected versus actual behavior. Please don't include API keys, tokens, or private data. For API or dataset problems rather than SDK behavior, use the [GZW Data repository](https://github.com/ZoniBoy00/gzw-data/issues).
+
 ## Roadmap
 
-The planned SDK improvements are tracked in [ROADMAP.md](./ROADMAP.md), including release automation, framework integrations and the path to `1.0.0`.
+The [roadmap](./ROADMAP.md) lists release-readiness criteria and possible future work. Priorities depend on real compatibility issues and consumer needs; framework integrations are not commitments absent a concrete use case.
 
 ## Related links
 

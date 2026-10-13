@@ -9,7 +9,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
-- **Verification:** SDK 38 tests, API 45 tests, scraper 36 tests; source and live integration checks (2026-10-05)
+- **Verification snapshot:** SDK 38 tests, API 45 tests, scraper 36 tests; source and live integration checks passed on 2026-10-05. This is a dated snapshot, not a claim about the current CI state.
 - **License:** MIT
 
 ## Completed
@@ -31,6 +31,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 - [x] `CONTRIBUTING.md` with SDK development and npm release guidance.
 
 ## Next priorities
+
+Only prioritize work backed by a real compatibility, maintenance, or consumer need. Framework adapters and extra convenience APIs are not release goals by themselves.
 
 ### 1. API contract synchronization — `0.5.0`
 
@@ -92,7 +94,7 @@ The SDK follows semantic versioning. The version targets are milestones, not pro
 - Zero runtime dependencies.
 - Backward-compatible fixes and small additions only.
 
-The current release is `0.5.0`; `0.4.x` is maintained as the previous compatible line.
+This section records historical `0.4.x` scope; it is not the current release status.
 
 #### `0.3.0` — typed datasets and ergonomics
 
@@ -136,7 +138,7 @@ React and other framework adapters are intentionally deferred until the stable `
 - [x] Cross-repository integration checks cover scraper output, API metadata, OpenAPI, and SDK declarations.
 - [x] Documentation and examples cover the main Node.js, browser, TypeScript, and bot use cases.
 
-npm `0.6.0` and [GitHub release v0.6.0](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.6.0) are published and verified. This version was published manually without a provenance attestation because the repository's `NPM_TOKEN` Actions secret is not configured; automated npm publishing with provenance remains available once that secret or an npm trusted publisher is configured.
+npm `0.6.0` and [GitHub release v0.6.0](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.6.0) are published. Its original publication workflow details are historical; the current release and provenance status is recorded under `0.7.2` below.
 
 #### Production hardening and performance — already implemented in 0.6.0 (not a 0.7.0 release)
 
@@ -177,29 +179,21 @@ Published npm `0.7.2` with a verified SLSA provenance attestation. The release w
 
 #### `0.8.0` — release candidate and stability
 
-- [ ] Public methods, types, response envelopes, and error semantics are frozen for the release candidate.
-- [ ] Known breaking changes have migration notes.
-- [ ] Generated types and declarations are deterministic and checked in CI.
-- [ ] Release automation, release notes, semantic versioning, and package provenance are operational.
-- [ ] Documentation is complete for installation, API compatibility, errors, retries, caching, and cancellation.
-- [ ] A release-candidate package passes local, contract, and published-tarball checks.
+- [ ] Decide whether a release candidate is warranted by actual consumer feedback or an intentional public-contract freeze; don't cut one merely to follow a version target.
+- [ ] Review every exported runtime symbol, declaration, response envelope, and error code; document any known breaking change and migration path.
+- [ ] Verify generated output is deterministic and CI rejects stale generated files.
+- [ ] Confirm release automation and npm provenance using a real candidate workflow run.
+- [ ] Verify install, API compatibility, error/retry/cache/cancellation docs against current behavior.
+- [ ] Pass `npm run check`, generated/contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results.
 
 #### `1.0.0` — stable public SDK and framework integrations
 
-Publish `1.0.0` only when the public client contract is intentionally stable and documented:
+Publish `1.0.0` only when the public client contract is intentionally stable and documented, and there is a clear reason to leave pre-1.0.0 status:
 
-- [ ] Breaking-change policy is documented.
-- [ ] API response envelopes and error codes are covered by contract tests.
-- [ ] Generated output is deterministic and checked in CI.
-- [ ] Release automation and release notes workflow are in place.
-- [ ] Published-package smoke tests pass.
-- [ ] A migration guide exists for any known breaking changes.
-- [ ] Create a separate `@zoniboy/gzw-data-react` package without adding React to core dependencies.
-- [ ] Add `useGzwDataset` with loading, error, data, refetch, cancellation, and stale-request states.
-- [ ] Add useful stats, health, and search hooks only after real consumers need them.
-- [ ] Support server-side rendering without global browser assumptions.
-- [ ] Add React, Vite, and Next.js examples plus unmount-cancellation tests.
-- [ ] Evaluate other framework adapters only after a real use case exists.
+- [ ] State the stability promise and breaking-change policy in public documentation.
+- [ ] Complete the `0.8.0` release-candidate checks above and document migration notes for any breaking changes.
+- [ ] Confirm maintainers can support the compatibility commitment and that the release is justified by real usage or downstream integration needs.
+- [ ] Build framework adapters only when a real consumer/use case justifies their separate maintenance cost. If React demand exists, keep it in a separate package and test cancellation, stale requests, and SSR without browser globals.
 
 ### Semantic versioning policy
 
@@ -207,6 +201,10 @@ Publish `1.0.0` only when the public client contract is intentionally stable and
 - **Minor:** backward-compatible methods, optional fields, helpers, and supported dataset types.
 - **Major:** removed or renamed public methods, changed return semantics, incompatible error behavior, or other breaking client changes.
 - Newly discovered datasets should remain available through the dynamic fallback without forcing a release.
+
+## Feedback and support
+
+Use [GitHub Issues](https://github.com/ZoniBoy00/gzw-data-js/issues) for reproducible bugs and concrete feature requests. Include the package version, Node.js/browser runtime, a minimal reproduction, expected behavior, and actual behavior; never include API keys, tokens, or private data. For API/data problems rather than SDK-client behavior, report them in the [GZW Data repository](https://github.com/ZoniBoy00/gzw-data/issues).
 
 ## Release checklist
 
