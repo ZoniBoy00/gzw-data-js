@@ -17,38 +17,38 @@ concurrency:
 jobs:
   refresh:
     name: Compare API metadata and release compatible additions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       GH_TOKEN: ${{ github.token }}
       GZW_DATA_REPO: .integration/gzw-data
       GZW_SCRAPER_REPO: .integration/gzw-scraper
     steps:
       - name: Check out SDK main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           ref: main
           fetch-depth: 0
 
       - name: Check out API source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           repository: ZoniBoy00/gzw-data
           path: .integration/gzw-data
 
       - name: Check out scraper source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           repository: ZoniBoy00/gzw-scraper
           path: .integration/gzw-scraper
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: 22.x
           cache: npm
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: '3.12'
 
