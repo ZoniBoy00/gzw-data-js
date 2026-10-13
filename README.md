@@ -4,7 +4,7 @@
 [![CI](https://github.com/ZoniBoy00/gzw-data-js/actions/workflows/ci.yml/badge.svg)](https://github.com/ZoniBoy00/gzw-data-js/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/ZoniBoy00/gzw-data-js)](https://github.com/ZoniBoy00/gzw-data-js/blob/main/LICENSE)
 
-A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.dev/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key.
+A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.dev/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key. See the [online SDK guide](https://gzw-data.dev/docs/sdk/) for the quick start, dynamic dataset discovery, and type-checked integration examples.
 
 - Node.js 18+ and modern browsers
 - TypeScript declarations included
@@ -360,8 +360,11 @@ The [roadmap](./ROADMAP.md) lists release-readiness criteria and possible future
 
 ## Related links
 
+- [Online JavaScript/TypeScript SDK guide](https://gzw-data.dev/docs/sdk/)
+- [Runnable SDK examples](./examples/sdk/)
 - [GZW Data Console](https://gzw-data.dev/)
 - [API Quick start](https://gzw-data.dev/docs/#quickstart)
+- [API examples](https://gzw-data.dev/docs/examples/)
 - [GZW Data API](https://gzw-data.dev/api)
 - [GZW Data repository](https://github.com/ZoniBoy00/gzw-data)
 

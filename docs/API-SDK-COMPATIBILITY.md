@@ -1,6 +1,6 @@
 # API / SDK compatibility matrix
 
-This document describes the compatibility boundary between `@zoniboy/gzw-data-client` and the versioned GZW Data API.
+This document describes the compatibility boundary between `@zoniboy/gzw-data-client` and the versioned GZW Data API. The user-facing [SDK guide](https://gzw-data.dev/docs/sdk/) contains installation, runtime dataset discovery, examples, and troubleshooting. Runnable TypeScript examples live in [`examples/sdk/`](../examples/sdk/) and are included in the type-check suite.
 
 ## Supported contract
 
