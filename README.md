@@ -155,6 +155,8 @@ first.future_wiki_field; // unknown
 
 Use `GzwDataset` for dataset names with autocomplete for known datasets while still accepting new string names. Use `DatasetRecord<Name>` when building typed adapters around a dataset name.
 
+The exported `generatedDatasetInfo` is release-time metadata. Its `count` values are snapshots, not live totals; use `gzw.stats()` or dataset responses when current counts matter. New datasets and field-schema changes are synced into SDK releases, while count-only changes do not trigger npm releases.
+
 You can also provide a project-specific record type:
 
 ```ts

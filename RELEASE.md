@@ -32,6 +32,26 @@ The workflow uses npm Trusted Publishing (GitHub Actions OIDC), so no long-lived
 `NPM_TOKEN` secret is needed. A failed validation prevents publishing and
 release creation.
 
+## Generated API metadata automation
+
+`refresh-generated-metadata.yml` runs weekly after the scraper's scheduled run
+and can also be started manually. It regenerates dataset names and field
+metadata from the live API, validates the SDK against API and scraper sources,
+and classifies the schema diff:
+
+- Additions only: bump the patch version, update release notes, push the commit
+  and tag, then dispatch this release workflow against that exact tag. The
+  package is published only after all release checks pass.
+- Removed datasets/fields or narrowed field types: create a review PR and do
+  not bump or publish automatically.
+- Record-count-only changes: discard the generated snapshot diff and do not
+  release. `generatedDatasetInfo.count` is a package-release snapshot; live
+  counts belong to the API.
+
+The generated-output check compares dataset names and field schemas, not record
+counts. This prevents routine scraper data changes from failing SDK CI or
+producing unnecessary npm versions.
+
 The published-package check can also be run manually after propagation:
 
 ```bash

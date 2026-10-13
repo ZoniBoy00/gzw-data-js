@@ -1,0 +1,133 @@
+name: Refresh generated SDK metadata
+
+on:
+  schedule:
+    - cron: '37 9 * * 2' # Tuesday, after the weekly scraper run
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: generated-sdk-metadata-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Compare API metadata and release compatible additions
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GZW_DATA_REPO: .integration/gzw-data
+      GZW_SCRAPER_REPO: .integration/gzw-scraper
+    steps:
+      - name: Check out SDK main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Check out API source
+        uses: actions/checkout@v4
+        with:
+          repository: ZoniBoy00/gzw-data
+          path: .integration/gzw-data
+
+      - name: Check out scraper source
+        uses: actions/checkout@v4
+        with:
+          repository: ZoniBoy00/gzw-scraper
+          path: .integration/gzw-scraper
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install scraper test dependencies
+        run: python -m pip install pytest requests beautifulsoup4 lxml tqdm
+
+      - name: Generate candidate metadata
+        run: npm run generate-types
+
+      - name: Classify generated changes
+        id: change
+        run: node scripts/classify-generated-change.mjs
+
+      - name: Discard record-count-only snapshot changes
+        if: steps.change.outputs.schema_changed != 'true'
+        run: |
+          git restore src/generated/datasets.ts
+          echo 'No dataset-name or field-schema changes; no package release is needed.' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify package, API, scraper, and live contracts
+        if: steps.change.outputs.schema_changed == 'true'
+        run: |
+          npm run check
+          npm run check:generated
+          npm run contract:check
+          npm run contract:live
+          npm run integration:check
+          npm pack --dry-run
+          npm run tarball:smoke
+
+      - name: Open review PR for potentially breaking removals
+        if: steps.change.outputs.schema_changed == 'true' && steps.change.outputs.breaking == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          branch: automation/generated-metadata-breaking
+          delete-branch: false
+          commit-message: 'fix(types): review breaking generated metadata changes'
+          title: 'fix(types): review breaking generated metadata changes'
+          body: |
+            The scheduled API metadata sync detected one or more removals or field-type narrowings.
+
+            This PR intentionally does not bump the package version or publish to npm. Review the dataset/field removals in the diff, confirm the API change is intentional, and choose the appropriate compatibility/migration and versioning path before release.
+          add-paths: |
+            src/generated/datasets.ts
+
+      - name: Prepare additive patch release
+        if: steps.change.outputs.schema_changed == 'true' && steps.change.outputs.breaking != 'true'
+        run: |
+          npm version patch --no-git-tag-version
+          node scripts/release-docs.mjs prepare
+          npm run check
+          npm run check:generated
+          npm pack --dry-run
+          npm run tarball:smoke
+
+      - name: Commit and tag additive metadata update
+        if: steps.change.outputs.schema_changed == 'true' && steps.change.outputs.breaking != 'true'
+        id: release
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./package.json').version")"
+          tag="v$version"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/generated/datasets.ts package.json package-lock.json README.md ROADMAP.md
+          git diff --cached --check
+          git commit -m "chore(release): prepare $version" \
+            -m "$(printf '%s\n' '- refresh additive generated API dataset metadata' '- bump the patch version and prepare package release notes')"
+          git push origin HEAD:main
+          git tag -a "$tag" -m "$tag"
+          git push origin "refs/tags/$tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch verified npm release workflow
+        if: steps.change.outputs.schema_changed == 'true' && steps.change.outputs.breaking != 'true'
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+        run: gh workflow run release.yml --repo ZoniBoy00/gzw-data-js --ref "$RELEASE_TAG" --field "tag=$RELEASE_TAG"
