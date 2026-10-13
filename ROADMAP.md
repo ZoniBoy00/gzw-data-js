@@ -4,8 +4,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package version:** `0.7.3` (release candidate)
-- **Latest published npm release:** `0.7.2`
+- **Package version:** `0.7.3` (released)
+- **Latest published npm release:** `0.7.3`
 - **Runtime:** Node.js 18+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -177,11 +177,13 @@ The fix is published as npm `0.7.1`; tag `v0.7.1`, the GitHub release, CI, and a
 
 Published npm `0.7.2` with a verified SLSA provenance attestation. The release workflow, cross-repository checks, and published-package installation/import/API smoke test passed; GitHub release [v0.7.2](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.7.2) was created.
 
-#### `0.7.3` — refreshed generated dataset metadata (release candidate)
+#### `0.7.3` — refreshed generated dataset metadata (released)
 
 - [x] Regenerate the exported dataset-name list, record counts, and field metadata from current API metadata.
 - [x] Verify generated output, package tests, API contract, and live API/scraper integration.
-- [ ] Publish the package with provenance and verify the exact npm artifact.
+- [x] Publish the package with provenance and verify the exact npm artifact.
+
+Published npm `0.7.3` with verified SLSA provenance. The clean published-package install/import/API smoke test passed, and the release workflow completed successfully. See [GitHub release v0.7.3](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.7.3).
 
 #### `0.8.0` — release candidate and stability
 
