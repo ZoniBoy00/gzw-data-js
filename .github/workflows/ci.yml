@@ -34,9 +34,6 @@ jobs:
       - name: Run build and tests
         run: npm run check
 
-      - name: Verify generated dataset types
-        run: npm run check:generated
-
       - name: Verify package contents
         run: npm pack --dry-run
 

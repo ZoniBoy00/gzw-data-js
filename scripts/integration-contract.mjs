@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { GzwDataClient, generatedDatasetInfo } from "../dist/index.js";
+import { GzwDataClient } from "../dist/index.js";
 
 const baseUrl = (process.env.GZW_API_URL ?? "https://gzw-data.dev/api/v1").replace(/\/+$/, "");
 const client = new GzwDataClient({ baseUrl, retries: 0 });
@@ -27,20 +27,29 @@ assert.ok(stats.weapons?.total > 0, "stats must include weapons");
 assert.equal(typeof changes.hasHistory, "boolean", "changes must report snapshot availability");
 assert.match(spec.openapi, /^3\.\d+\.\d+$/, "OpenAPI version must be valid");
 
+assert.ok(Array.isArray(metadata.datasets), "full metadata must expose the current dataset registry");
 const metadataByName = new Map(metadata.datasets.map((dataset) => [dataset.name, dataset]));
-for (const [name, generated] of Object.entries(generatedDatasetInfo)) {
-  const live = metadataByName.get(name);
-  assert.ok(live, `generated SDK dataset ${name} must exist in API metadata`);
-  assert.ok(live.fields && !Array.isArray(live.fields), `${name} metadata must expose typed fields`);
-  const liveFields = live.fields;
-  assert.deepEqual(Object.keys(generated.fields).sort(), Object.keys(liveFields).sort(), `${name} generated fields must match scraper metadata`);
-  for (const [field, types] of Object.entries(generated.fields)) {
-    assert.deepEqual(types, liveFields[field]?.types ?? [], `${name}.${field} generated types must match scraper metadata`);
-  }
-  const openApiSchema = spec.components?.schemas?.[name];
-  assert.ok(openApiSchema, `OpenAPI must publish a schema for ${name}`);
-  assert.deepEqual(Object.keys(openApiSchema.properties ?? {}).sort(), Object.keys(generated.fields).sort(), `${name} OpenAPI fields must match generated SDK metadata`);
+assert.equal(metadataByName.size, metadata.datasets.length, "API metadata dataset names must be unique");
+for (const dataset of metadata.datasets) {
+  assert.ok(dataset.fields && !Array.isArray(dataset.fields), `${dataset.name} metadata must expose field metadata`);
+  const openApiSchema = spec.components?.schemas?.[dataset.name];
+  assert.ok(openApiSchema, `OpenAPI must publish a schema for ${dataset.name}`);
+  assert.deepEqual(
+    Object.keys(openApiSchema.properties ?? {}).sort(),
+    Object.keys(dataset.fields).sort(),
+    `${dataset.name} API metadata and OpenAPI fields must match`,
+  );
 }
+
+const dynamicDatasetName = metadata.datasets.find((dataset) => ![
+  "weapons", "armor", "weapon_parts", "helmet_mods", "ammo", "tasks", "keys", "medical", "provisions",
+].includes(dataset.name))?.name ?? metadata.datasets[0]?.name;
+assert.ok(dynamicDatasetName, "API must expose at least one dataset for runtime discovery");
+const dynamicResource = client.dataset(dynamicDatasetName);
+const dynamicMetadata = await dynamicResource.info();
+assert.equal(dynamicMetadata.name, dynamicDatasetName, "dataset metadata must resolve names directly from the API");
+const dynamicRecords = await dynamicResource.list({ page: 1, perPage: 1 });
+assert.ok(Array.isArray(dynamicRecords.data), "dataset records must be fetchable without generated SDK metadata");
 
 const result = await client.search("AK-12", { datasets: ["weapons"], fields: ["name"], limit: 3 });
 assert.equal(result.query, "AK-12");
@@ -67,6 +76,7 @@ console.log(JSON.stringify({
   apiVersion: version.apiVersion,
   dataVersion: version.dataVersion,
   datasets: metadata.datasetCount,
-  generatedDatasetsChecked: Object.keys(generatedDatasetInfo).length,
-  checks: ["health", "readiness", "version", "metadata", "schema", "stats", "changes", "OpenAPI", "search", "smart-routes"],
+  apiDatasetsChecked: metadata.datasets.length,
+  dynamicDatasetChecked: dynamicDatasetName,
+  checks: ["health", "readiness", "version", "metadata", "schema", "stats", "changes", "OpenAPI", "search", "dynamic-dataset", "smart-routes"],
 }, null, 2));

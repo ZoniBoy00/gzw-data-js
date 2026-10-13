@@ -2,7 +2,8 @@ import { GzwDataClient, type ArmorItem, type DatasetResource, type GzwDatasetMet
 
 const client = new GzwDataClient({ baseUrl: "https://example.test/api" });
 const weapons = client.dataset("weapons");
-const dynamic = client.dataset("new-scraper-dataset");
+const apiDiscoveredName: string = "dataset-added-after-sdk-release";
+const dynamic = client.dataset(apiDiscoveredName);
 
 const typedWeapons: DatasetResource<Weapon> = weapons;
 const dynamicRecords: DatasetResource<GzwRecord> = dynamic;

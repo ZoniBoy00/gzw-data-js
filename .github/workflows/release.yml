@@ -4,12 +4,6 @@ on:
   push:
     tags:
       - "v*.*.*"
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: Existing version tag to validate and release
-        required: true
-        type: string
 
 permissions:
   contents: write
@@ -21,7 +15,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       GH_TOKEN: ${{ github.token }}
-      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+      RELEASE_TAG: ${{ github.ref_name }}
     steps:
       - name: Check out tagged commit
         uses: actions/checkout@v7.0.1
@@ -89,9 +83,6 @@ jobs:
       - name: Run package checks
         run: npm run check
 
-      - name: Verify generated output
-        run: npm run check:generated
-
       - name: Verify API contract
         run: npm run contract:check
 
@@ -145,20 +136,4 @@ jobs:
         run: |
           if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release create "$RELEASE_TAG" --verify-tag --generate-notes --title "$RELEASE_TAG"
-          fi
-
-      - name: Mark generated-metadata release published
-        shell: bash
-        run: |
-          set -euo pipefail
-          git fetch origin main
-          git switch -c release-roadmap-update origin/main
-          node scripts/release-docs.mjs published "${RELEASE_TAG#v}"
-          if ! git diff --quiet -- ROADMAP.md; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add ROADMAP.md
-            git commit -m "docs: mark ${RELEASE_TAG#v} release verified" \
-              -m "$(printf '%s\n' '- update the current published version and release status' '- record the verified package provenance and smoke test')"
-            git push origin HEAD:main
           fi

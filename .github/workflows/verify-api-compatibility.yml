@@ -1,0 +1,73 @@
+name: Verify live API compatibility
+
+on:
+  schedule:
+    - cron: '37 9 * * 2' # Tuesday, after the weekly scraper run
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: api-sdk-runtime-compatibility
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Test SDK against the current API and scraper data
+    runs-on: ubuntu-24.04
+    env:
+      GZW_DATA_REPO: .integration/gzw-data
+      GZW_SCRAPER_REPO: .integration/gzw-scraper
+    steps:
+      - name: Check out SDK main
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: main
+
+      - name: Check out API source
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ZoniBoy00/gzw-data
+          path: .integration/gzw-data
+
+      - name: Check out scraper source
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ZoniBoy00/gzw-scraper
+          path: .integration/gzw-scraper
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install scraper test dependencies
+        run: python -m pip install pytest requests beautifulsoup4 lxml tqdm
+
+      - name: Check SDK build and tests
+        run: npm run check
+
+      - name: Test API source and data
+        run: |
+          npm test --prefix .integration/gzw-data
+          npm run validate:data --prefix .integration/gzw-data
+
+      - name: Test scraper
+        working-directory: .integration/gzw-scraper
+        run: python -m pytest -q
+
+      - name: Verify SDK runtime against current API metadata and OpenAPI
+        run: |
+          npm run contract:check
+          npm run contract:live
+          npm run integration:check

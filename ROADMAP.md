@@ -32,7 +32,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Next priorities
 
-Only prioritize work backed by a real compatibility, maintenance, or consumer need. Framework adapters and extra convenience APIs are not release goals by themselves.
+Only prioritize work backed by a real compatibility, maintenance, or consumer need. Dataset names, metadata, and records come from the live API; new data alone is not an SDK release trigger. Framework adapters and extra convenience APIs are not release goals by themselves.
 
 ### 1. API contract synchronization — `0.5.0`
 
@@ -46,7 +46,7 @@ Only prioritize work backed by a real compatibility, maintenance, or consumer ne
 
 - [x] Add a deterministic `generate-types` command from OpenAPI and live metadata.
 - [x] Generate known dataset names and endpoint metadata into reviewable source.
-- [x] Add a CI check for stale generated output.
+- [x] Keep the generated name/metadata snapshot optional for autocomplete; runtime dataset discovery remains API-driven.
 - [x] Keep dynamic datasets usable without requiring an SDK release.
 - [x] Keep generated stable types separate from the extensible fallback type.
 
@@ -189,10 +189,10 @@ Published npm `0.7.3` with verified SLSA provenance. The clean published-package
 
 - [ ] Decide whether a release candidate is warranted by actual consumer feedback or an intentional public-contract freeze; don't cut one merely to follow a version target.
 - [ ] Review every exported runtime symbol, declaration, response envelope, and error code; document any known breaking change and migration path.
-- [ ] Verify generated output is deterministic and CI rejects stale generated files.
+- [ ] Keep generated autocomplete snapshots optional and deterministic; runtime dataset discovery must remain API-driven.
 - [ ] Confirm release automation and npm provenance using a real candidate workflow run.
 - [ ] Verify install, API compatibility, error/retry/cache/cancellation docs against current behavior.
-- [ ] Pass `npm run check`, generated/contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results.
+- [ ] Pass `npm run check`, contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results.
 
 #### `1.0.0` — stable public SDK and framework integrations
 

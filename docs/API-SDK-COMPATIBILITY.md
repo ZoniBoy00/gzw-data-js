@@ -36,7 +36,7 @@ This matrix lists methods implemented by the published SDK, not every endpoint e
 
 ## Stable typed datasets
 
-The generated declarations currently cover 85 discovered datasets. High-value stable models include weapons, ammunition, armor, tasks, keys, medical, and provisions. Newly discovered datasets remain available through `GzwRecord` without requiring an SDK release.
+The SDK keeps curated models for high-value stable datasets such as weapons, ammunition, armor, tasks, keys, medical, and provisions. All dataset names, metadata, and records are resolved from the API at runtime; newly discovered datasets remain available through the generic `GzwRecord` fallback without requiring an SDK release. The generated dataset-name union is an optional autocomplete snapshot, not the runtime registry.
 
 ## Smart-route policy
 
@@ -54,13 +54,12 @@ Smart-route helpers are added only for server routes with a stable API contract.
 
 ```bash
 npm run check
-npm run check:generated
 npm run contract:check
 npm run contract:live
 GZW_DATA_REPO=../gzw-data GZW_SCRAPER_REPO=../gzw-scraper npm run integration:check
 npm run tarball:smoke
 ```
 
-`integration:check` validates generated scraper metadata, the API repository's data manifest, the live API metadata and OpenAPI schemas, and the SDK's generated declarations. CI runs this integration path against the current public API and both source repositories.
+`integration:check` validates scraper metadata against the API repository's data manifest, checks live API metadata against OpenAPI, and exercises runtime dataset discovery through the SDK. It deliberately does not require the SDK's optional autocomplete snapshot to match every API data update. CI runs this integration path against the current public API and both source repositories.
 
 The live checks are read-only and intentionally separate from the local unit-test command.

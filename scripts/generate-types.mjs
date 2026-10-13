@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { sourceMatchesGeneratedSchema } from "./generated-change.mjs";
 
 const checkOnly = process.argv.includes("--check");
 const baseUrl = process.env.GZW_API_URL ?? "https://gzw-data.dev/api/v1";
@@ -30,11 +29,11 @@ const target = "src/generated/datasets.ts";
 let current = "";
 try { current = await readFile(target, "utf8"); } catch {}
 if (checkOnly) {
-  if (!sourceMatchesGeneratedSchema(current, output)) {
-    console.error(`${target} has stale dataset names or field metadata. Run npm run generate-types.`);
+  if (current !== output) {
+    console.error(`${target} differs from the live autocomplete snapshot. Run npm run generate-types only when refreshing that snapshot is intended.`);
     process.exit(1);
   }
-  console.log(`${target} dataset names and field metadata are up to date.`);
+  console.log(`${target} matches the current live autocomplete snapshot.`);
 } else if (current !== output) {
   await writeFile(target, output);
 }

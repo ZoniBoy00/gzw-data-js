@@ -155,7 +155,7 @@ first.future_wiki_field; // unknown
 
 Use `GzwDataset` for dataset names with autocomplete for known datasets while still accepting new string names. Use `DatasetRecord<Name>` when building typed adapters around a dataset name.
 
-The exported `generatedDatasetInfo` is release-time metadata. Its `count` values are snapshots, not live totals; use `gzw.stats()` or dataset responses when current counts matter. New datasets and field-schema changes are synced into SDK releases, while count-only changes do not trigger npm releases.
+The generated `KnownGzwDataset` union is a compile-time autocomplete snapshot; exported `generatedDatasetInfo` is static metadata. Neither is the runtime registry, and their counts and field lists can lag the API. For current data, use `gzw.metadata()`, `gzw.dataset(name).info()`, or dataset responses. New API datasets and fields can be queried without an SDK release; unknown record fields use the extensible `GzwRecord` type.
 
 You can also provide a project-specific record type:
 
@@ -301,7 +301,7 @@ const version = await gzw.version();
 const weapons = await gzw.dataset("weapons").info();
 ```
 
-The generated `KnownGzwDataset` names provide autocomplete for the datasets published by the API at generation time. `GzwDataset` still accepts arbitrary strings so newly discovered scraper datasets remain usable before the next SDK release.
+The generated `KnownGzwDataset` names are a compile-time autocomplete snapshot. `GzwDataset` accepts arbitrary strings, and dataset names, metadata, and records are resolved at runtime from the API, so new scraper datasets work without an SDK release. To populate an application dropdown with the current registry, use `(await gzw.metadata()).datasets.map((dataset) => dataset.name)`. IDE autocomplete itself is compile-time and cannot be refreshed from a remote API while typing. Unknown dataset records use `GzwRecord`; their fields are available as `unknown` until a stable model is intentionally added to the SDK.
 
 Stable smart routes have typed convenience methods:
 
@@ -311,7 +311,7 @@ const parts = await gzw.weaponParts();
 const helmetMods = await gzw.helmetMods();
 ```
 
-Regenerate dataset names and metadata with `npm run generate-types`. CI uses `npm run check:generated` to detect stale generated output.
+Run `npm run generate-types` only when intentionally refreshing the autocomplete snapshot. This does not affect runtime dataset discovery, which uses the API metadata endpoints.
 
 ## Errors and retries
 
@@ -339,7 +339,6 @@ The runtime package has **zero dependencies**. TypeScript, `tsx` and Node types 
 ```bash
 npm install
 npm run check
-npm run check:generated
 npm run contract:check
 npm run live:smoke
 npm run contract:live
@@ -347,7 +346,7 @@ GZW_DATA_REPO=../gzw-data GZW_SCRAPER_REPO=../gzw-scraper npm run integration:ch
 npm run tarball:smoke
 ```
 
-`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small health/data verification against the production API. `npm run contract:live` checks the API–SDK response contract; `npm run integration:check` checks the scraper-generated data against API metadata, then verifies the live API, OpenAPI schemas, and generated SDK field declarations together. The local live checks are opt-in; the dedicated CI integration job runs the source and production contract checks on pushes and pull requests.
+`npm run check` builds declaration files and runs the mocked HTTP test suite. `npm run live:smoke` performs a small health/data verification against the production API. `npm run contract:live` checks the API–SDK response contract; `npm run integration:check` checks the scraper-generated data against API metadata, verifies metadata/OpenAPI consistency, and exercises dataset discovery through the live SDK. Live checks are opt-in locally and run in CI and the scheduled API compatibility workflow.
 
 The API/SDK compatibility boundary is documented in [docs/API-SDK-COMPATIBILITY.md](./docs/API-SDK-COMPATIBILITY.md). Use `npm run contract:check` for the release-gate response-shape checks and `npm run tarball:smoke` to install and exercise the packed package in a clean temporary project.
 
