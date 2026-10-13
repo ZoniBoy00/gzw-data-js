@@ -10,6 +10,7 @@ export type GeneratedDatasetName =
   | "belts"
   | "binoculars"
   | "boots"
+  | "bosses"
   | "buffer_tubes"
   | "charging_handle"
   | "cleanup"
@@ -20,6 +21,7 @@ export type GeneratedDatasetName =
   | "drinks"
   | "electronics"
   | "face_cover"
+  | "factions"
   | "food"
   | "foregrips"
   | "front_iron_sights"
@@ -52,14 +54,15 @@ export type GeneratedDatasetName =
   | "mortar_rounds"
   | "mounts"
   | "muzzle_devices"
+  | "newspapers"
   | "night_vision"
   | "paper"
   | "pistol_grips"
-  | "plate_carrier"
   | "plate_carriers"
   | "provisions"
   | "reading_intel"
   | "rear_iron_sights"
+  | "regions"
   | "removed_content"
   | "repair_kits"
   | "rigs"
@@ -124,7 +127,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "backpacks": { count: 16, fields: {
+  "backpacks": { count: 17, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -150,7 +153,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "belts": { count: 8, fields: {
+  "belts": { count: 9, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -174,6 +177,15 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "id": ["string"],
     "image": ["string"],
     "name": ["string"]
+  } },
+  "bosses": { count: 8, fields: {
+    "faction": ["string"],
+    "full_name": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "location": ["string"],
+    "name": ["string"],
+    "tasks": ["string"]
   } },
   "buffer_tubes": { count: 3, fields: {
     "id": ["string"],
@@ -237,11 +249,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "contract": { count: 26, fields: {
+  "contract": { count: 29, fields: {
+    "briefing": ["string"],
     "id": ["string"],
     "image": ["string"],
     "location": ["string"],
     "name": ["string"],
+    "objectives": ["string"],
     "vendor": ["string"]
   } },
   "contracts": { count: 3, fields: {
@@ -283,6 +297,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
+  } },
+  "factions": { count: 6, fields: {
+    "description": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"]
   } },
   "food": { count: 19, fields: {
     "arm_stamina_boost": ["string"],
@@ -418,7 +438,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "helmets": { count: 41, fields: {
+  "helmets": { count: 44, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -450,7 +470,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "intels": { count: 5, fields: {
+  "intels": { count: 6, fields: {
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
@@ -500,7 +520,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "usage": ["string"],
     "weight": ["string"]
   } },
-  "laboratory_supplies": { count: 9, fields: {
+  "laboratory_supplies": { count: 10, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -536,7 +556,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"]
   } },
   "loot_items": { count: 120, fields: {
-    "grid": ["string"],
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
@@ -559,13 +579,15 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "main_task": { count: 26, fields: {
     "alternate": ["string"],
+    "briefing": ["string"],
     "id": ["string"],
     "image": ["string"],
     "location": ["string"],
     "name": ["string"],
+    "objectives": ["string"],
     "vendor": ["string"]
   } },
-  "medical": { count: 34, fields: {
+  "medical": { count: 35, fields: {
     "charges": ["string"],
     "duration": ["string"],
     "effect": ["string"],
@@ -630,6 +652,14 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
+  "newspapers": { count: 43, fields: {
+    "description": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"],
+    "transcript": ["string"],
+    "type": ["string"]
+  } },
   "night_vision": { count: 5, fields: {
     "buy_price": ["string"],
     "field_of_view": ["string"],
@@ -665,17 +695,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weapon_handling": ["string"],
     "weight": ["string"]
   } },
-  "plate_carrier": { count: 1, fields: {
-    "armor_locations": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "material": ["string"],
-    "name": ["string"],
-    "nij_class": ["string"],
-    "sold_by": ["string"],
-    "weight": ["string"]
-  } },
-  "plate_carriers": { count: 16, fields: {
+  "plate_carriers": { count: 18, fields: {
     "armor_locations": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -685,24 +705,27 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "material": ["string"],
     "name": ["string"],
     "nij_class": ["string"],
+    "protection_rating": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
   "provisions": { count: 37, fields: {
-    "grid": ["string"],
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
-    "source": ["string"],
+    "sold_by": ["string"],
     "weight": ["string"]
   } },
-  "reading_intel": { count: 1, fields: {
+  "reading_intel": { count: 2, fields: {
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
-    "type": ["string"]
+    "type": ["string"],
+    "weight": ["string"]
   } },
   "rear_iron_sights": { count: 20, fields: {
     "buy_price": ["string"],
@@ -716,6 +739,15 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weapon_handling": ["string"],
     "weight": ["string"]
+  } },
+  "regions": { count: 12, fields: {
+    "description": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "locals_type": ["string"],
+    "lz_callsign": ["string"],
+    "name": ["string"],
+    "tier": ["string"]
   } },
   "removed_content": { count: 24, fields: {
     "grid_size": ["string"],
@@ -755,7 +787,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "scopes": { count: 11, fields: {
+  "scopes": { count: 12, fields: {
     "buy_price": ["string"],
     "ergonomics": ["string"],
     "id": ["string"],
@@ -778,11 +810,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "side_task": { count: 96, fields: {
     "alternate": ["string"],
+    "briefing": ["string"],
     "hidden_task": ["string"],
     "id": ["string"],
     "image": ["string"],
     "location": ["string"],
     "name": ["string"],
+    "objectives": ["string"],
     "task_type": ["string"],
     "vendor": ["string"]
   } },
@@ -857,7 +891,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weapon_handling": ["string"],
     "weight": ["string"]
   } },
-  "tactical_devices": { count: 11, fields: {
+  "tactical_devices": { count: 12, fields: {
     "buy_price": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -869,7 +903,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weapon_handling": ["string"],
     "weight": ["string"]
   } },
-  "task_items": { count: 101, fields: {
+  "task_items": { count: 102, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -878,14 +912,16 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "tasks": { count: 249, fields: {
+  "tasks": { count: 250, fields: {
     "alternate": ["string"],
+    "briefing": ["string"],
     "faction": ["string"],
     "hidden_task": ["string"],
     "id": ["string"],
     "image": ["string"],
     "location": ["string"],
     "name": ["string"],
+    "objectives": ["string"],
     "task_type": ["string"],
     "vendor": ["string"]
   } },
@@ -920,7 +956,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "upcoming_content": { count: 11, fields: {
+  "upcoming_content": { count: 12, fields: {
     "accepted_ammunition": ["string"],
     "accuracy": ["string"],
     "armor_locations": ["string"],
@@ -967,7 +1003,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "wares": ["string"]
   } },
-  "vests": { count: 19, fields: {
+  "vests": { count: 18, fields: {
     "armor_locations": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -976,6 +1012,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "material": ["string"],
     "name": ["string"],
     "nij_class": ["string"],
+    "protection_rating": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
