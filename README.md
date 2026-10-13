@@ -22,6 +22,11 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 
 ## Changelog
 
+### 0.7.3 — refresh generated dataset metadata (October 2026)
+
+- Refresh the exported dataset-name list, record counts, and field metadata from the current GZW Data API metadata.
+- Include newly available datasets and remove stale dataset/field metadata.
+
 ### 0.7.2 — package metadata for bundlers and provenance (October 2026)
 
 - Mark the package as side-effect-free so bundlers can safely omit unused exports.

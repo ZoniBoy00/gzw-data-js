@@ -28,12 +28,12 @@ release. If the exact version is already present on npm, the workflow skips a
 second immutable publish and still runs the registry smoke test and creates the
 GitHub release.
 
-Before using the workflow, configure the repository secret `NPM_TOKEN` with a
-publish-capable npm token. The workflow does not run for ordinary branch
-pushes, and a failed validation prevents publishing and release creation.
+The workflow uses npm Trusted Publishing (GitHub Actions OIDC), so no long-lived
+`NPM_TOKEN` secret is needed. A failed validation prevents publishing and
+release creation.
 
 The published-package check can also be run manually after propagation:
 
 ```bash
-npm run published:smoke -- 0.5.0
+npm run published:smoke -- 0.7.3
 ```
