@@ -49,6 +49,7 @@ export type {
   MedicalItem,
   OpenApiSpec,
   OpenApiSchema,
+  NumericValue,
   Provision,
   Task,
   Weapon,

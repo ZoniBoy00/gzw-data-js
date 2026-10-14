@@ -10,7 +10,7 @@
   "type": "module",
   "sideEffects": false,
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "files": [
     "dist",
@@ -38,7 +38,7 @@
     "contract:live": "tsx test/contract-smoke.ts",
     "contract:check": "node scripts/check-contract.mjs",
     "integration:live": "node scripts/integration-contract.mjs",
-    "integration:source": "python3 scripts/check-source-contract.py \"${GZW_DATA_REPO:-../data}\" \"${GZW_SCRAPER_REPO:-../scraper}\"",
+    "integration:source": "python3 scripts/check-source-contract.py \"${GZW_DATA_REPO:-../gzw-data}\" \"${GZW_SCRAPER_REPO:-../gzw-scraper}\"",
     "integration:check": "npm run integration:source && npm run integration:live",
     "tarball:smoke": "node scripts/tarball-smoke.mjs",
     "published:smoke": "node scripts/published-smoke.mjs"

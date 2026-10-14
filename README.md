@@ -6,7 +6,7 @@
 
 A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.dev/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key. See the [online SDK guide](https://gzw-data.dev/docs/sdk/) for the quick start, dynamic dataset discovery, and type-checked integration examples.
 
-- Node.js 18+ and modern browsers
+- Node.js 22+ and modern browsers (current repository source). Published `0.7.3` remains compatible with Node.js 18+.
 - TypeScript declarations included
 - Abortable requests and async pagination
 - Retry handling for rate limits, server errors and transient network failures
@@ -21,6 +21,11 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - API data refreshed by the public scraper workflow
 
 ## Changelog
+
+### Unreleased (main)
+
+- Add typed optional `numeric_values` projections to `GzwRecord`.
+- Target Node.js 22+ in the next SDK release; the published `0.7.3` package remains Node.js 18+ compatible.
 
 ### 0.7.3 — refresh generated dataset metadata (October 2026)
 
@@ -119,7 +124,15 @@ for (const outcome of outcomes) {
 }
 ```
 
-`get(id)` calls `/api/v1/<dataset>/<id>` directly. A missing record returns `undefined`, while other API errors are exposed as `GzwApiError` instances.
+`get(id)` calls `/api/v1/<dataset>/<id>` directly. The API may resolve a reviewed
+legacy ID to the canonical record; returned records keep their current `id`.
+A missing record returns `undefined`, while other API errors are exposed as
+`GzwApiError` instances.
+
+The current API can add an optional `numeric_values` map to records while keeping
+source strings unchanged. Each entry is `{ value: number, unit: string }`; only
+unambiguous unit-bearing values are projected. `GzwRecord` exposes this map as an
+optional typed property, including for dynamically discovered datasets.
 
 `dataset.export({ limit })` requests a bounded export, but the API controls its own maximum: `export.maxRecords` reports the server-side cap, not necessarily the requested `limit`. `export.count` reports the number of records returned for that request.
 

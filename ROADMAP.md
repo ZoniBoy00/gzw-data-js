@@ -4,12 +4,12 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package version:** `0.7.3` (released)
+- **Package manifest version:** `0.7.3` (last published; current main changes are unreleased)
 - **Latest published npm release:** `0.7.3`
-- **Runtime:** Node.js 18+ and modern browsers
+- **Runtime:** published `0.7.3` supports Node.js 18+; current main targets Node.js 22+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
-- **Verification snapshot:** SDK 38 tests, API 45 tests, scraper 36 tests; source and live integration checks passed on 2026-10-05. This is a dated snapshot, not a claim about the current CI state.
+- **Verification:** use the current GitHub Actions run; test counts are not maintained as static roadmap data.
 - **License:** MIT
 
 ## Completed
@@ -187,6 +187,8 @@ Published npm `0.7.3` with verified SLSA provenance. The clean published-package
 
 #### `0.8.0` — release candidate and stability
 
+- [x] Add optional `NumericValue` and `GzwRecord.numeric_values` declarations in unreleased main.
+- [x] Target Node.js 22+ in main and verify CI commands on Node.js 22 and 24.
 - [ ] Decide whether a release candidate is warranted by actual consumer feedback or an intentional public-contract freeze; don't cut one merely to follow a version target.
 - [ ] Review every exported runtime symbol, declaration, response envelope, and error code; document any known breaking change and migration path.
 - [ ] Keep generated autocomplete snapshots optional and deterministic; runtime dataset discovery must remain API-driven.

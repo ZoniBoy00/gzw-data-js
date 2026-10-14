@@ -4,10 +4,16 @@ import type { GeneratedDatasetName } from "./generated/datasets.js";
 export type JsonValue = string | number | boolean | null | JsonObject | JsonValue[];
 export type JsonObject = { [key: string]: JsonValue };
 
+export type NumericValue = {
+  value: number;
+  unit: string;
+};
+
 export type GzwRecord = {
   id?: string;
   name?: string;
   image?: string;
+  numeric_values?: Record<string, NumericValue>;
   [key: string]: unknown;
 };
 
