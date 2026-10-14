@@ -4,9 +4,9 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.8.0` (release candidate; not yet published)
-- **Latest published npm release:** `0.7.3`
-- **Runtime:** published `0.7.3` supports Node.js 18+; the `0.8.0` candidate targets Node.js 22+ and modern browsers
+- **Package manifest version:** `0.8.0` (published)
+- **Latest published npm release:** `0.8.0`
+- **Runtime:** `0.8.0` supports Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
 - **Verification:** use the current GitHub Actions run; test counts are not maintained as static roadmap data.
@@ -185,16 +185,18 @@ Published npm `0.7.2` with a verified SLSA provenance attestation. The release w
 
 Published npm `0.7.3` with verified SLSA provenance. The clean published-package install/import/API smoke test passed, and the release workflow completed successfully. See [GitHub release v0.7.3](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.7.3).
 
-#### `0.8.0` — release candidate and stability
+#### `0.8.0` — numeric projections and Node.js 22+ (released)
 
-- [x] Add optional `NumericValue` and `GzwRecord.numeric_values` declarations in unreleased main.
-- [x] Target Node.js 22+ in main and verify CI commands on Node.js 22 and 24.
+- [x] Add optional `NumericValue` and `GzwRecord.numeric_values` declarations in published `0.8.0`.
+- [x] Target Node.js 22+ in `0.8.0` and verify CI commands on Node.js 22 and 24.
 - [x] Decide whether a release candidate is warranted by actual consumer feedback or an intentional public-contract freeze; don't cut one merely to follow a version target. (Joni requested a new npm package for the public type and Node.js floor changes.)
 - [x] Review every exported runtime symbol, declaration, response envelope, and error code; document any known breaking change and migration path. (No runtime method or response behavior changed; `0.8.0` adds `NumericValue` typing and raises the minimum runtime to Node.js 22.)
 - [x] Keep generated autocomplete snapshots optional and deterministic; runtime dataset discovery must remain API-driven.
-- [ ] Confirm release automation and npm provenance using a real candidate workflow run.
+- [x] Confirm release automation and npm provenance using a real candidate workflow run. (The exact npm version reports a SLSA provenance attestation; the release workflow and published-package smoke passed.)
 - [x] Verify install, API compatibility, error/retry/cache/cancellation docs against current behavior.
 - [x] Pass `npm run check`, contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results. (Node.js 22/24 checks, live contract/integration, runtime tarball smoke, and a clean-consumer declaration compile passed.)
+
+Published npm `0.8.0` with verified provenance. [GitHub release v0.8.0](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.8.0), tag `v0.8.0`, and the exact-version installation/import/API smoke test are verified.
 
 #### `1.0.0` — stable public SDK and framework integrations
 
