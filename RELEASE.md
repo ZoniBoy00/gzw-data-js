@@ -49,5 +49,5 @@ metadata.
 The published-package check can also be run manually after propagation:
 
 ```bash
-npm run published:smoke -- 0.7.3
+npm run published:smoke -- 0.8.0
 ```

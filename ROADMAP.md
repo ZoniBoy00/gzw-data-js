@@ -4,9 +4,9 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.7.3` (last published; current main changes are unreleased)
+- **Package manifest version:** `0.8.0` (release candidate; not yet published)
 - **Latest published npm release:** `0.7.3`
-- **Runtime:** published `0.7.3` supports Node.js 18+; current main targets Node.js 22+ and modern browsers
+- **Runtime:** published `0.7.3` supports Node.js 18+; the `0.8.0` candidate targets Node.js 22+ and modern browsers
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
 - **Verification:** use the current GitHub Actions run; test counts are not maintained as static roadmap data.
@@ -189,12 +189,12 @@ Published npm `0.7.3` with verified SLSA provenance. The clean published-package
 
 - [x] Add optional `NumericValue` and `GzwRecord.numeric_values` declarations in unreleased main.
 - [x] Target Node.js 22+ in main and verify CI commands on Node.js 22 and 24.
-- [ ] Decide whether a release candidate is warranted by actual consumer feedback or an intentional public-contract freeze; don't cut one merely to follow a version target.
-- [ ] Review every exported runtime symbol, declaration, response envelope, and error code; document any known breaking change and migration path.
-- [ ] Keep generated autocomplete snapshots optional and deterministic; runtime dataset discovery must remain API-driven.
+- [x] Decide whether a release candidate is warranted by actual consumer feedback or an intentional public-contract freeze; don't cut one merely to follow a version target. (Joni requested a new npm package for the public type and Node.js floor changes.)
+- [x] Review every exported runtime symbol, declaration, response envelope, and error code; document any known breaking change and migration path. (No runtime method or response behavior changed; `0.8.0` adds `NumericValue` typing and raises the minimum runtime to Node.js 22.)
+- [x] Keep generated autocomplete snapshots optional and deterministic; runtime dataset discovery must remain API-driven.
 - [ ] Confirm release automation and npm provenance using a real candidate workflow run.
-- [ ] Verify install, API compatibility, error/retry/cache/cancellation docs against current behavior.
-- [ ] Pass `npm run check`, contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results.
+- [x] Verify install, API compatibility, error/retry/cache/cancellation docs against current behavior.
+- [x] Pass `npm run check`, contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results. (Node.js 22/24 checks, live contract/integration, runtime tarball smoke, and a clean-consumer declaration compile passed.)
 
 #### `1.0.0` — stable public SDK and framework integrations
 
