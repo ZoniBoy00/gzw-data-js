@@ -1,20 +1,24 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-const root = resolve(new URL("..", import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
+// npm is a .cmd shim on Windows, which can only be started through a shell, so build one quoted command line there.
+const npm = (args, options) => process.platform === "win32"
+  ? execSync(["npm", ...args.map((arg) => JSON.stringify(arg))].join(" "), options)
+  : execFileSync("npm", args, options);
 const temp = mkdtempSync(resolve(tmpdir(), "gzw-data-client-smoke-"));
 
 try {
-  const tarball = execFileSync("npm", ["pack", "--pack-destination", temp, "--silent"], { cwd: root, encoding: "utf8" }).trim();
+  const tarball = npm(["pack", "--pack-destination", temp, "--silent"], { cwd: root, encoding: "utf8" }).trim();
   const packageFile = resolve(temp, tarball);
-  execFileSync("npm", ["init", "-y"], { cwd: temp, stdio: "ignore" });
-  execFileSync("npm", ["install", "--ignore-scripts", packageFile], { cwd: temp, stdio: "inherit" });
+  npm(["init", "-y"], { cwd: temp, stdio: "ignore" });
+  npm(["install", "--ignore-scripts", packageFile], { cwd: temp, stdio: "inherit" });
 
   const packageEntry = resolve(temp, "node_modules/@zoniboy/gzw-data-client/dist/index.js");
   const { GzwDataClient } = await import(pathToFileURL(packageEntry).href);
