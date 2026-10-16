@@ -4,9 +4,9 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.8.0` (published)
-- **Latest published npm release:** `0.8.0`
-- **Runtime:** `0.8.0` supports Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
+- **Package manifest version:** `0.8.1`
+- **Latest published npm release:** `0.8.1`
+- **Runtime:** `0.8.x` supports Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
 - **Verification:** use the current GitHub Actions run; test counts are not maintained as static roadmap data.
@@ -197,6 +197,13 @@ Published npm `0.7.3` with verified SLSA provenance. The clean published-package
 - [x] Pass `npm run check`, contract checks, tarball smoke, and a clean install/import test of the candidate package; record the actual results. (Node.js 22/24 checks, live contract/integration, runtime tarball smoke, and a clean-consumer declaration compile passed.)
 
 Published npm `0.8.0` with verified provenance. [GitHub release v0.8.0](https://github.com/ZoniBoy00/gzw-data-js/releases/tag/v0.8.0), tag `v0.8.0`, and the exact-version installation/import/API smoke test are verified.
+
+#### `0.8.1` — refresh generated metadata and tooling (patch)
+
+- [x] Refresh the generated autocomplete snapshot (`numeric_values` field metadata) and verify `npm run check:generated`.
+- [x] Fix `tarball:smoke` on Windows. No runtime or public API change.
+
+Released through the automated tag workflow; verify the exact version with `npm run published:smoke -- 0.8.1` after publishing.
 
 #### `1.0.0` — stable public SDK and framework integrations
 
