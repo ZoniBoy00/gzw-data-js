@@ -107,7 +107,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "muzzle_velocity": ["string"],
     "name": ["string"],
-        "sold_by": ["string"],
+    "numeric_values": ["object"],
+    "sold_by": ["string"],
     "stopped_by_armor_class": ["string"],
     "type": ["string"],
     "weight": ["string"]
