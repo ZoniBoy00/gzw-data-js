@@ -330,7 +330,7 @@ const parts = await gzw.weaponParts();
 const helmetMods = await gzw.helmetMods();
 ```
 
-Run `npm run generate-types` only when intentionally refreshing the autocomplete snapshot. This does not affect runtime dataset discovery, which uses the API metadata endpoints.
+Run `npm run generate-types` only when intentionally refreshing the autocomplete snapshot. This does not affect runtime dataset discovery, which uses the API metadata endpoints. A weekly workflow compares the snapshot with the live API and opens a pull request only when dataset names, fields or field types changed (record counts are ignored); it never publishes to npm.
 
 ## Errors and retries
 

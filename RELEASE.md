@@ -39,6 +39,8 @@ or fields do not require an SDK npm release. The generated dataset-name union
 is only an autocomplete snapshot; `generatedDatasetInfo` is a static metadata
 export. Neither is the runtime source of truth.
 
+A weekly `refresh-generated-types.yml` workflow compares the live API metadata with the snapshot and opens a pull request only when dataset names, fields or field types changed (record counts are ignored). Merge it when convenient and release in a batch; it never publishes to npm.
+
 The weekly `verify-api-compatibility.yml` workflow checks the live API and
 scraper contracts without regenerating files, modifying `main`, or publishing
 npm packages. Run `npm run generate-types` manually only when intentionally

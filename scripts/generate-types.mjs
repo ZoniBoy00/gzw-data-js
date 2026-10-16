@@ -2,6 +2,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const checkOnly = process.argv.includes("--check");
+// --if-structure-changed: rewrite the file only when dataset names, field names or field types changed.
+const onlyIfStructureChanged = process.argv.includes("--if-structure-changed");
+// Record counts change with every scraper run and do not affect autocomplete, so structure checks ignore them.
+const structure = (text) => text.replace(/\r\n/g, "\n").replace(/count: \d+/g, "count: 0").replace(/^\/\/ Source:.*$/m, "");
 const baseUrl = process.env.GZW_API_URL ?? "https://gzw-data.dev/api/v1";
 const metadataUrl = `${baseUrl.replace(/\/+$/, "")}/metadata?full=true`;
 const response = await fetch(metadataUrl);
@@ -29,12 +33,19 @@ const target = "src/generated/datasets.ts";
 let current = "";
 try { current = await readFile(target, "utf8"); } catch {}
 if (checkOnly) {
-  if (current !== output) {
-    console.error(`${target} differs from the live autocomplete snapshot. Run npm run generate-types only when refreshing that snapshot is intended.`);
+  if (structure(current) !== structure(output)) {
+    console.error(`${target} differs from the live autocomplete snapshot (dataset names, fields or field types). Run npm run generate-types only when refreshing that snapshot is intended.`);
     process.exit(1);
   }
-  console.log(`${target} matches the current live autocomplete snapshot.`);
+  console.log(`${target} matches the live autocomplete snapshot (record counts are ignored).`);
+} else if (onlyIfStructureChanged) {
+  if (structure(current) !== structure(output)) {
+    await writeFile(target, output);
+    console.log(`${target} refreshed: dataset names, fields or field types changed.`);
+  } else {
+    console.log(`${target} is current; nothing to refresh.`);
+  }
 } else if (current !== output) {
   await writeFile(target, output);
 }
-console.log(`${checkOnly ? "Checked" : "Generated"} ${target} for ${datasets.length} datasets.`);
+console.log(`${checkOnly ? "Checked" : onlyIfStructureChanged ? "Compared" : "Generated"} ${target} for ${datasets.length} datasets.`);
