@@ -19,7 +19,7 @@ const temp = mkdtempSync(resolve(tmpdir(), "gzw-data-client-published-"));
 
 try {
   execFileSync("npm", ["init", "-y"], { cwd: temp, stdio: "ignore" });
-  const installArgs = ["install", "--ignore-scripts", "--no-audit", "--no-fund", `${packageName}@${version}`];
+  const installArgs = ["install", "--ignore-scripts", "--no-audit", "--no-fund", "--prefer-online", `${packageName}@${version}`];
   let installed = false;
   for (let attempt = 1; attempt <= 12; attempt += 1) {
     try {
