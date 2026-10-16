@@ -386,6 +386,7 @@ The [roadmap](./ROADMAP.md) lists release-readiness criteria and possible future
 - [API examples](https://gzw-data.dev/docs/examples/)
 - [GZW Data API](https://gzw-data.dev/api)
 - [GZW Data repository](https://github.com/ZoniBoy00/gzw-data)
+- [Python client](https://github.com/ZoniBoy00/gzw-data-py) for the same API
 
 ## License
 
