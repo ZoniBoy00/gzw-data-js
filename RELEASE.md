@@ -51,5 +51,7 @@ metadata.
 The published-package check can also be run manually after propagation:
 
 ```bash
-npm run published:smoke -- 0.8.1
+npm run published:smoke -- 0.9.0
 ```
+
+Both smoke scripts (`tarball:smoke`, `published:smoke`) run npm through `scripts/npm.mjs`, which works on Windows (npm is a `.cmd` shim there) and ignores a user-level npm 12 `allow-scripts` setting that would otherwise fail every project install with `EALLOWSCRIPTS`.
