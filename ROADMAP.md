@@ -4,9 +4,9 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.8.1`
-- **Latest published npm release:** `0.8.1`
-- **Runtime:** `0.8.x` supports Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
+- **Package manifest version:** `0.9.0`
+- **Latest published npm release:** `0.9.0` (after the release workflow completes)
+- **Runtime:** `0.8.x` and `0.9.x` support Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
 - **Verification:** use the current GitHub Actions run; test counts are not maintained as static roadmap data.
@@ -204,6 +204,13 @@ Published npm `0.8.0` with verified provenance. [GitHub release v0.8.0](https://
 - [x] Fix `tarball:smoke` on Windows. No runtime or public API change.
 
 Released through the automated tag workflow; verify the exact version with `npm run published:smoke -- 0.8.1` after publishing.
+
+#### `0.9.0` — item context helper
+
+- [x] Add `client.itemContext(id)` for `GET /api/v1/items/{id}/context`; it returns `undefined` for a missing item.
+- [x] Export the `GzwItemContext` type, document the helper in the README and compatibility matrix, and add a regression test.
+
+Additive minor release: no existing method, type or error behavior changed. Verify the exact version with `npm run published:smoke -- 0.9.0` after publishing.
 
 #### `1.0.0` — stable public SDK and framework integrations
 

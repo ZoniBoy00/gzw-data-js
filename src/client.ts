@@ -1,6 +1,6 @@
 import { GzwApiError, abortError, throwIfAborted } from "./errors.js";
 import { isObject, parseRetryAfter, wait } from "./query.js";
-import type { DatasetRecord, GzwApiRoot, GzwChanges, GzwDataClientOptions, GzwDataset, GzwDatasetMetadata, GzwDatasetSchema, GzwHealth, GzwMetadata, GzwReadiness, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwSearchOptions, GzwStats, GzwVersion, OpenApiSpec } from "./types.js";
+import type { DatasetRecord, GzwApiRoot, GzwChanges, GzwDataClientOptions, GzwDataset, GzwDatasetMetadata, GzwDatasetSchema, GzwHealth, GzwItemContext, GzwMetadata, GzwReadiness, GzwRequestInfo, GzwResponseInfo, GzwRetryInfo, GzwSearch, GzwSearchOptions, GzwStats, GzwVersion, OpenApiSpec } from "./types.js";
 import { DatasetResource } from "./dataset.js";
 
 export class GzwDataClient {
@@ -99,6 +99,16 @@ export class GzwDataClient {
 
   async version(signal?: AbortSignal): Promise<GzwVersion> {
     return this.requestEnvelope<GzwVersion>("/version", signal);
+  }
+
+  async itemContext(id: string, signal?: AbortSignal): Promise<GzwItemContext | undefined> {
+    if (!id.trim()) throw new TypeError("Item id cannot be empty");
+    try {
+      return await this.requestEnvelope<GzwItemContext>(`/items/${encodeURIComponent(id.trim())}/context`, signal);
+    } catch (error) {
+      if (error instanceof GzwApiError && error.status === 404 && error.code === "RECORD_NOT_FOUND") return undefined;
+      throw error;
+    }
   }
 
   async armor(signal?: AbortSignal) {

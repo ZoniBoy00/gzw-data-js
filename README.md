@@ -6,7 +6,7 @@
 
 A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.dev/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key. See the [online SDK guide](https://gzw-data.dev/docs/sdk/) for the quick start, dynamic dataset discovery, and type-checked integration examples.
 
-- Node.js 22+ and modern browsers (current release `0.8.1`). Published `0.7.3` remains compatible with Node.js 18+.
+- Node.js 22+ and modern browsers (current release `0.9.0`). Published `0.7.3` remains compatible with Node.js 18+.
 - TypeScript declarations included
 - Abortable requests and async pagination
 - Retry handling for rate limits, server errors and transient network failures
@@ -16,11 +16,17 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - Optional process-local in-memory caching with TTL, invalidation and in-flight deduplication
 - OpenAPI, health/readiness, stats, image and cross-dataset search helpers
 - Typed metadata, schema, version and snapshot-change helpers
+- Item context lookup (item, vendors and textual references) through `itemContext()`
 - Typed stable smart-route helpers for armor, weapon parts and helmet mods
 - Generated autocomplete for published dataset names with a dynamic fallback for new datasets
 - API data refreshed by the public scraper workflow
 
 ## Changelog
+
+### 0.9.0 — item context helper (released October 2026)
+
+- Add `client.itemContext(id)` for `GET /api/v1/items/{id}/context`; it returns `undefined` when the item does not exist.
+- Export the `GzwItemContext` type. No existing method, type or error behavior changed.
 
 ### 0.8.1 — refresh generated dataset metadata and tooling (released October 2026)
 
@@ -203,6 +209,7 @@ const weaponMetadata = await gzw.metadata("weapons");
 const weaponSchema = await gzw.schema("weapons");
 const changes = await gzw.changes();
 const images = await gzw.images();
+const context = await gzw.itemContext("advanced-tracking-tag"); // item + vendors + references, or undefined
 const matches = await gzw.search("Mosin", {
   datasets: ["weapons"],
   fields: ["name"],

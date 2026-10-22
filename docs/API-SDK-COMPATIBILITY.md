@@ -23,6 +23,7 @@ This matrix lists methods implemented by the published SDK, not every endpoint e
 | OpenAPI specification | `GET /api/v1/spec` | `client.spec()` | Stable |
 | Bounded dataset export | `GET /api/v1/export/:dataset` | `dataset(name).export(options)` | Stable |
 | Dataset record batch loading | Repeated `GET /api/v1/:dataset/:id` | `dataset(name).getMany(ids)` | Client-side helper |
+| Item context (vendors and textual references) | `GET /api/v1/items/:id/context` | `client.itemContext(id)` | Stable; returns `undefined` when the item does not exist |
 | Stable smart-route helpers | Dataset routes for `armor`, `weapon_parts`, and `helmet_mods` | `client.armor()`, `client.weaponParts()`, `client.helmetMods()` | Stable; typed record models |
 
 ## Response rules

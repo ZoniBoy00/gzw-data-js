@@ -225,6 +225,20 @@ describe("GzwDataClient", () => {
     assert.equal(result.data[0].id, "ak-12");
   });
 
+  it("loads item context and returns undefined for a missing item", async () => {
+    globalThis.fetch = async (input) => {
+      const url = new URL(String(input));
+      if (url.pathname === "/api/items/a%20b/context") {
+        return response({ data: { item: { id: "a b" }, vendors: [], references: [], referenceCount: 0 } });
+      }
+      return response({ error: { code: "RECORD_NOT_FOUND", message: "Item not found" } }, 404);
+    };
+    const client = new GzwDataClient({ baseUrl: "https://example.test/api", retries: 0 });
+    assert.equal((await client.itemContext(" a b "))?.item.id, "a b");
+    assert.equal(await client.itemContext("missing"), undefined);
+    await assert.rejects(() => client.itemContext(" "), TypeError);
+  });
+
   it("caches GET responses, deduplicates in-flight requests, and supports invalidation", async () => {
     let calls = 0;
     globalThis.fetch = async () => {

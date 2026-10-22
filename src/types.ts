@@ -206,6 +206,14 @@ export type GzwChanges = {
   message: string;
 };
 
+export type GzwItemContext = {
+  item: GzwRecord;
+  vendors: GzwRecord[];
+  references: Array<Record<string, unknown>>;
+  referenceCount: number;
+  note?: string;
+};
+
 export type GzwSearchOptions = {
   datasets?: string[];
   fields?: string[];

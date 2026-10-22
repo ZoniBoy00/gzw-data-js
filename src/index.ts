@@ -28,6 +28,7 @@ export type {
   GzwExportMetadata,
   GzwFieldMetadata,
   GzwHealth,
+  GzwItemContext,
   GzwKey,
   GzwMetadata,
   GzwReadiness,
