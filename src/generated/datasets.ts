@@ -12,20 +12,25 @@ export type GeneratedDatasetName =
   | "boots"
   | "bosses"
   | "buffer_tubes"
+  | "building_material"
   | "charging_handle"
   | "cleanup"
   | "collimators"
   | "containers"
   | "contract"
   | "contracts"
+  | "crafting_material"
+  | "disassembly_material"
   | "drinks"
   | "electronics"
+  | "evidence"
   | "face_cover"
   | "factions"
   | "food"
   | "foregrips"
   | "front_iron_sights"
   | "funds"
+  | "game_systems"
   | "gas_blocks"
   | "gear"
   | "glasses"
@@ -35,6 +40,7 @@ export type GeneratedDatasetName =
   | "helmet_mounts"
   | "helmets"
   | "hidden_task"
+  | "hideout"
   | "household_item"
   | "intels"
   | "items"
@@ -59,6 +65,7 @@ export type GeneratedDatasetName =
   | "paper"
   | "pistol_grips"
   | "plate_carriers"
+  | "production_material"
   | "provisions"
   | "reading_intel"
   | "rear_iron_sights"
@@ -76,11 +83,13 @@ export type GeneratedDatasetName =
   | "stocks"
   | "suppressors"
   | "tactical_devices"
+  | "task_guides"
   | "task_items"
   | "tasks"
   | "throwables"
   | "tools"
   | "trousers"
+  | "uncategorized"
   | "upcoming_content"
   | "upper_receivers"
   | "valuables"
@@ -129,7 +138,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "backpacks": { count: 17, fields: {
+  "backpacks": { count: 18, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -205,6 +214,18 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
+  "building_material": { count: 37, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "inventory_layout_(x/y)": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
   "charging_handle": { count: 11, fields: {
     "buy_price": ["string"],
     "id": ["string"],
@@ -275,6 +296,27 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "vendor": ["string"]
   } },
+  "crafting_material": { count: 4, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "disassembly_material": { count: 5, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "sold_by": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
   "drinks": { count: 18, fields: {
     "charges": ["string"],
     "effect": ["string"],
@@ -290,6 +332,17 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"]
   } },
   "electronics": { count: 5, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "evidence": { count: 13, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -378,6 +431,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price": ["string"],
     "type": ["string"],
     "weight": ["string"]
+  } },
+  "game_systems": { count: 11, fields: {
+    "content": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"]
   } },
   "gas_blocks": { count: 9, fields: {
     "buy_price": ["string"],
@@ -483,6 +542,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "location": ["string"],
     "name": ["string"],
     "vendor": ["string"]
+  } },
+  "hideout": { count: 1, fields: {
+    "content": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"]
   } },
   "household_item": { count: 20, fields: {
     "grid_size": ["string"],
@@ -753,6 +818,15 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
+  "production_material": { count: 7, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
   "provisions": { count: 37, fields: {
     "grid_size": ["string"],
     "id": ["string"],
@@ -957,6 +1031,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weapon_handling": ["string"],
     "weight": ["string"]
   } },
+  "task_guides": { count: 4, fields: {
+    "content": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"]
+  } },
   "task_items": { count: 102, fields: {
     "grid_size": ["string"],
     "id": ["string"],
@@ -967,7 +1047,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "tasks": { count: 250, fields: {
+  "tasks": { count: 254, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "faction": ["string"],
@@ -1011,6 +1091,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   "trousers": { count: 23, fields: {
     "id": ["string"],
     "image": ["string"],
+    "name": ["string"]
+  } },
+  "uncategorized": { count: 67, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
     "name": ["string"]
   } },
   "upcoming_content": { count: 12, fields: {
@@ -1125,7 +1210,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weapon_handling": ["string"],
     "weight": ["string"]
   } },
-  "workshop_supplies": { count: 16, fields: {
+  "workshop_supplies": { count: 14, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
