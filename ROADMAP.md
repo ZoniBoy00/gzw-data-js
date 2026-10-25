@@ -4,8 +4,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.9.0`
-- **Latest published npm release:** `0.9.0` (after the release workflow completes)
+- **Package manifest version:** `0.9.1`
+- **Latest published npm release:** `0.9.1` (after the release workflow completes)
 - **Runtime:** `0.8.x` and `0.9.x` support Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -211,6 +211,13 @@ Released through the automated tag workflow; verify the exact version with `npm 
 - [x] Export the `GzwItemContext` type, document the helper in the README and compatibility matrix, and add a regression test.
 
 Additive minor release: no existing method, type or error behavior changed. Verify the exact version with `npm run published:smoke -- 0.9.0` after publishing.
+
+#### `0.9.1` — refresh generated dataset names (patch)
+
+- [x] Refresh the generated autocomplete snapshot for the datasets added to the API in October 2026 and verify `npm run check:generated`.
+- [x] No runtime or public API change.
+
+Released through the automated tag workflow; verify the exact version with `npm run published:smoke -- 0.9.1` after publishing.
 
 #### `1.0.0` — stable public SDK and framework integrations
 
