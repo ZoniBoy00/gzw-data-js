@@ -1,4 +1,4 @@
-import { GzwDataClient, type ArmorItem, type DatasetResource, type GzwDatasetMetadata, type GzwMetadata, type GzwRecord, type HelmetMod, type NumericValue, type OpenApiSpec, type Weapon, type WeaponPart } from "../src/index.js";
+import { GzwDataClient, type ArmorItem, type DatasetResource, type GzwDatasetMetadata, type GzwMetadata, type GzwRecord, type HelmetMod, type VendorStock, type HideoutModule, type ExperienceLevel, type NumericValue, type OpenApiSpec, type Weapon, type WeaponPart } from "../src/index.js";
 
 const client = new GzwDataClient({ baseUrl: "https://example.test/api" });
 const weapons = client.dataset("weapons");
@@ -8,6 +8,13 @@ const dynamic = client.dataset(apiDiscoveredName);
 const typedWeapons: DatasetResource<Weapon> = weapons;
 const dynamicRecords: DatasetResource<GzwRecord> = dynamic;
 
+const typedStock: DatasetResource<VendorStock> = client.dataset("vendor_stock");
+const typedModules: DatasetResource<HideoutModule> = client.dataset("hideout_modules");
+const typedLevels: DatasetResource<ExperienceLevel> = client.dataset("experience_levels");
+
+void typedStock;
+void typedModules;
+void typedLevels;
 void typedWeapons;
 void dynamicRecords;
 

@@ -52,6 +52,10 @@ export type {
   OpenApiSchema,
   NumericValue,
   Provision,
+  VendorStock,
+  HideoutModule,
+  HideoutRequirement,
+  ExperienceLevel,
   Task,
   Weapon,
 } from "./types.js";

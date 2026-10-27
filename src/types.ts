@@ -91,6 +91,32 @@ export type Provision = GzwRecord & {
   weight?: string;
 };
 
+export type VendorStock = GzwRecord & {
+  item?: string;
+  vendor?: string;
+  rank?: number | null;
+  category?: string;
+  type?: string;
+};
+
+export type HideoutRequirement = { name: string; quantity: number };
+
+export type HideoutModule = GzwRecord & {
+  room?: string;
+  module?: string;
+  level?: number;
+  requirements?: HideoutRequirement[];
+  requirements_text?: string;
+  function?: string;
+};
+
+export type ExperienceLevel = GzwRecord & {
+  level?: number;
+  threshold?: number;
+  rewards?: string[];
+  rewards_text?: string;
+};
+
 export type KnownGzwDataset = GeneratedDatasetName;
 
 /** Known names get autocomplete; new scraper datasets remain valid strings. */
@@ -106,6 +132,9 @@ export type DatasetRecord<Name extends string> =
   Name extends "keys" | "keycards" ? GzwKey :
   Name extends "medical" ? MedicalItem :
   Name extends "provisions" ? Provision :
+  Name extends "vendor_stock" ? VendorStock :
+  Name extends "hideout_modules" ? HideoutModule :
+  Name extends "experience_levels" ? ExperienceLevel :
   GzwRecord;
 
 export type DatasetQuery = {

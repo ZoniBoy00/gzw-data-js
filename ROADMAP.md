@@ -4,7 +4,7 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.9.1`
+- **Package manifest version:** `0.9.2`
 - **Latest published npm release:** `0.9.1` (after the release workflow completes)
 - **Runtime:** `0.8.x` and `0.9.x` support Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0

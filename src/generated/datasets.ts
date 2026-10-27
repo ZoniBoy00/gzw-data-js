@@ -21,9 +21,12 @@ export type GeneratedDatasetName =
   | "contracts"
   | "crafting_material"
   | "disassembly_material"
+  | "disassembly_recipes"
   | "drinks"
   | "electronics"
   | "evidence"
+  | "experience_actions"
+  | "experience_levels"
   | "face_cover"
   | "factions"
   | "food"
@@ -41,6 +44,7 @@ export type GeneratedDatasetName =
   | "helmets"
   | "hidden_task"
   | "hideout"
+  | "hideout_modules"
   | "household_item"
   | "intels"
   | "items"
@@ -93,6 +97,7 @@ export type GeneratedDatasetName =
   | "upcoming_content"
   | "upper_receivers"
   | "valuables"
+  | "vendor_stock"
   | "vendors"
   | "vests"
   | "vices"
@@ -125,7 +130,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   "apparel_items": { count: 63, fields: {
     "id": ["string"],
     "image": ["string"],
-    "name": ["string"]
+    "name": ["string"],
+    "player_level": ["string"],
+    "requirements": ["string"]
   } },
   "auxiliary": { count: 5, fields: {
     "buy_price": ["string"],
@@ -306,7 +313,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "disassembly_material": { count: 5, fields: {
+  "disassembly_material": { count: 6, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -316,6 +323,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
+  } },
+  "disassembly_recipes": { count: 15, fields: {
+    "duration": ["string"],
+    "id": ["string"],
+    "name": ["string"],
+    "outcome": ["array"],
+    "outcome_text": ["string"]
   } },
   "drinks": { count: 18, fields: {
     "charges": ["string"],
@@ -331,7 +345,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "use_time": ["string"],
     "weight": ["string"]
   } },
-  "electronics": { count: 5, fields: {
+  "electronics": { count: 6, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -352,6 +366,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price": ["string"],
     "type": ["string"],
     "weight": ["string"]
+  } },
+  "experience_actions": { count: 9, fields: {
+    "action": ["string"],
+    "category": ["string"],
+    "experience": ["number"],
+    "id": ["string"],
+    "name": ["string"]
+  } },
+  "experience_levels": { count: 50, fields: {
+    "id": ["string"],
+    "level": ["number"],
+    "name": ["string"],
+    "rewards": ["array"],
+    "rewards_text": ["string"],
+    "threshold": ["number"]
   } },
   "face_cover": { count: 4, fields: {
     "grid_size": ["string"],
@@ -549,6 +578,16 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
+  "hideout_modules": { count: 36, fields: {
+    "function": ["string"],
+    "id": ["string"],
+    "level": ["number"],
+    "module": ["string"],
+    "name": ["string"],
+    "requirements": ["array"],
+    "requirements_text": ["string"],
+    "room": ["string"]
+  } },
   "household_item": { count: 20, fields: {
     "grid_size": ["string"],
     "id": ["string"],
@@ -657,6 +696,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "price_per_grid_cell": ["string"],
+    "sell_price": ["string"],
+    "trader": ["string"],
     "weight": ["string"]
   } },
   "magazines": { count: 51, fields: {
@@ -828,12 +870,16 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"]
   } },
   "provisions": { count: 37, fields: {
+    "energy": ["string"],
     "grid_size": ["string"],
+    "hydration": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sold_by": ["string"],
+    "total_energy_per_grid": ["string"],
+    "total_hydration_per_grid": ["string"],
     "weight": ["string"]
   } },
   "reading_intel": { count: 2, fields: {
@@ -1093,9 +1139,10 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "uncategorized": { count: 67, fields: {
+  "uncategorized": { count: 65, fields: {
     "grid_size": ["string"],
     "id": ["string"],
+    "image": ["string"],
     "name": ["string"]
   } },
   "upcoming_content": { count: 12, fields: {
@@ -1141,11 +1188,23 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
+  "vendor_stock": { count: 504, fields: {
+    "buy_price": ["string"],
+    "category": ["string"],
+    "id": ["string"],
+    "item": ["string"],
+    "name": ["string"],
+    "rank": ["null","number"],
+    "type": ["string"],
+    "vendor": ["string"]
+  } },
   "vendors": { count: 7, fields: {
+    "buys": ["string"],
     "full_name": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
+    "sells": ["string"],
     "wares": ["string"]
   } },
   "vests": { count: 18, fields: {
