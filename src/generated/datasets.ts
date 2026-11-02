@@ -188,9 +188,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   "binoculars": { count: 4, fields: {
     "grid_size": ["string"],
     "id": ["string"],
+    "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
@@ -303,7 +305,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "vendor": ["string"]
   } },
-  "crafting_material": { count: 4, fields: {
+  "crafting_material": { count: 8, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -313,10 +315,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "disassembly_material": { count: 6, fields: {
+  "disassembly_material": { count: 7, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
@@ -345,7 +348,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "use_time": ["string"],
     "weight": ["string"]
   } },
-  "electronics": { count: 6, fields: {
+  "electronics": { count: 9, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -510,7 +513,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "handguards": { count: 56, fields: {
+  "handguards": { count: 57, fields: {
     "buy_price": ["string"],
     "ergonomics": ["string"],
     "grid_size": ["string"],
@@ -520,6 +523,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "recoil_control": ["string"],
+    "reload_speed": ["string"],
     "size_change_horizontal": ["string"],
     "slot": ["string"],
     "sold_by": ["string"],
@@ -1139,7 +1143,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "uncategorized": { count: 65, fields: {
+  "uncategorized": { count: 58, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1188,7 +1192,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "vendor_stock": { count: 504, fields: {
+  "vendor_stock": { count: 524, fields: {
     "buy_price": ["string"],
     "category": ["string"],
     "id": ["string"],
