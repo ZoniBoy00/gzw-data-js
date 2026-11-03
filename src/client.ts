@@ -22,7 +22,10 @@ export class GzwDataClient {
   constructor(options: GzwDataClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? "https://gzw-data.dev/api/v1").replace(/\/+$/, "");
     this.requestFetch = options.fetch ?? globalThis.fetch.bind(globalThis);
-    this.headers = { Accept: "application/json", ...options.headers };
+    // Identify the client to the API for anonymous usage counts. Skipped in browsers, where a custom header would add
+    // a CORS preflight request (and could be rejected by a stricter proxy set through baseUrl).
+    const identity: Record<string, string> = typeof document === "undefined" ? { "X-Client": "gzw-data-js" } : {};
+    this.headers = { Accept: "application/json", ...identity, ...options.headers };
     this.retries = Math.max(0, options.retries ?? 2);
     this.timeoutMs = options.timeoutMs === undefined ? 0 : Math.max(0, options.timeoutMs);
     this.retryDelayMs = Math.max(0, options.retryDelayMs ?? 250);

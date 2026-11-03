@@ -4,8 +4,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.9.3`
-- **npm publication:** `0.9.3` is published by the matching tag workflow; verify its completed Release run and `npm view @zoniboy/gzw-data-client@0.9.3 version`.
+- **Package manifest version:** `0.9.4`
+- **npm publication:** `0.9.4` is published by the matching tag workflow; verify its completed Release run and `npm view @zoniboy/gzw-data-client@0.9.4 version`.
 - **Runtime:** `0.8.x` and `0.9.x` support Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -219,7 +219,7 @@ Additive minor release: no existing method, type or error behavior changed. Veri
 
 Released through the automated tag workflow; verify the exact version with `npm run published:smoke -- 0.9.1` after publishing.
 
-#### `0.9.3` — refresh generated dataset metadata (patch)
+#### `0.9.4` — refresh generated dataset metadata (patch)
 
 - [x] Regenerate the dataset metadata snapshot with current API fields and record counts.
 - [x] Include binocular `image` and `slots`, disassembly-material `manufacturer` and handguard `reload_speed` metadata.

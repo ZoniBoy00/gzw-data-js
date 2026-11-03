@@ -16,6 +16,18 @@ function response(body: unknown, status = 200, headers: Record<string, string> =
 }
 
 describe("GzwDataClient", () => {
+  it("identifies itself with X-Client unless the caller overrides it", async () => {
+    const seen: Array<Record<string, string>> = [];
+    const capture = async (_url: string | URL | Request, init?: RequestInit) => {
+      seen.push(init?.headers as Record<string, string>);
+      return response({ data: {} });
+    };
+    await new GzwDataClient({ fetch: capture as typeof fetch }).stats();
+    await new GzwDataClient({ fetch: capture as typeof fetch, headers: { "X-Client": "my-bot" } }).stats();
+    assert.equal(seen[0]["X-Client"], "gzw-data-js");
+    assert.equal(seen[1]["X-Client"], "my-bot");
+  });
+
   it("rejects an invalid signal argument clearly before starting a request", async () => {
     let calls = 0;
     const client = new GzwDataClient({ fetch: async () => {

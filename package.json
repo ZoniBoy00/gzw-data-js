@@ -1,11 +1,15 @@
 {
   "name": "@zoniboy/gzw-data-client",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Zero-dependency TypeScript client for the GZW Data API.",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ZoniBoy00/gzw-data-js"
+  },
+  "homepage": "https://gzw-data.dev/docs/sdk/",
+  "bugs": {
+    "url": "https://github.com/ZoniBoy00/gzw-data-js/issues"
   },
   "type": "module",
   "sideEffects": false,
