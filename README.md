@@ -6,7 +6,7 @@
 
 A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Warfare API](https://gzw-data.dev/). Build weapons databases, mission trackers, loot tools, Discord bots and dashboards without managing an API key. See the [online SDK guide](https://gzw-data.dev/docs/sdk/) for the quick start, dynamic dataset discovery, and type-checked integration examples.
 
-- Node.js 22+ and modern browsers (current release `0.9.4`). Published `0.7.3` remains compatible with Node.js 18+.
+- Node.js 22+ and modern browsers (current release `0.9.5`). Published `0.7.3` remains compatible with Node.js 18+.
 - TypeScript declarations included
 - Abortable requests and async pagination
 - Retry handling for rate limits, server errors and transient network failures
@@ -22,6 +22,11 @@ A zero-dependency, typed JavaScript/TypeScript client for the free [Gray Zone Wa
 - API data refreshed by the public scraper workflow
 
 ## Changelog
+
+### 0.9.5 — game-file datasets (November 2026)
+
+- Refresh the generated autocomplete snapshot with the 39 new `gamedata_*` datasets taken from the game files: `gamedata_<category>` item datasets (weight or `base_weight`, grid size, base price, vendors, sell prices, stats, slots, images), `gamedata_loot_tables`, `gamedata_loot_by_item`, `gamedata_hideout_*` (recipes, devices, rooms, storage, quests) and `gamedata_compatibility`.
+- No runtime behavior or public API change; the new datasets are reachable with `client.dataset("gamedata_ammo")` and friends as generic `GzwRecord` datasets.
 
 ### 0.9.4 — client identification and package metadata (released November 2026)
 
