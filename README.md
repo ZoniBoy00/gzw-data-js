@@ -315,10 +315,12 @@ const gzw = new GzwDataClient({
     console.log(`Retry ${attempt} in ${delayMs}ms`, status, url);
   },
   headers: {
-    "X-Client-Name": "my-gzw-tool",
+    "X-Client": "my-gzw-tool",
   },
 });
 ```
+
+Outside browsers the client sends `X-Client: gzw-data-js` by default. Set your own `X-Client` value, as above, so the API's anonymous usage counters can tell your app apart from other users. It is optional and no IP addresses or URLs are stored.
 
 `cache` is disabled by default (`ttlMs: 0`). When enabled, only successful GET responses are cached. Cache keys include the complete request URL and query string, the cache is process-local and memory-only, and it is not a persistent storage layer. `clearCache("/weapons")` invalidates that path and all of its query variants; passing a path with a query string invalidates only that exact URL. Calling `clearCache()` clears the complete cache. Concurrent requests for the same URL share one in-flight request; its network request is controlled by the first caller's `AbortSignal`, and later callers cannot cancel their wait independently.
 
