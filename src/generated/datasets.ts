@@ -29,6 +29,7 @@ export type GeneratedDatasetName =
   | "experience_actions"
   | "experience_levels"
   | "face_cover"
+  | "face_mask"
   | "factions"
   | "food"
   | "foregrips"
@@ -78,7 +79,10 @@ export type GeneratedDatasetName =
   | "gear"
   | "glasses"
   | "gloves"
+  | "gray_zone_warfare"
+  | "hacking_tool"
   | "handguards"
+  | "hat"
   | "headsets"
   | "helmet_mounts"
   | "helmets"
@@ -195,13 +199,15 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "backpacks": { count: 18, fields: {
+  "backpacks": { count: 23, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
@@ -226,16 +232,17 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "belts": { count: 9, fields: {
+  "belts": { count: 16, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -246,6 +253,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
@@ -277,19 +285,17 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "building_material": { count: 37, fields: {
+  "building_material": { count: 46, fields: {
     "grid_size": ["string"],
     "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
-    "inventory_layout_(x/y)": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "charging_handle": { count: 11, fields: {
     "buy_price": ["string"],
@@ -347,19 +353,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "restrictions": ["string"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "contract": { count: 31, fields: {
+  "contract": { count: 33, fields: {
     "briefing": ["string"],
     "id": ["string"],
     "image": ["string"],
     "location": ["string"],
     "name": ["string"],
     "objectives": ["string"],
+    "task_type": ["string"],
     "vendor": ["string"]
   } },
   "contracts": { count: 3, fields: {
@@ -369,18 +377,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "vendor": ["string"]
   } },
-  "crafting_material": { count: 8, fields: {
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_price": ["string"],
-    "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
-  } },
-  "disassembly_material": { count: 7, fields: {
+  "crafting_material": { count: 19, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -388,7 +385,17 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
-    "sold_by": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "disassembly_material": { count: 15, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -436,7 +443,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "use_time": ["string"],
     "weight": ["string"]
   } },
-  "electronics": { count: 9, fields: {
+  "electronics": { count: 18, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -445,8 +452,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "evidence": { count: 13, fields: {
     "grid_size": ["string"],
@@ -457,8 +463,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "experience_actions": { count: 9, fields: {
     "action": ["string"],
@@ -484,6 +489,19 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sold_by": ["string"],
     "sold_by_source": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "face_mask": { count: 11, fields: {
+    "buy_price": ["string"],
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -552,12 +570,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "game_systems": { count: 11, fields: {
     "content": ["string"],
@@ -1299,20 +1317,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "gear": { count: 26, fields: {
-    "grid_size": ["string"],
+  "gear": { count: 9, fields: {
     "id": ["string"],
     "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "slots": ["string"],
-    "sold_by": ["string"],
-    "sold_by_source": ["string"],
-    "type": ["string"],
-    "weight": ["string"]
+    "name": ["string"]
   } },
-  "glasses": { count: 13, fields: {
+  "glasses": { count: 22, fields: {
+    "buy_price": ["string"],
     "flashbang_resistance": ["string"],
     "grid_size": ["string"],
     "grid_size_source": ["string"],
@@ -1321,8 +1332,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "rain_protection": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -1330,6 +1342,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "id": ["string"],
     "image": ["string"],
     "name": ["string"]
+  } },
+  "gray_zone_warfare": { count: 1, fields: {
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"]
+  } },
+  "hacking_tool": { count: 3, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "type": ["string"],
+    "weight": ["string"]
   } },
   "handguards": { count: 57, fields: {
     "buy_price": ["string"],
@@ -1352,6 +1379,20 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
+  "hat": { count: 34, fields: {
+    "buy_price": ["string"],
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "rain_protection": ["string"],
+    "sell_price": ["string"],
+    "sold_by": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
   "headsets": { count: 7, fields: {
     "buy_price": ["string"],
     "grid_size": ["string"],
@@ -1365,18 +1406,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"]
   } },
   "helmet_mounts": { count: 3, fields: {
+    "buy_price": ["string"],
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "helmets": { count: 44, fields: {
+  "helmets": { count: 35, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1385,14 +1429,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "nij_class": ["string"],
     "numeric_values": ["object"],
     "rain_protection": ["string"],
-    "slots": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "hidden_task": { count: 7, fields: {
+  "hidden_task": { count: 6, fields: {
     "hidden_task": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1416,7 +1458,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "requirements_text": ["string"],
     "room": ["string"]
   } },
-  "household_item": { count: 20, fields: {
+  "household_item": { count: 19, fields: {
     "grid_size": ["string"],
     "grid_size_source": ["string"],
     "id": ["string"],
@@ -1456,8 +1498,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "keycards": { count: 8, fields: {
     "grid_size": ["string"],
@@ -1487,7 +1528,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "usage": ["string"],
     "weight": ["string"]
   } },
-  "laboratory_supplies": { count: 10, fields: {
+  "laboratory_supplies": { count: 18, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1505,6 +1546,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "inventory_layout_(x/y)": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "slots": ["string"],
     "type": ["string"],
     "weight": ["string"]
@@ -1515,16 +1558,19 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "inventory_layout_(x/y)": ["string"],
     "name": ["string"],
+    "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"]
   } },
   "loot_containers": { count: 4, fields: {
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "inventory_layout_(x/y)": ["string"],
     "name": ["string"],
     "type": ["string"]
   } },
-  "loot_items": { count: 118, fields: {
+  "loot_items": { count: 129, fields: {
     "grid_size": ["string"],
     "grid_size_source": ["string"],
     "id": ["string"],
@@ -1555,7 +1601,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "main_task": { count: 26, fields: {
+  "main_task": { count: 27, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "id": ["string"],
@@ -1563,12 +1609,39 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "location": ["string"],
     "name": ["string"],
     "objectives": ["string"],
+    "task_type": ["string"],
     "vendor": ["string"]
   } },
   "medical": { count: 35, fields: {
+    "blood": ["string"],
+    "body_parts_healed_per_use": ["string"],
+    "buy_price": ["string"],
     "charges": ["string"],
+    "compatibles_body_parts": ["string"],
     "duration": ["string"],
     "effect": ["string"],
+    "effects": ["string"],
+    "grid_size": ["string"],
+    "heart": ["string"],
+    "hydratation_per_charge": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "intoxication": ["string"],
+    "livers": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "organs": ["string"],
+    "pain": ["string"],
+    "radiations": ["string"],
+    "sell_price": ["string"],
+    "sell_price_source": ["string"],
+    "sold_by": ["string"],
+    "type": ["string"],
+    "use_time": ["string"],
+    "weight": ["string"]
+  } },
+  "military_equipment": { count: 18, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1576,25 +1649,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
-    "sell_price_source": ["string"],
-    "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "use_time": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
-  } },
-  "military_equipment": { count: 19, fields: {
-    "grid_size": ["string"],
-    "grid_size_source": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_price": ["string"],
-    "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "military_material": { count: 4, fields: {
     "grid_size": ["string"],
@@ -1699,7 +1755,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "plate_carriers": { count: 18, fields: {
+  "plate_carriers": { count: 20, fields: {
     "armor_locations": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -1711,14 +1767,17 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "nij_class": ["string"],
     "numeric_values": ["object"],
     "protection_rating": ["string"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "production_material": { count: 7, fields: {
+  "production_material": { count: 20, fields: {
     "grid_size": ["string"],
     "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
@@ -1737,6 +1796,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price_source": ["string"],
     "sold_by": ["string"],
     "total_energy_per_grid": ["string"],
+    "total_energy_per_grid_source": ["string"],
+    "total_hydration_per_grid": ["string"],
+    "total_hydration_per_grid_source": ["string"],
     "weight": ["string"]
   } },
   "reading_intel": { count: 2, fields: {
@@ -1774,8 +1836,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "tier": ["string"]
   } },
-  "removed_content": { count: 28, fields: {
+  "removed_content": { count: 31, fields: {
     "charges": ["string"],
+    "duration": ["string"],
     "effect": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -1804,6 +1867,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "repair_efficiency": ["string"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
@@ -1846,7 +1910,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "side_task": { count: 96, fields: {
+  "side_task": { count: 97, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "hidden_task": ["string"],
@@ -1967,19 +2031,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "task_items": { count: 102, fields: {
+  "task_items": { count: 106, fields: {
     "grid_size": ["string"],
     "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "slots": ["string"],
     "type": ["string"],
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "tasks": { count: 254, fields: {
+  "tasks": { count: 261, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "faction": ["string"],
@@ -1990,7 +2056,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "objectives": ["string"],
     "task_type": ["string"],
-    "vendor": ["string"]
+    "vendor": ["string"],
+    "vendor_rank_required": ["string"]
   } },
   "throwables": { count: 8, fields: {
     "burning_time": ["string"],
@@ -2018,8 +2085,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
-    "sell_price": ["string"],
-    "sell_price_source": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"],
@@ -2038,7 +2103,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price": ["string"],
     "sell_price_source": ["string"]
   } },
-  "upcoming_content": { count: 12, fields: {
+  "upcoming_content": { count: 10, fields: {
     "accepted_ammunition": ["string"],
     "accuracy": ["string"],
     "armor_locations": ["string"],
@@ -2054,6 +2119,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "nij_class": ["string"],
     "numeric_values": ["object"],
     "reload_speed": ["string"],
+    "sell_price": ["string"],
     "slot": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
@@ -2083,7 +2149,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "vendor_stock": { count: 531, fields: {
+  "vendor_stock": { count: 560, fields: {
     "buy_price": ["string"],
     "category": ["string"],
     "id": ["string"],
@@ -2102,8 +2168,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sells": ["string"],
     "wares": ["string"]
   } },
-  "vests": { count: 18, fields: {
+  "vests": { count: 29, fields: {
     "armor_locations": ["string"],
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -2113,13 +2180,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "nij_class": ["string"],
     "numeric_values": ["object"],
     "protection_rating": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
   "vices": { count: 11, fields: {
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -2127,8 +2194,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "weapon_parts": { count: 1, fields: {
     "id": ["string"],
@@ -2141,7 +2207,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "weapons": { count: 44, fields: {
+  "weapons": { count: 47, fields: {
     "accepted_ammunition": ["string"],
     "accuracy": ["string"],
     "caliber": ["string"],
@@ -2176,6 +2242,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"],
     "weight": ["string"],
     "weight_source": ["string"]
