@@ -29,56 +29,21 @@ export type GeneratedDatasetName =
   | "experience_actions"
   | "experience_levels"
   | "face_cover"
+  | "face_mask"
   | "factions"
   | "food"
   | "foregrips"
   | "front_iron_sights"
   | "funds"
   | "game_systems"
-  | "gamedata_ammo"
-  | "gamedata_armor"
-  | "gamedata_backpacks"
-  | "gamedata_barrels"
-  | "gamedata_belts"
-  | "gamedata_charging_handles"
-  | "gamedata_clothing"
-  | "gamedata_compatibility"
-  | "gamedata_consumables"
-  | "gamedata_containers_cases"
-  | "gamedata_electronics_optics"
-  | "gamedata_firearms"
-  | "gamedata_foregrips"
-  | "gamedata_grenades_explosives"
-  | "gamedata_handguards"
-  | "gamedata_headgear_accessories"
-  | "gamedata_hideout_devices"
-  | "gamedata_hideout_materials"
-  | "gamedata_hideout_quests"
-  | "gamedata_hideout_recipes"
-  | "gamedata_hideout_rooms"
-  | "gamedata_hideout_storage"
-  | "gamedata_intel"
-  | "gamedata_keys"
-  | "gamedata_loot_by_item"
-  | "gamedata_loot_tables"
-  | "gamedata_magazines"
-  | "gamedata_melee"
-  | "gamedata_misc"
-  | "gamedata_mounts_adapters"
-  | "gamedata_muzzle_devices"
-  | "gamedata_other_weapon_parts"
-  | "gamedata_pistol_grips"
-  | "gamedata_receivers"
-  | "gamedata_rigs"
-  | "gamedata_sights"
-  | "gamedata_stocks"
-  | "gamedata_suppressors"
-  | "gamedata_tactical_devices"
   | "gas_blocks"
   | "gear"
   | "glasses"
   | "gloves"
+  | "gray_zone_warfare"
+  | "hacking_tool"
   | "handguards"
+  | "hat"
   | "headsets"
   | "helmet_mounts"
   | "helmets"
@@ -151,28 +116,23 @@ export type GeneratedDatasetInfo = {
 };
 
 export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDatasetInfo> = {
-  "ammo": { count: 79, fields: {
+  "ammo": { count: 81, fields: {
     "accuracy_modifier": ["string"],
-    "accuracy_modifier_source": ["string"],
-    "dispersion": ["string"],
     "durability_modifier": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "muzzle_velocity": ["string"],
-    "muzzle_velocity_source": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "sell_price_source": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "stopped_by_armor_class": ["string"],
     "stopped_by_armor_class_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "apparel_items": { count: 63, fields: {
     "id": ["string"],
@@ -181,61 +141,56 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "player_level": ["string"],
     "requirements": ["string"]
   } },
-  "auxiliary": { count: 5, fields: {
+  "auxiliary": { count: 11, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "backpacks": { count: 18, fields: {
+  "backpacks": { count: 23, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "barrels": { count: 28, fields: {
+  "barrels": { count: 82, fields: {
     "accuracy": ["string"],
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
-    "fire_rate": ["string"],
+    "ergonomics": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
-    "muzzle_device_efficiency": ["string"],
-    "muzzle_velocity": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "size_change_horizontal": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "belts": { count: 9, fields: {
+  "belts": { count: 16, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -246,6 +201,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
@@ -277,12 +233,10 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "building_material": { count: 37, fields: {
+  "building_material": { count: 46, fields: {
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
-    "inventory_layout_(x/y)": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
@@ -293,7 +247,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "charging_handle": { count: 11, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -302,8 +255,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "reload_speed": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "cleanup": { count: 4, fields: {
     "id": ["string"],
@@ -321,7 +273,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "collimators": { count: 20, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "magnification": ["string"],
@@ -330,11 +281,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sighting_range": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "containers": { count: 28, fields: {
     "buy_price": ["string"],
@@ -347,19 +296,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "restrictions": ["string"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "contract": { count: 31, fields: {
+  "contract": { count: 34, fields: {
+    "alternate": ["string"],
     "briefing": ["string"],
     "id": ["string"],
     "image": ["string"],
     "location": ["string"],
     "name": ["string"],
     "objectives": ["string"],
+    "task_type": ["string"],
     "vendor": ["string"]
   } },
   "contracts": { count: 3, fields: {
@@ -369,18 +320,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "vendor": ["string"]
   } },
-  "crafting_material": { count: 8, fields: {
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_price": ["string"],
-    "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
-  } },
-  "disassembly_material": { count: 7, fields: {
+  "crafting_material": { count: 19, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -388,7 +328,18 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
-    "sold_by": ["string"],
+    "sell_price_source": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "disassembly_material": { count: 15, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -406,6 +357,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "charges": ["string"],
     "energy_per_charge": ["string"],
     "grid_size": ["string"],
+    "grid_size_source": ["string"],
     "hydratation_per_charge": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -413,12 +365,14 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "sold_by": ["string"],
     "stamina_regen_duration": ["string"],
     "stamina_regen_rate": ["string"],
     "type": ["string"],
     "use_time": ["string"],
-    "weight": ["string"]
+    "weight": ["string"],
+    "weight_source": ["string"]
   } },
   "drinks": { count: 18, fields: {
     "charges": ["string"],
@@ -436,7 +390,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "use_time": ["string"],
     "weight": ["string"]
   } },
-  "electronics": { count: 9, fields: {
+  "electronics": { count: 17, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -444,9 +398,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "evidence": { count: 13, fields: {
     "grid_size": ["string"],
@@ -457,8 +411,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "experience_actions": { count: 9, fields: {
     "action": ["string"],
@@ -484,6 +437,19 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sold_by": ["string"],
     "sold_by_source": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "face_mask": { count: 11, fields: {
+    "buy_price": ["string"],
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -514,9 +480,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "use_time": ["string"],
     "weight": ["string"]
   } },
-  "foregrips": { count: 19, fields: {
+  "foregrips": { count: 54, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "ergonomics": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -525,15 +490,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "recoil_control": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "front_iron_sights": { count: 16, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "magnification": ["string"],
@@ -542,22 +504,20 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sighting_range": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "funds": { count: 4, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "game_systems": { count: 11, fields: {
     "content": ["string"],
@@ -565,764 +525,36 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "gamedata_ammo": { count: 71, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_armor": { count: 87, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"]
-  } },
-  "gamedata_backpacks": { count: 23, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"]
-  } },
-  "gamedata_barrels": { count: 82, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_belts": { count: 22, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"]
-  } },
-  "gamedata_charging_handles": { count: 35, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_clothing": { count: 220, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "short_name": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tier": ["string"],
-    "type": ["string"],
-    "weight": ["string"]
-  } },
-  "gamedata_compatibility": { count: 559, fields: {
-    "id": ["string"],
-    "name": ["string"],
-    "slots": ["array"]
-  } },
-  "gamedata_consumables": { count: 75, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_containers_cases": { count: 31, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number","string"],
-    "vendors": ["array"]
-  } },
-  "gamedata_electronics_optics": { count: 10, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_firearms": { count: 87, fields: {
-    "base_grid_size": ["string"],
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"]
-  } },
-  "gamedata_foregrips": { count: 54, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_grenades_explosives": { count: 11, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_handguards": { count: 144, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_headgear_accessories": { count: 89, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_hideout_devices": { count: 36, fields: {
-    "build_materials": ["array"],
-    "capabilities_provided": ["object"],
-    "capabilities_required": ["object"],
-    "description": ["string"],
-    "id": ["string"],
-    "infrastructure_provided": ["object"],
-    "infrastructure_required": ["object"],
-    "level": ["number"],
-    "name": ["string"],
-    "next_upgrade": ["string"],
-    "slot": ["string"]
-  } },
-  "gamedata_hideout_materials": { count: 104, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number","string"],
-    "type": ["string"],
-    "weight": ["string"]
-  } },
-  "gamedata_hideout_quests": { count: 35, fields: {
-    "accept_message": ["string"],
-    "briefing": ["string"],
-    "debriefing": ["string"],
-    "display_name": ["string"],
-    "id": ["string"],
-    "name": ["string"],
-    "objectives": ["array"],
-    "replayable": ["boolean"],
-    "required_vendor_level": ["number"],
-    "requires_quests": ["array"],
-    "reset_policy": ["string"],
-    "rewards": ["object"],
-    "tags": ["array"],
-    "vendor": ["string"]
-  } },
-  "gamedata_hideout_recipes": { count: 37, fields: {
-    "craft_time_seconds": ["number"],
-    "id": ["string"],
-    "inputs": ["array"],
-    "known_by_default": ["boolean"],
-    "name": ["string"],
-    "outputs": ["array"],
-    "pipeline": ["string"],
-    "required_capabilities": ["object"]
-  } },
-  "gamedata_hideout_rooms": { count: 3, fields: {
-    "device_slots": ["array"],
-    "id": ["string"],
-    "name": ["string"],
-    "pipelines": ["array"],
-    "room": ["string"],
-    "unlock": ["object"]
-  } },
-  "gamedata_hideout_storage": { count: 4, fields: {
-    "id": ["string"],
-    "name": ["string"],
-    "size_by_level": ["object"],
-    "storage": ["string"]
-  } },
-  "gamedata_intel": { count: 374, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "short_name": ["string"],
-    "source": ["string"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "weight": ["string"]
-  } },
-  "gamedata_keys": { count: 76, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "weight": ["string"]
-  } },
-  "gamedata_loot_by_item": { count: 1433, fields: {
-    "chance_basis": ["string"],
-    "display_name": ["string"],
-    "found_in": ["array"],
-    "id": ["string"],
-    "name": ["string"]
-  } },
-  "gamedata_loot_tables": { count: 364, fields: {
-    "area": ["null","string"],
-    "chance_basis": ["string"],
-    "guaranteed": ["array"],
-    "id": ["string"],
-    "location": ["null","string"],
-    "name": ["string"],
-    "nothing_share": ["number"],
-    "regeneration_seconds": ["number"],
-    "rules": ["array"],
-    "source": ["string"]
-  } },
-  "gamedata_magazines": { count: 239, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "display_name": ["string"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"]
-  } },
-  "gamedata_melee": { count: 1, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "weight": ["string"]
-  } },
-  "gamedata_misc": { count: 406, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number","string"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_mounts_adapters": { count: 113, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_muzzle_devices": { count: 76, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_other_weapon_parts": { count: 28, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_pistol_grips": { count: 90, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_receivers": { count: 75, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"]
-  } },
-  "gamedata_rigs": { count: 55, fields: {
-    "base_price": ["number"],
-    "base_weight": ["string"],
-    "description": ["string"],
-    "display_name": ["string"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"]
-  } },
-  "gamedata_sights": { count: 183, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_stocks": { count: 174, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_suppressors": { count: 49, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "slots": ["array"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gamedata_tactical_devices": { count: 28, fields: {
-    "base_price": ["number"],
-    "description": ["string"],
-    "disables_socket_types": ["array"],
-    "fits_on": ["array"],
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_prices": ["array"],
-    "short_name": ["string"],
-    "sold_by": ["string"],
-    "source": ["string"],
-    "stats": ["object"],
-    "tags": ["array"],
-    "tier": ["number"],
-    "type": ["string"],
-    "vendors": ["array"],
-    "weight": ["string"]
-  } },
-  "gas_blocks": { count: 9, fields: {
+  "gas_blocks": { count: 17, fields: {
     "buy_price": ["string"],
     "buy_price_source": ["string"],
-    "fire_rate": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "muzzle_device_efficiency": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
-    "slot": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "gear": { count: 26, fields: {
-    "grid_size": ["string"],
+  "gear": { count: 9, fields: {
     "id": ["string"],
     "image": ["string"],
-    "manufacturer": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "slots": ["string"],
-    "sold_by": ["string"],
-    "sold_by_source": ["string"],
-    "type": ["string"],
-    "weight": ["string"]
+    "name": ["string"]
   } },
-  "glasses": { count: 13, fields: {
+  "glasses": { count: 22, fields: {
+    "buy_price": ["string"],
     "flashbang_resistance": ["string"],
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "rain_protection": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -1331,9 +563,23 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "handguards": { count: 57, fields: {
+  "gray_zone_warfare": { count: 1, fields: {
+    "id": ["string"],
+    "image": ["string"],
+    "name": ["string"]
+  } },
+  "hacking_tool": { count: 3, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "handguards": { count: 56, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "ergonomics": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -1346,13 +592,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "size_change_horizontal": ["string"],
     "slot": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "headsets": { count: 7, fields: {
+  "hat": { count: 34, fields: {
     "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -1360,23 +604,45 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "rain_protection": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "helmet_mounts": { count: 3, fields: {
+  "headsets": { count: 10, fields: {
+    "active_headset": ["string"],
+    "buy_price": ["string"],
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "sold_by": ["string"],
+    "sound_amplification": ["string"],
+    "sound_clarity": ["string"],
+    "sound_detection": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "helmet_mounts": { count: 3, fields: {
+    "buy_price": ["string"],
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "helmets": { count: 44, fields: {
+  "helmets": { count: 35, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1385,14 +651,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "nij_class": ["string"],
     "numeric_values": ["object"],
     "rain_protection": ["string"],
-    "slots": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "hidden_task": { count: 7, fields: {
+  "hidden_task": { count: 6, fields: {
     "hidden_task": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1416,23 +680,27 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "requirements_text": ["string"],
     "room": ["string"]
   } },
-  "household_item": { count: 20, fields: {
+  "household_item": { count: 19, fields: {
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "intels": { count: 6, fields: {
+  "intels": { count: 242, fields: {
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
-    "type": ["string"]
+    "numeric_values": ["object"],
+    "source": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
   } },
   "items": { count: 3, fields: {
     "buy_price": ["string"],
@@ -1444,8 +712,10 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "sold_by": ["string"],
-    "weight": ["string"]
+    "weight": ["string"],
+    "weight_source": ["string"]
   } },
   "jewellery": { count: 17, fields: {
     "grid_size": ["string"],
@@ -1456,8 +726,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "keycards": { count: 8, fields: {
     "grid_size": ["string"],
@@ -1487,7 +756,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "usage": ["string"],
     "weight": ["string"]
   } },
-  "laboratory_supplies": { count: 10, fields: {
+  "laboratory_supplies": { count: 17, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1495,21 +764,26 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
   "lockboxes": { count: 3, fields: {
     "grid_size": ["string"],
+    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "inventory_layout_(x/y)": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "slots": ["string"],
     "type": ["string"],
-    "weight": ["string"]
+    "weight": ["string"],
+    "weight_source": ["string"]
   } },
-  "loot_container": { count: 39, fields: {
+  "loot_container": { count: 38, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1518,25 +792,24 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"]
   } },
   "loot_containers": { count: 4, fields: {
+    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "inventory_layout_(x/y)": ["string"],
     "name": ["string"],
     "type": ["string"]
   } },
-  "loot_items": { count: 118, fields: {
+  "loot_items": { count: 212, fields: {
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "price_per_grid_cell": ["string"],
+    "price_per_grid_cell_source": ["string"],
     "sell_price": ["string"],
     "sell_price_source": ["string"],
-    "trader": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "magazines": { count: 51, fields: {
     "accepted_ammunition": ["string"],
@@ -1551,11 +824,10 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "size_change_horizontal": ["string"],
     "size_change_vertical": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "main_task": { count: 26, fields: {
+  "main_task": { count: 28, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "id": ["string"],
@@ -1563,12 +835,50 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "location": ["string"],
     "name": ["string"],
     "objectives": ["string"],
+    "task_type": ["string"],
     "vendor": ["string"]
   } },
   "medical": { count: 35, fields: {
+    "blood": ["string"],
+    "body_parts_healed_per_use": ["string"],
+    "buy_price": ["string"],
     "charges": ["string"],
+    "compatibles_body_parts": ["string"],
     "duration": ["string"],
     "effect": ["string"],
+    "effects": ["string"],
+    "grid_size": ["string"],
+    "heart": ["string"],
+    "hydratation_per_charge": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "intoxication": ["string"],
+    "livers": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "organs": ["string"],
+    "pain": ["string"],
+    "radiations": ["string"],
+    "sell_price": ["string"],
+    "sell_price_source": ["string"],
+    "sold_by": ["string"],
+    "type": ["string"],
+    "use_time": ["string"],
+    "weight": ["string"]
+  } },
+  "military_equipment": { count: 18, fields: {
+    "grid_size": ["string"],
+    "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
+    "name": ["string"],
+    "numeric_values": ["object"],
+    "sell_price": ["string"],
+    "type": ["string"],
+    "weight": ["string"]
+  } },
+  "military_material": { count: 5, fields: {
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1577,32 +887,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "sell_price_source": ["string"],
-    "sold_by": ["string"],
-    "sold_by_source": ["string"],
-    "type": ["string"],
-    "use_time": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
-  } },
-  "military_equipment": { count: 19, fields: {
-    "grid_size": ["string"],
-    "grid_size_source": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_price": ["string"],
-    "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
-  } },
-  "military_material": { count: 4, fields: {
-    "grid_size": ["string"],
-    "id": ["string"],
-    "image": ["string"],
-    "name": ["string"],
-    "numeric_values": ["object"],
-    "sell_price": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -1618,27 +902,22 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price": ["string"],
     "sold_by": ["string"],
     "sold_by_source": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "mounts": { count: 53, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "muzzle_devices": { count: 45, fields: {
     "accuracy_modifier": ["string"],
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1646,10 +925,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "newspapers": { count: 43, fields: {
     "description": ["string"],
@@ -1680,9 +957,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "type": ["string"]
   } },
-  "pistol_grips": { count: 25, fields: {
+  "pistol_grips": { count: 26, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "ergonomics": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1693,14 +969,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "size_change_vertical": ["string"],
     "slot": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "plate_carriers": { count: 18, fields: {
+  "plate_carriers": { count: 27, fields: {
     "armor_locations": ["string"],
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1711,17 +986,21 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "nij_class": ["string"],
     "numeric_values": ["object"],
     "protection_rating": ["string"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "production_material": { count: 7, fields: {
+  "production_material": { count: 20, fields: {
     "grid_size": ["string"],
     "id": ["string"],
+    "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -1737,7 +1016,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price_source": ["string"],
     "sold_by": ["string"],
     "total_energy_per_grid": ["string"],
-    "weight": ["string"]
+    "total_energy_per_grid_source": ["string"],
+    "total_hydration_per_grid": ["string"],
+    "total_hydration_per_grid_source": ["string"],
+    "weight": ["string"],
+    "weight_source": ["string"]
   } },
   "reading_intel": { count: 2, fields: {
     "grid_size": ["string"],
@@ -1750,7 +1033,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "rear_iron_sights": { count: 20, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "magnification": ["string"],
@@ -1759,11 +1041,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sighting_range": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "regions": { count: 12, fields: {
     "description": ["string"],
@@ -1774,8 +1054,9 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "tier": ["string"]
   } },
-  "removed_content": { count: 28, fields: {
+  "removed_content": { count: 31, fields: {
     "charges": ["string"],
+    "duration": ["string"],
     "effect": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -1791,12 +1072,14 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "usage": ["string"],
     "vendor": ["string"],
-    "weight": ["string"]
+    "weight": ["string"],
+    "weight_source": ["string"]
   } },
   "repair_kits": { count: 6, fields: {
     "buy_price": ["string"],
     "charges": ["string"],
     "grid_size": ["string"],
+    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1804,11 +1087,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "repair_efficiency": ["string"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
-  "rigs": { count: 11, fields: {
+  "rigs": { count: 24, fields: {
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1816,15 +1101,14 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
   "scopes": { count: 12, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "ergonomics": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1836,7 +1120,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "size_change_horizontal": ["string"],
     "size_change_vertical": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
     "weight": ["string"]
@@ -1846,7 +1129,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "side_task": { count: 96, fields: {
+  "side_task": { count: 102, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "hidden_task": ["string"],
@@ -1860,7 +1143,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "slides": { count: 12, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1889,9 +1171,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "stock_adapters": { count: 10, fields: {
+  "stock_adapters": { count: 9, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1899,14 +1180,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "size_change_horizontal": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
-  "stocks": { count: 58, fields: {
+  "stocks": { count: 57, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "ergonomics": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -1917,17 +1195,14 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "size_change_horizontal": ["string"],
     "size_change_vertical": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "suppressors": { count: 23, fields: {
     "accuracy": ["string"],
     "accuracy_modifier": ["string"],
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "ergonomics": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
@@ -1940,15 +1215,12 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "size_change_horizontal": ["string"],
     "slot": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "tactical_devices": { count: 12, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -1956,7 +1228,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "numeric_values": ["object"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
     "weight": ["string"]
@@ -1967,19 +1238,22 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "task_items": { count: 102, fields: {
+  "task_items": { count: 106, fields: {
     "grid_size": ["string"],
     "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
+    "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
+    "slots": ["string"],
     "type": ["string"],
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "tasks": { count: 254, fields: {
+  "tasks": { count: 267, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "faction": ["string"],
@@ -1990,7 +1264,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "objectives": ["string"],
     "task_type": ["string"],
-    "vendor": ["string"]
+    "vendor": ["string"],
+    "vendor_rank_required": ["string"]
   } },
   "throwables": { count: 8, fields: {
     "burning_time": ["string"],
@@ -2018,8 +1293,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
-    "sell_price": ["string"],
-    "sell_price_source": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"],
@@ -2038,13 +1311,8 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price": ["string"],
     "sell_price_source": ["string"]
   } },
-  "upcoming_content": { count: 12, fields: {
-    "accepted_ammunition": ["string"],
-    "accuracy": ["string"],
+  "upcoming_content": { count: 6, fields: {
     "armor_locations": ["string"],
-    "caliber": ["string"],
-    "fire_mode": ["string"],
-    "fire_rate": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -2053,8 +1321,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "nij_class": ["string"],
     "numeric_values": ["object"],
-    "reload_speed": ["string"],
-    "slot": ["string"],
+    "sell_price": ["string"],
     "slots": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
@@ -2062,7 +1329,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "upper_receivers": { count: 15, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -2070,7 +1336,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "size_change_horizontal": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -2083,7 +1348,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "vendor_stock": { count: 531, fields: {
+  "vendor_stock": { count: 649, fields: {
     "buy_price": ["string"],
     "category": ["string"],
     "id": ["string"],
@@ -2099,11 +1364,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "id": ["string"],
     "image": ["string"],
     "name": ["string"],
-    "sells": ["string"],
-    "wares": ["string"]
+    "sells": ["string"]
   } },
-  "vests": { count: 18, fields: {
+  "vests": { count: 29, fields: {
     "armor_locations": ["string"],
+    "buy_price": ["string"],
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -2112,14 +1377,13 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "name": ["string"],
     "nij_class": ["string"],
     "numeric_values": ["object"],
-    "protection_rating": ["string"],
+    "sell_price": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
   "vices": { count: 11, fields: {
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -2127,8 +1391,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "numeric_values": ["object"],
     "sell_price": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } },
   "weapon_parts": { count: 1, fields: {
     "id": ["string"],
@@ -2141,12 +1404,11 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "weapons": { count: 44, fields: {
+  "weapons": { count: 79, fields: {
     "accepted_ammunition": ["string"],
     "accuracy": ["string"],
+    "buy_price": ["string"],
     "caliber": ["string"],
-    "default_ammo": ["string"],
-    "default_mag": ["string"],
     "ergonomics": ["string"],
     "fire_mode": ["string"],
     "fire_rate": ["string"],
@@ -2154,30 +1416,22 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
-    "muzzle_device_efficiency": ["string"],
-    "muzzle_velocity": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
-    "recoil_control": ["string"],
-    "reload_speed": ["string"],
-    "slot": ["string"],
     "sold_by": ["string"],
-    "sold_by_source": ["string"],
     "type": ["string"],
-    "weapon_handling": ["string"],
     "weight": ["string"]
   } },
   "workshop_supplies": { count: 14, fields: {
     "grid_size": ["string"],
-    "grid_size_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "sell_price": ["string"],
+    "sell_price_source": ["string"],
     "type": ["string"],
-    "weight": ["string"],
-    "weight_source": ["string"]
+    "weight": ["string"]
   } }
 };
