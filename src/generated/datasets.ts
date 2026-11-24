@@ -130,7 +130,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "sell_price_source": ["string"],
     "sold_by": ["string"],
     "stopped_by_armor_class": ["string"],
-    "stopped_by_armor_class_source": ["string"],
     "type": ["string"],
     "weight": ["string"]
   } },
@@ -245,7 +244,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "charging_handle": { count: 11, fields: {
+  "charging_handle": { count: 34, fields: {
     "buy_price": ["string"],
     "id": ["string"],
     "image": ["string"],
@@ -302,7 +301,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "contract": { count: 34, fields: {
+  "contract": { count: 40, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "id": ["string"],
@@ -491,7 +490,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "recoil_control": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
-    "weapon_handling": ["string"],
     "weight": ["string"]
   } },
   "front_iron_sights": { count: 16, fields: {
@@ -527,7 +525,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
   } },
   "gas_blocks": { count: 17, fields: {
     "buy_price": ["string"],
-    "buy_price_source": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
@@ -578,19 +575,16 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "handguards": { count: 56, fields: {
+  "handguards": { count: 145, fields: {
     "buy_price": ["string"],
     "ergonomics": ["string"],
-    "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
     "recoil_control": ["string"],
-    "reload_speed": ["string"],
     "size_change_horizontal": ["string"],
-    "slot": ["string"],
     "sold_by": ["string"],
     "type": ["string"],
     "weapon_handling": ["string"],
@@ -979,7 +973,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
-    "inventory": ["string"],
     "manufacturer": ["string"],
     "material": ["string"],
     "name": ["string"],
@@ -1097,7 +1090,6 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "grid_size": ["string"],
     "id": ["string"],
     "image": ["string"],
-    "inventory": ["string"],
     "manufacturer": ["string"],
     "name": ["string"],
     "numeric_values": ["object"],
@@ -1129,7 +1121,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "image": ["string"],
     "name": ["string"]
   } },
-  "side_task": { count: 102, fields: {
+  "side_task": { count: 106, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "hidden_task": ["string"],
@@ -1253,7 +1245,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "weight": ["string"],
     "weight_source": ["string"]
   } },
-  "tasks": { count: 267, fields: {
+  "tasks": { count: 271, fields: {
     "alternate": ["string"],
     "briefing": ["string"],
     "faction": ["string"],
@@ -1348,7 +1340,7 @@ export const generatedDatasetInfo: Record<GeneratedDatasetName, GeneratedDataset
     "type": ["string"],
     "weight": ["string"]
   } },
-  "vendor_stock": { count: 649, fields: {
+  "vendor_stock": { count: 687, fields: {
     "buy_price": ["string"],
     "category": ["string"],
     "id": ["string"],

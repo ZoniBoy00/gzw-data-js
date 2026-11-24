@@ -4,8 +4,8 @@ This roadmap covers `@zoniboy/gzw-data-client`, the zero-dependency JavaScript/T
 
 ## Current status
 
-- **Package manifest version:** `0.9.6`
-- **npm publication:** `0.9.6` is published by the matching tag workflow; verify its completed Release run and `npm view @zoniboy/gzw-data-client@0.9.6 version`.
+- **Package manifest version:** `0.9.7`
+- **npm publication:** `0.9.7` is published by the matching tag workflow; verify its completed Release run and `npm view @zoniboy/gzw-data-client@0.9.7 version`.
 - **Runtime:** `0.8.x` and `0.9.x` support Node.js 22+ and modern browsers; published `0.7.3` remains compatible with Node.js 18+
 - **Runtime dependencies:** 0
 - **API default:** `https://gzw-data.dev/api/v1`
@@ -233,6 +233,11 @@ Released through the automated tag workflow; verify the exact version with `npm 
 #### `0.9.6` — game-file datasets retired (patch)
 
 - [x] Regenerate the dataset metadata snapshot after the API retired the `gamedata_*` datasets.
+- [x] Preserve runtime API behavior and zero runtime dependencies.
+
+#### `0.9.7` — autocomplete snapshot refresh (patch)
+
+- [x] Regenerate the dataset metadata snapshot after the scraper merged the singular `Handguard` wiki category into `handguards` and dropped fields the wiki no longer provides.
 - [x] Preserve runtime API behavior and zero runtime dependencies.
 
 #### `1.0.0` — stable public SDK and framework integrations
